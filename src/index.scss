@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Jura:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply font-inter text-base100 bg-secondary text-sm lg:text-base scrollBarCustom;
+    }
+
+    html,
+    body {
+        overflow: overplay;
+    }
+}
+
+@layer components {
+    .header {
+        @apply fixed top-0 inset-x-0 flex items-center justify-between px-6 md:px-6 bg-transparent 
+        max-h-14 h-full border-b border-solid border-base200 bg-secondary shadow-md z-50;
+    }
+
+    .main {
+        @apply mt-14;
+    }
+
+    .sidebar {
+        @apply hidden md:block p-4 max-w-[300px] w-full bg-secondary h-screen select-none divide-y divide-base100 scrollBarCustom overflow-y-hidden  hover:overflow-y-auto;
+    }
+
+    .active {
+        @apply text-white border-b border-solid border-blue-500;
+
+        .icon {
+            @apply hidden;
+        }
+
+        .active-icon {
+            @apply block;
+        }
+    }
+
+    .menu-active {
+        @apply text-white;
+
+        .icon {
+            @apply hidden;
+        }
+
+        .active-icon {
+            @apply block;
+        }
+    }
+
+    .active-icon {
+        @apply hidden;
+    }
+
+    .nav-link {
+        @apply flex items-center hover:text-white transition-all duration-200 ease-linear cursor-pointer
+         hover:bg-base200 rounded-lg;
+    }
+
+    .menu-item {
+        @apply cursor-pointer hover:bg-base200 hover:text-white rounded-lg transition-all ease-out duration-300;
+    }
+
+    .widgets {
+        @apply p-4 max-w-[300px] w-full bg-secondary h-screen select-none scrollBarCustom overflow-y-hidden  hover:overflow-y-auto;
+    }
+}
+
+@layer utilities {
+    .scrollBarCustom::-webkit-scrollbar {
+        border-radius: 0;
+        width: 8px;
+    }
+
+    .scrollBarCustom::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: #4d4f57;
+    }
+    .scrollBarCustom::-webkit-scrollbar-track {
+        border-radius: 0;
+        background-color: rgba(0, 0, 0, 0);
+    }
+}

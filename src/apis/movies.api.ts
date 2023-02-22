@@ -1,0 +1,3 @@
+const getMovie = () => {}
+
+export { getMovie }
