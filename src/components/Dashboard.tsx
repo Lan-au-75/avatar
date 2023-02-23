@@ -7,7 +7,7 @@ function Dashboard() {
         <div className='flex justify-between'>
             <Sidebar />
             <Container />
-            <Widgets />
+            {/* <Widgets /> */}
         </div>
     )
 }

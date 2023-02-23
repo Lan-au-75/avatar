@@ -10,7 +10,7 @@ export default function App() {
             errorElement: <ErrorPage />,
             children: [
                 {
-                    path: '/movie',
+                    path: '/movies',
                     element: <Layout1 />,
                 },
                 {
@@ -19,10 +19,6 @@ export default function App() {
                 },
                 {
                     path: '/tv shows',
-                    element: <Layout1 />,
-                },
-                {
-                    path: '/home',
                     element: <Layout1 />,
                 },
                 {

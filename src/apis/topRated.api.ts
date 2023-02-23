@@ -1,0 +1,22 @@
+import requests from '@/requests'
+import { getHttpRequest } from '@/utils/httpRequets'
+
+interface Props {
+    page?: number
+}
+
+const getTopRated = async ({ page }: Props) => {
+    try {
+        const response = await getHttpRequest(requests.requestTopRated, {
+            params: {
+                page,
+            },
+        })
+
+        return response.results
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export { getTopRated }

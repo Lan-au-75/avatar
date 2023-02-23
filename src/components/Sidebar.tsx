@@ -21,6 +21,7 @@ import { RiMovie2Line, RiMovie2Fill } from 'react-icons/ri'
 
 import SidebarRow from './SidebarRow'
 import clsx from 'clsx'
+import SidebarMenu from './SidebarMenu'
 
 interface Props {
     className?: string
@@ -28,29 +29,13 @@ interface Props {
 
 const sidebarData1 = [
     {
-        href: 'home',
+        href: '/',
         title: 'Home',
         Icon: AiOutlineHome,
         ActiveIcon: AiFillHome,
+        active: true,
     },
-    {
-        href: 'movie',
-        title: 'Movie',
-        Icon: MdMovie,
-        ActiveIcon: MdMovie,
-    },
-    {
-        href: 'series',
-        title: 'Series',
-        Icon: MdLocalMovies,
-        ActiveIcon: MdLocalMovies,
-    },
-    {
-        href: 'tv shows',
-        title: 'Tv shows',
-        Icon: RiMovie2Line,
-        ActiveIcon: RiMovie2Fill,
-    },
+
     {
         href: 'discovery',
         title: 'Discovery',
@@ -68,6 +53,27 @@ const sidebarData1 = [
         title: 'Coming soon',
         Icon: TfiAlarmClock,
         ActiveIcon: FcAlarmClock,
+    },
+]
+
+const navbarData = [
+    {
+        href: '/movies',
+        title: 'Movie',
+        Icon: MdMovie,
+        ActiveIcon: MdMovie,
+    },
+    {
+        href: 'series',
+        title: 'Series',
+        Icon: MdLocalMovies,
+        ActiveIcon: MdLocalMovies,
+    },
+    {
+        href: 'tv shows',
+        title: 'Tv shows',
+        Icon: RiMovie2Line,
+        ActiveIcon: RiMovie2Fill,
     },
 ]
 
@@ -116,47 +122,12 @@ const sidebarData3 = [
 function Sidebar({ className }: Props) {
     return (
         <aside className={clsx('sidebar', className)}>
-            <ul className='flex flex-col gap-y-4 py-6'>
-                <label htmlFor='' className='px-3 uppercase'>
-                    Menu
-                </label>
-                {sidebarData1.map((item) => (
-                    <SidebarRow
-                        key={item.title}
-                        href={item.href}
-                        title={item.title}
-                        Icon={item.Icon}
-                        ActiveIcon={item.ActiveIcon}
-                    />
-                ))}
-            </ul>
-
-            <ul className='flex flex-col gap-y-4 py-6'>
-                <label htmlFor='' className='px-3 uppercase'>
-                    Library
-                </label>
-                {sidebarData2.map((item) => (
-                    <SidebarRow
-                        key={item.title}
-                        href={item.href}
-                        title={item.title}
-                        Icon={item.Icon}
-                        ActiveIcon={item.ActiveIcon}
-                    />
-                ))}
-            </ul>
-
-            <ul className='flex flex-col gap-y-4 py-6'>
-                {sidebarData3.map((item) => (
-                    <SidebarRow
-                        key={item.title}
-                        href={item.href}
-                        title={item.title}
-                        Icon={item.Icon}
-                        ActiveIcon={item.ActiveIcon}
-                    />
-                ))}
-            </ul>
+            <SidebarMenu title='Menu' data={sidebarData1} />
+            <div className='md:hidden'>
+                <SidebarMenu data={navbarData} />
+            </div>
+            <SidebarMenu title='Library' data={sidebarData2} />
+            <SidebarMenu data={sidebarData3} />
         </aside>
     )
 }

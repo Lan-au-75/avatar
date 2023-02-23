@@ -1,6 +1,8 @@
-import Dashboard from '@/components/Dashboard'
-import Footer from './Footer'
 import Header from './Header'
+import Footer from './Footer'
+import React, { Suspense } from 'react'
+
+const Dashboard = React.lazy(() => import('@/components/Dashboard'))
 
 function Layout1() {
     return (
@@ -8,7 +10,9 @@ function Layout1() {
             <Header />
 
             <section className='main'>
-                <Dashboard />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Dashboard />
+                </Suspense>
             </section>
 
             <Footer />
