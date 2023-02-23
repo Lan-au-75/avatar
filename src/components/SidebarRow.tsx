@@ -6,9 +6,10 @@ interface Props {
     ActiveIcon?: any
     title?: string
     href: string
+    active?: boolean
 }
 
-function SidebarRow({ Icon, ActiveIcon, title, href }: Props) {
+function SidebarRow({ Icon, ActiveIcon, title, href, active }: Props) {
     return (
         <li className='menu-item'>
             <NavLink

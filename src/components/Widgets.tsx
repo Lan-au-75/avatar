@@ -1,5 +1,12 @@
+import Sidebar from './Sidebar'
+
 function Widgets() {
-    return <div className='widgets'>Widgets</div>
+    return (
+        <aside className='widgets'>
+            Widgets
+            <Sidebar />
+        </aside>
+    )
 }
 
 export default Widgets

@@ -1,3 +1,0 @@
-const getMovie = () => {}
-
-export { getMovie }

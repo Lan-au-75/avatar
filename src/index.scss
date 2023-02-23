@@ -6,7 +6,7 @@
 
 @layer base {
     html {
-        @apply font-inter text-base100 bg-secondary text-sm lg:text-base scrollBarCustom;
+        @apply font-inter text-base100 bg-secondary text-sm lg:text-base scrollBarCustom scroll-smooth;
     }
 
     html,
@@ -17,7 +17,7 @@
 
 @layer components {
     .header {
-        @apply fixed top-0 inset-x-0 flex items-center justify-between px-6 md:px-6 bg-transparent 
+        @apply fixed top-0 inset-x-0 flex items-center justify-between px-3 md:px-6 bg-transparent 
         max-h-14 h-full border-b border-solid border-base200 bg-secondary shadow-md z-50;
     }
 
@@ -26,7 +26,8 @@
     }
 
     .sidebar {
-        @apply hidden md:block p-4 max-w-[300px] w-full bg-secondary h-screen select-none divide-y divide-base100 scrollBarCustom overflow-y-hidden  hover:overflow-y-auto;
+        @apply hidden md:block p-4 min-w-[300px] bg-secondary h-screen divide-y divide-base100 select-none 
+        scrollBarCustom overflow-y-hidden hover:overflow-y-auto;
     }
 
     .active {
@@ -66,12 +67,23 @@
         @apply cursor-pointer hover:bg-base200 hover:text-white rounded-lg transition-all ease-out duration-300;
     }
 
+    .container {
+        @apply flex flex-col mx-auto gap-y-4 justify-center md:h-screen scrollbar-hide 
+        overflow-y-auto md:justify-start flex-1 p-5;
+    }
+
     .widgets {
-        @apply p-4 max-w-[300px] w-full bg-secondary h-screen select-none scrollBarCustom overflow-y-hidden  hover:overflow-y-auto;
+        @apply hidden lg:block p-4 min-w-[300px] bg-secondary h-screen select-none 
+        scrollBarCustom overflow-y-hidden  hover:overflow-y-auto;
+    }
+
+    .btn {
+        @apply flex items-center justify-center transition-all delay-300 ease-in px-3 py-2 rounded-2xl btn-effect;
     }
 }
 
 @layer utilities {
+    // scrollBar
     .scrollBarCustom::-webkit-scrollbar {
         border-radius: 0;
         width: 8px;
@@ -84,5 +96,123 @@
     .scrollBarCustom::-webkit-scrollbar-track {
         border-radius: 0;
         background-color: rgba(0, 0, 0, 0);
+    }
+
+    // button animation
+
+    .btn-effect {
+        background: rgb(239, 68, 68);
+        border: none;
+        z-index: 1;
+    }
+    .btn-effect:after {
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 100%;
+        top: 0;
+        right: 0;
+        z-index: -1;
+        background-color: rgb(59, 130, 246);
+        border-radius: 16px;
+        transition: all 0.3s ease;
+    }
+    .btn-effect:hover {
+        color: #fff;
+    }
+    .btn-effect:hover:after {
+        left: 0;
+        width: 100%;
+    }
+    .btn-effect:active {
+        top: 2px;
+    }
+
+    // input range
+
+    input[type='range'] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 5px;
+        background-image: linear-gradient(#1db954, #1db954);
+        background-size: 50% 100%;
+        background-repeat: no-repeat;
+    }
+
+    /* Input Thumb */
+    input[type='range']::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        background: #fff;
+        cursor: grab;
+        box-shadow: 0 0 2px 0 #555;
+        transition: background 0.3s ease-in-out;
+    }
+
+    input[type='range']::-moz-range-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: #fff;
+        cursor: ew-resize;
+        box-shadow: 0 0 2px 0 #555;
+        transition: background 0.3s ease-in-out;
+    }
+
+    input[type='range']::-ms-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: #fff;
+        cursor: ew-resize;
+        box-shadow: 0 0 2px 0 #555;
+        transition: background 0.3s ease-in-out;
+    }
+
+    input[type='range']::-webkit-slider-thumb:hover {
+        background: #fff;
+    }
+
+    input[type='range']::-moz-range-thumb:hover {
+        background: #fff;
+    }
+
+    input[type='range']::-ms-thumb:hover {
+        background: #fff;
+    }
+
+    /* Input Track */
+    input[type='range']::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+        appearance: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+    }
+
+    input[type='range']::-moz-range-track {
+        -webkit-appearance: none;
+        appearance: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+    }
+
+    input[type='range']::-ms-track {
+        -webkit-appearance: none;
+        appearance: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
     }
 }
