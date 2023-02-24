@@ -5,7 +5,7 @@ interface Props {
     page?: number
 }
 
-const getTrendingMovie = async ({ page }: Props) => {
+const getTrendingMovie = async ({ page = 1 }: Props = {}) => {
     try {
         const response = await getHttpRequest(requests.requestTrending, {
             params: {

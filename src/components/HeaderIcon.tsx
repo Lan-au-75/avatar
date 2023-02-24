@@ -6,15 +6,24 @@ interface Props {
     classIcon?: string
     ActiveIcon?: any
     classActiveIcon?: string
+    classActiveBg?: string
+    classIconBG?: string
 }
 
-function HeaderIcon({ Icon, ActiveIcon, classIcon, classActiveIcon }: Props) {
+function HeaderIcon({
+    Icon,
+    ActiveIcon,
+    classIcon,
+    classActiveIcon,
+    classActiveBg,
+    classIconBG,
+}: Props) {
     const [toggleIcon, setToggleIcon] = useState(false)
 
     return (
         <>
             {toggleIcon ? (
-                <span className='p-[0.7rem] bg-blue-500/60 rounded-full'>
+                <div className={clsx('p-[0.7rem] bg-blue-500/60 rounded-full', classActiveBg)}>
                     <ActiveIcon
                         className={clsx(
                             'cursor-pointer text-blue-300 text-xl md:text-[22px]',
@@ -22,14 +31,14 @@ function HeaderIcon({ Icon, ActiveIcon, classIcon, classActiveIcon }: Props) {
                         )}
                         onClick={() => setToggleIcon(!toggleIcon)}
                     />
-                </span>
+                </div>
             ) : (
-                <span className='p-[0.7rem] bg-base200 rounded-full'>
+                <div className={clsx('p-[0.7rem] bg-base200 rounded-full', classIconBG)}>
                     <Icon
                         className={clsx('cursor-pointer text-xl md:text-[22px]', classIcon)}
                         onClick={() => setToggleIcon(!toggleIcon)}
                     />
-                </span>
+                </div>
             )}
         </>
     )

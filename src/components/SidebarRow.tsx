@@ -11,12 +11,12 @@ interface Props {
 
 function SidebarRow({ Icon, ActiveIcon, title, href, active }: Props) {
     return (
-        <li className='menu-item'>
+        <li className='relative menu-item overflow-hidden '>
             <NavLink
                 to={href}
                 className={({ isActive }) =>
                     clsx(
-                        'flex items-center px-3 py-2 gap-3 md:gap-4 w-full ',
+                        ' flex items-center px-3 py-2 gap-3 md:gap-4 w-full ',
                         isActive ? 'menu-active' : ''
                     )
                 }
@@ -24,6 +24,7 @@ function SidebarRow({ Icon, ActiveIcon, title, href, active }: Props) {
                 <ActiveIcon className='active-icon text-blue-500' size={20} />
                 <Icon className='icon' size={20} />
                 {title}
+                <div className='absolute active-icon h-5 w-5 bg-blue-500 rounded-md -right-4'></div>
             </NavLink>
         </li>
     )

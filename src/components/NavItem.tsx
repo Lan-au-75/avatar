@@ -11,7 +11,12 @@ function NavItem({ title, href }: Props) {
         <li className='nav-link'>
             <NavLink
                 to={href}
-                className={({ isActive }) => clsx('px-3 py-2', { active: isActive })}
+                className={({ isActive }) =>
+                    clsx(
+                        'px-3 py-2 ',
+                        isActive ? 'active border-b border-solid border-blue-500' : ''
+                    )
+                }
             >
                 {title}
             </NavLink>
