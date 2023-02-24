@@ -5,7 +5,7 @@ interface Props {
     page?: number
 }
 
-const getNowPlaying = async ({ page }: Props) => {
+const getNowPlaying = async ({ page = 1 }: Props = {}) => {
     try {
         const response = await getHttpRequest(requests.requestNowPlaying, {
             params: {

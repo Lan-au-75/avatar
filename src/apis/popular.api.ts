@@ -5,7 +5,7 @@ interface Props {
     page?: number
 }
 
-const getPopular = async ({ page }: Props) => {
+const getPopular = async ({ page = 1 }: Props = {}) => {
     try {
         const response = await getHttpRequest(requests.requestPopular, {
             params: {

@@ -30,18 +30,7 @@
         scrollBarCustom overflow-y-hidden hover:overflow-y-auto;
     }
 
-    .active {
-        @apply text-white border-b border-solid border-blue-500;
-
-        .icon {
-            @apply hidden;
-        }
-
-        .active-icon {
-            @apply block;
-        }
-    }
-
+    .active,
     .menu-active {
         @apply text-white;
 
@@ -68,8 +57,8 @@
     }
 
     .container {
-        @apply flex flex-col mx-auto gap-y-4 justify-center md:h-screen scrollbar-hide 
-        overflow-y-auto md:justify-start flex-1 p-5;
+        @apply flex flex-col mx-auto gap-y-6 md:gap-y-10 justify-center md:h-screen scrollbar-hide 
+        overflow-y-auto md:justify-start flex-1 p-5 pr-0;
     }
 
     .widgets {
@@ -77,8 +66,18 @@
         scrollBarCustom overflow-y-hidden  hover:overflow-y-auto;
     }
 
+    .thumbnail {
+        @apply relative rounded-lg select-none overflow-hidden shadow-lg;
+    }
+
     .btn {
-        @apply flex items-center justify-center transition-all delay-300 ease-in px-3 py-2 rounded-2xl btn-effect;
+        @apply flex items-center justify-center transition-all delay-300 ease-in px-2 py-1 
+        md:px-3 md:py-2 rounded-2xl btn-effect;
+    }
+
+    .scroll-x {
+        @apply inset-y-0 my-auto flex items-center justify-center opacity-0 md:group-hover:opacity-100 rounded-full h-9 w-9
+        bg-white text-sm transition-all ease-in-out cursor-pointer z-10;
     }
 }
 
@@ -214,5 +213,27 @@
         box-shadow: none;
         border: none;
         background: transparent;
+    }
+
+    // skeleton
+
+    .skeleton {
+        background-color: rgba(77, 79, 87, 0.86);
+        background-image: linear-gradient(
+            90deg,
+            rgba(#4e4f50, 0),
+            rgba(#4e4f50, 0.5),
+            rgba(#4e4f50, 0)
+        );
+        background-size: 40px 100%;
+        background-repeat: no-repeat;
+        background-position: left -40px top 0;
+        animation: shine 3s ease infinite;
+    }
+
+    @keyframes shine {
+        to {
+            background-position: right -40px top 0;
+        }
     }
 }

@@ -5,7 +5,7 @@ interface Props {
     page?: number
 }
 
-const getTopRated = async ({ page }: Props) => {
+const getTopRated = async ({ page = 1 }: Props = {}) => {
     try {
         const response = await getHttpRequest(requests.requestTopRated, {
             params: {

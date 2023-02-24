@@ -1,16 +1,19 @@
-import Header from './Header'
 import Footer from './Footer'
 import React, { Suspense } from 'react'
+import { SkeletonHeader } from '@/components/Skeleton'
 
+const Header = React.lazy(() => import('./Header'))
 const Dashboard = React.lazy(() => import('@/components/Dashboard'))
 
 function Layout1() {
     return (
         <>
-            <Header />
+            <Suspense fallback={<SkeletonHeader />}>
+                <Header />
+            </Suspense>
 
             <section className='main'>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense>
                     <Dashboard />
                 </Suspense>
             </section>

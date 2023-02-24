@@ -10,7 +10,7 @@ interface Props {
 
 function Thumbnail3({ movie }: Props) {
     return (
-        <div className='relative min-w-[calc(300px-50px)] h-[calc(300px-80px)] md:min-w-[300px] md:h-[300px] rounded-lg select-none overflow-hidden'>
+        <div className='thumbnail min-w-[calc(300px-50px)] h-[calc(300px-80px)] md:min-w-[300px] md:h-[300px]'>
             <img
                 src={clsx(baseUrl + movie?.poster_path)}
                 alt=''
@@ -21,10 +21,10 @@ function Thumbnail3({ movie }: Props) {
                     <BsPlayFill className='' size={24} color='white' />
                 </div>
             </NavLink>
-            <div className='absolute top-[60%] md:top-[58%] inset-x-0 bottom-0 bg-gradient-to-b from-transparent to-black text-white'>
+            <div className='absolute top-[58%] inset-x-0 bottom-0 bg-gradient-to-b from-transparent to-black text-white'>
                 <div className='flex flex-col gap-y-2 px-6 py-2'>
                     <h2 className='text-xl md:text-2xl up capitalize line-clamp-1'>
-                        {movie?.original_title || movie?.title}
+                        {movie?.original_title || movie?.title || movie?.name}
                     </h2>
                     <p>{movie?.release_date}</p>
                     <div className='flex items-center justify-between gap-2 md:gap-4'>

@@ -13,7 +13,7 @@ interface Props {
 
 function Thumbnail2({ movie }: Props) {
     return (
-        <div className='relative min-w-[calc(500px-200px)] h-[calc(300px-90px)] md:min-w-[500px] md:h-[300px] rounded-lg select-none overflow-hidden'>
+        <div className='thumbnail min-w-[calc(500px-200px)] h-[calc(300px-90px)] md:min-w-[500px] md:h-[300px]'>
             <img
                 src={clsx(baseUrl + movie?.backdrop_path)}
                 alt=''
@@ -22,9 +22,9 @@ function Thumbnail2({ movie }: Props) {
             <div className='absolute top-[30%] md:top-1/2 inset-x-0 bottom-0 bg-gradient-to-b from-transparent to-black text-white'>
                 <div className='flex flex-col gap-y-2 px-6 py-2'>
                     <h2 className='text-xl md:text-2xl up capitalize line-clamp-1'>
-                        {movie?.original_title || movie?.title}
+                        {movie?.original_title || movie?.title || movie?.name}
                     </h2>
-                    <p>{movie?.release_date}</p>
+                    <p>{movie?.release_date || movie?.first_air_date}</p>
 
                     <div className='flex flex-col md:flex-row gap-y-2 md:items-center md:justify-between'>
                         <div className='flex items-center gap-4 text-sm'>
@@ -35,10 +35,18 @@ function Thumbnail2({ movie }: Props) {
                         </div>
 
                         <div className='flex items-end justify-between gap-4'>
-                            <Link to='/' className='btn relative min-w-[100px] min-h-[41px]'>
+                            <Link
+                                to='/'
+                                className='btn relative min-w-[80px] min-h-[38px]  md:min-w-[100px] md:min-h-[41px]'
+                            >
                                 Watch now
                             </Link>
-                            <HeaderIcon Icon={MdAdd} ActiveIcon={BsCheck} />
+                            <HeaderIcon
+                                Icon={MdAdd}
+                                ActiveIcon={BsCheck}
+                                classActiveIcon='text-white'
+                                classActiveBg='bg-green-500'
+                            />
                         </div>
                     </div>
                 </div>
