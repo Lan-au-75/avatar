@@ -123,7 +123,7 @@ function Sidebar({ className }: Props) {
     return (
         <aside className={clsx('sidebar', className)}>
             <SidebarMenu title='Menu' data={sidebarData1} />
-            <div className='md:hidden'>
+            <div className='pc:hidden'>
                 <SidebarMenu data={navbarData} />
             </div>
             <SidebarMenu title='Library' data={sidebarData2} />

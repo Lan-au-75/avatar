@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AiOutlineRight } from 'react-icons/ai'
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
+import { useRef, useState } from 'react'
 import { Movie } from '@/types/movies.type'
 import { SkeletonRow } from './Skeleton'
-import { useRef, useState } from 'react'
 
 interface Props {
     title?: string
@@ -16,6 +16,8 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
     const rowRef = useRef<HTMLDivElement>(null)
     const [isMoved, setIsMoved] = useState<boolean>(false)
 
+    const navigate = useNavigate()
+
     // Skeleton
     if (isLoading) {
         return <SkeletonRow />
@@ -27,9 +29,6 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
         if (rowRef.current) {
             const { scrollLeft, clientWidth } = rowRef.current
 
-            console.log({ scrollLeft })
-            console.log({ clientWidth })
-
             const scrollTo =
                 direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth
 
@@ -40,24 +39,57 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
         }
     }
 
+    // handle move page
+    const handleMovedPage = () => {
+        switch (title) {
+            case 'Trending Movies':
+                navigate('/movies/trending/page=1')
+                break
+
+            case 'Continue watching':
+                navigate('/movies/now-playing')
+                break
+
+            case 'Top rated':
+                navigate('/movies/top-rated')
+                break
+
+            case 'Upcoming':
+                navigate('/movies/upcoming')
+                break
+
+            case 'Popular':
+                navigate('/movies/popular')
+                break
+
+            default:
+                navigate('/')
+                break
+        }
+    }
+
     return (
-        <div className='relative flex flex-col gap-y-4'>
-            <div className='absolute left-10 h-32 w-32 rounded-full bg-blue-500 blur-3xl -z-10'></div>
-            <div className='absolute left-32 h-32 w-32 rounded-full bg-blue-500 blur-3xl -z-10'></div>
+        <div className='relative flex  flex-col gap-y-4'>
+            <div className='absolute top-0 -left-8 h-[200px] w-[200px] rounded-full bg-blue-500 blur-3xl -z-10'></div>
+            <div className='absolute top-0 -left-8 h-[200px] w-[200px] rounded-full bg-blue-500 blur-3xl -z-10'></div>
+
             <div className='flex items-center justify-between'>
                 <h2 className='text-xl text-white font-bold capitalize'>{title}</h2>
-                <Link to='/' className='flex items-center gap-1 text-base100 hover:text-red-500'>
+                <div
+                    className='flex items-center gap-1 text-base100 hover:text-red-500 cursor-pointer'
+                    onClick={handleMovedPage}
+                >
                     See all
                     <AiOutlineRight className='text-base' />
-                </Link>
+                </div>
             </div>
             <div className='relative group'>
-                <span
+                <div
                     className={`absolute left-2 scroll-x ${!isMoved && 'hidden'}`}
                     onClick={() => handleClick('left')}
                 >
                     <BiChevronLeft className='text-black/75 hover:text-black text-2xl' />
-                </span>
+                </div>
 
                 <div
                     ref={rowRef}

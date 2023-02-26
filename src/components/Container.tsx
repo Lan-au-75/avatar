@@ -20,7 +20,7 @@ function Container() {
     const popularity = useQuery(['popularityData'], async () => fetchPopularity())
 
     return (
-        <main className='container'>
+        <div className='container-zero'>
             <Row
                 title='Trending Movies'
                 movies={trendingMovie.data}
@@ -51,7 +51,7 @@ function Container() {
                 Thumbnail={Thumbnail1}
                 isLoading={popularity.isLoading}
             />
-        </main>
+        </div>
     )
 }
 

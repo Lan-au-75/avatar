@@ -24,7 +24,7 @@ function Thumbnail1({ movie }: Props) {
             </div>
             <img
                 src={clsx(baseUrl + movie?.backdrop_path)}
-                alt=''
+                alt={movie?.name || movie?.original_title}
                 className='object-cover object-center w-full h-full'
             />
             <div className='absolute top-[26%] md:top-[40%] inset-x-0 bottom-0 bg-gradient-to-b from-transparent to-black text-white'>

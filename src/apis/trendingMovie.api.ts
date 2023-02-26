@@ -2,7 +2,7 @@ import requests from '@/requests'
 import { getHttpRequest } from '@/utils/httpRequets'
 
 interface Props {
-    page?: number
+    page?: number | string
 }
 
 const getTrendingMovie = async ({ page = 1 }: Props = {}) => {

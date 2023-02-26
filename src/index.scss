@@ -7,6 +7,7 @@
 @layer base {
     html {
         @apply font-inter text-base100 bg-secondary text-sm lg:text-base scrollBarCustom scroll-smooth;
+        -webkit-tap-highlight-color: transparent;
     }
 
     html,
@@ -26,7 +27,7 @@
     }
 
     .sidebar {
-        @apply hidden md:block p-4 min-w-[300px] bg-secondary h-screen divide-y divide-base100 select-none 
+        @apply hidden pc:block p-4 min-w-[300px] bg-secondary h-screen divide-y divide-base100 select-none 
         scrollBarCustom overflow-y-hidden hover:overflow-y-auto;
     }
 
@@ -56,8 +57,8 @@
         @apply cursor-pointer hover:bg-base200 hover:text-white rounded-lg transition-all ease-out duration-300;
     }
 
-    .container {
-        @apply flex flex-col mx-auto gap-y-6 md:gap-y-10 justify-center md:h-screen scrollbar-hide 
+    .container-zero {
+        @apply flex flex-col gap-y-6 md:gap-y-10 justify-center md:h-screen scrollbar-hide 
         overflow-y-auto md:justify-start flex-1 p-5 pr-0;
     }
 
@@ -78,6 +79,20 @@
     .scroll-x {
         @apply inset-y-0 my-auto flex items-center justify-center opacity-0 md:group-hover:opacity-100 rounded-full h-9 w-9
         bg-white text-sm transition-all ease-in-out cursor-pointer z-10;
+    }
+
+    .movie-item {
+        @apply flex items-center justify-center px-2 py-1 flex-shrink-0 odd:bg-red-500 even:bg-blue-400 
+        max-w-[200px] rounded-2xl line-clamp-2 transition-all duration-200 ease-linear hover:scale-105;
+    }
+
+    .card-content {
+        @apply flex flex-col gap-1 absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 p-3 
+        bg-white min-h-[80px] md:min-h-[100px] w-full rounded-[30px] shadow-xl;
+    }
+
+    .pagination {
+        @apply py-2 px-3 md:py-2 md:px-4 bg-base200 rounded-full hover:text-white hover:bg-green-500 transition-all ease-linear duration-200;
     }
 }
 

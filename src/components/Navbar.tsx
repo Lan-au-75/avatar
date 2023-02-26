@@ -8,9 +8,9 @@ interface Props {
 
 function Navbar({ className }: Props) {
     return (
-        <nav className={clsx('hidden md:flex items-center', className)}>
+        <nav className={clsx('hidden pc:flex items-center', className)}>
             <ul className='flex items-center gap-4 lg:gap-6 select-none'>
-                <NavItem title='Movies' href='/movies' />
+                <NavItem title='Movies' href='movies/trending/page=1' />
                 <NavItem title='Series' href='series' />
                 <NavItem title='TV Shows' href='tv shows' />
             </ul>

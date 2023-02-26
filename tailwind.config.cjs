@@ -3,6 +3,10 @@ module.exports = {
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
     theme: {
         extend: {
+            screens: {
+                mobile: '568px',
+                pc: '1025px',
+            },
             fontFamily: {
                 inter: ['Inter', 'sans-serif'],
             },
