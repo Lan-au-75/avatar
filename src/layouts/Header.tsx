@@ -31,7 +31,7 @@ function Header() {
             {/* right */}
             <div className='flex items-center gap-2 sm:gap-3 text-white'>
                 <div
-                    className='md:hidden hover:text-white transition-all p-3 cursor-pointer'
+                    className='pc:hidden hover:text-white transition-all p-3 cursor-pointer'
                     onClick={handleOpenNavbar}
                 >
                     <AiOutlineMenu size={24} />

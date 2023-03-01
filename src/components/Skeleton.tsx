@@ -41,6 +41,26 @@ function SkeletonRow() {
     )
 }
 
-export { SkeletonRow, SkeletonHeader }
+const SkeletonCard = () => (
+    <div className='flex flex-col gap-y-20'>
+        <ul
+            className='grid gap-x-3 justify-start gap-y-20 mobile:grid-cols-[repeat(3,180px)] md:gap-x-4 md:gap-y-20 grid-cols-[repeat(2,180px)] sm:grid-cols-[repeat(3,180px)]  
+              lg:grid-cols-3 xl:grid-cols-4'
+        >
+            {Array(10)
+                .fill(0)
+                .map((__, i) => (
+                    <li
+                        key={i}
+                        className='relative hover:scale-110 transition-all ease-linear duration-200 w-[180px] lg:w-[250px] h-[250px] md:h-[350px]'
+                    >
+                        <Skeleton className='rounded-[30px]' />
+                    </li>
+                ))}
+        </ul>
+    </div>
+)
+
+export { SkeletonRow, SkeletonHeader, SkeletonCard }
 
 export default Skeleton

@@ -2,18 +2,19 @@ import requests from '@/requests'
 import { getHttpRequest } from '@/utils/httpRequets'
 
 interface Props {
-    page?: number
+    category: string
+    page?: number | string
 }
 
-const getTrendingMovie = async ({ page = 1 }: Props = {}) => {
+const getTrendingMovie = async ({ category, page = 1 }: Props) => {
     try {
-        const response = await getHttpRequest(requests.requestTrending, {
+        const response = await getHttpRequest(requests.requestTrending(category), {
             params: {
                 page,
             },
         })
 
-        return response.results
+        return response
     } catch (error) {
         console.log(error)
     }

@@ -2,18 +2,19 @@ import requests from '@/requests'
 import { getHttpRequest } from '@/utils/httpRequets'
 
 interface Props {
-    page?: number
+    category: string
+    page?: number | string
 }
 
-const getPopular = async ({ page = 1 }: Props = {}) => {
+const getPopular = async ({ category, page = 1 }: Props) => {
     try {
-        const response = await getHttpRequest(requests.requestPopular, {
+        const response = await getHttpRequest(requests.requestPopular(category), {
             params: {
                 page,
             },
         })
 
-        return response.results
+        return response
     } catch (error) {
         console.log(error)
     }

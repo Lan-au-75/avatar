@@ -1,9 +1,15 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AiOutlineRight } from 'react-icons/ai'
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
+import { useRef, useState } from 'react'
 import { Movie } from '@/types/movies.type'
 import { SkeletonRow } from './Skeleton'
-import { useRef, useState } from 'react'
+import clsx from 'clsx'
+
+enum Direction {
+    Left = 'left',
+    Right = 'right',
+}
 
 interface Props {
     title?: string
@@ -15,6 +21,9 @@ interface Props {
 function Row({ title, movies, Thumbnail, isLoading }: Props) {
     const rowRef = useRef<HTMLDivElement>(null)
     const [isMoved, setIsMoved] = useState<boolean>(false)
+    // const [showScrollButton, setShowScrollButton] = useState(true)
+
+    const navigate = useNavigate()
 
     // Skeleton
     if (isLoading) {
@@ -25,39 +34,78 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
     const handleClick = (direction: string) => {
         setIsMoved(true)
         if (rowRef.current) {
-            const { scrollLeft, clientWidth } = rowRef.current
-
-            console.log({ scrollLeft })
-            console.log({ clientWidth })
+            const { scrollLeft, clientWidth, scrollWidth } = rowRef.current
 
             const scrollTo =
-                direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth
+                direction === Direction.Left ? scrollLeft - clientWidth : scrollLeft + clientWidth
 
             rowRef.current.scrollTo({
                 left: scrollTo,
                 behavior: 'smooth',
             })
+
+            // handle scrollLeft = 0 hidden button prev
+            // scrollLeft === 0 ? setIsMoved(false) : setIsMoved(true)
+
+            // handle when scroll end or start
+
+            // scrollWidth === scrollLeft + clientWidth
+            //     ? setShowScrollButton(false)
+            //     : setShowScrollButton(true)
+        }
+    }
+
+    // handle move page when click See all
+    const handleMovedPage = () => {
+        switch (title) {
+            case 'Trending Movies':
+                navigate('/movies/trending/page=1')
+                break
+
+            case 'Continue watching':
+                navigate('/movies/now-playing')
+                break
+
+            case 'Top rated':
+                navigate('/movies/top-rated')
+                break
+
+            case 'Upcoming':
+                navigate('/movies/upcoming')
+                break
+
+            case 'Popular':
+                navigate('/movies/popular')
+                break
+
+            default:
+                navigate('/')
+                break
         }
     }
 
     return (
-        <div className='relative flex flex-col gap-y-4'>
-            <div className='absolute left-10 h-32 w-32 rounded-full bg-blue-500 blur-3xl -z-10'></div>
-            <div className='absolute left-32 h-32 w-32 rounded-full bg-blue-500 blur-3xl -z-10'></div>
+        <div className='relative flex  flex-col gap-y-4'>
+            <div className='absolute top-0 -left-8 h-[200px] w-[200px] rounded-full bg-blue-500 blur-3xl -z-10'></div>
+            <div className='absolute top-0 -left-8 h-[200px] w-[200px] rounded-full bg-blue-500 blur-3xl -z-10'></div>
+
             <div className='flex items-center justify-between'>
                 <h2 className='text-xl text-white font-bold capitalize'>{title}</h2>
-                <Link to='/' className='flex items-center gap-1 text-base100 hover:text-red-500'>
+                <div
+                    className='flex items-center gap-1 text-base100 hover:text-red-500 cursor-pointer'
+                    onClick={handleMovedPage}
+                >
                     See all
                     <AiOutlineRight className='text-base' />
-                </Link>
+                </div>
             </div>
             <div className='relative group'>
-                <span
-                    className={`absolute left-2 scroll-x ${!isMoved && 'hidden'}`}
-                    onClick={() => handleClick('left')}
+                <div
+                    className={clsx('absolute left-2 scroll-x', !isMoved && 'hidden')}
+                    onClick={() => handleClick(Direction.Left)}
                 >
                     <BiChevronLeft className='text-black/75 hover:text-black text-2xl' />
-                </span>
+                </div>
 
                 <div
                     ref={rowRef}
@@ -68,7 +116,10 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
                     ))}
                 </div>
 
-                <span className='absolute right-2 scroll-x' onClick={() => handleClick('right')}>
+                <span
+                    className={clsx('absolute right-2 scroll-x')}
+                    onClick={() => handleClick(Direction.Right)}
+                >
                     <BiChevronRight className='text-black/75 hover:text-black text-2xl' />
                 </span>
             </div>

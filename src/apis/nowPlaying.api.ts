@@ -2,7 +2,7 @@ import requests from '@/requests'
 import { getHttpRequest } from '@/utils/httpRequets'
 
 interface Props {
-    page?: number
+    page?: number | string
 }
 
 const getNowPlaying = async ({ page = 1 }: Props = {}) => {
@@ -13,7 +13,7 @@ const getNowPlaying = async ({ page = 1 }: Props = {}) => {
             },
         })
 
-        return response.results
+        return response
     } catch (error) {
         console.log(error)
     }

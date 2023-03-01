@@ -16,7 +16,7 @@ function Thumbnail2({ movie }: Props) {
         <div className='thumbnail min-w-[calc(500px-200px)] h-[calc(300px-90px)] md:min-w-[500px] md:h-[300px]'>
             <img
                 src={clsx(baseUrl + movie?.backdrop_path)}
-                alt=''
+                alt={movie?.name || movie?.original_title}
                 className='object-cover object-center w-full h-full'
             />
             <div className='absolute top-[30%] md:top-1/2 inset-x-0 bottom-0 bg-gradient-to-b from-transparent to-black text-white'>
@@ -24,7 +24,7 @@ function Thumbnail2({ movie }: Props) {
                     <h2 className='text-xl md:text-2xl up capitalize line-clamp-1'>
                         {movie?.original_title || movie?.title || movie?.name}
                     </h2>
-                    <p>{movie?.release_date || movie?.first_air_date}</p>
+                    <p>{movie?.release_date.slice(0, 4) || movie?.first_air_date.slice(0, 4)}</p>
 
                     <div className='flex flex-col md:flex-row gap-y-2 md:items-center md:justify-between'>
                         <div className='flex items-center gap-4 text-sm'>

@@ -16,7 +16,7 @@ function SidebarRow({ Icon, ActiveIcon, title, href, active }: Props) {
                 to={href}
                 className={({ isActive }) =>
                     clsx(
-                        ' flex items-center px-3 py-2 gap-3 md:gap-4 w-full ',
+                        ' flex items-center py-4 px-5 md:px-3 md:py-2 gap-3 md:gap-4 w-full ',
                         isActive ? 'menu-active' : ''
                     )
                 }

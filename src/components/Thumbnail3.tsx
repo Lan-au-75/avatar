@@ -13,7 +13,7 @@ function Thumbnail3({ movie }: Props) {
         <div className='thumbnail min-w-[calc(300px-50px)] h-[calc(300px-80px)] md:min-w-[300px] md:h-[300px]'>
             <img
                 src={clsx(baseUrl + movie?.poster_path)}
-                alt=''
+                alt={movie?.name || movie?.original_title}
                 className='object-cover object-center w-full h-full'
             />
             <NavLink to='/'>
@@ -26,7 +26,7 @@ function Thumbnail3({ movie }: Props) {
                     <h2 className='text-xl md:text-2xl up capitalize line-clamp-1'>
                         {movie?.original_title || movie?.title || movie?.name}
                     </h2>
-                    <p>{movie?.release_date}</p>
+                    <p>{movie?.release_date.slice(0, 4)}</p>
                     <div className='flex items-center justify-between gap-2 md:gap-4'>
                         <span>42:31</span>
                         <input type='range' name='' id='' min='0' max='100' className='w-full' />
