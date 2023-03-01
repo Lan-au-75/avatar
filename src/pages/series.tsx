@@ -1,7 +1,5 @@
-import { NavLink, Outlet } from 'react-router-dom'
-
 function Series() {
-    return <h1>Series</h1>
+    return <h1></h1>
 }
 
 export default Series

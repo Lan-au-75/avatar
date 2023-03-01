@@ -4,6 +4,12 @@ import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
 import { useRef, useState } from 'react'
 import { Movie } from '@/types/movies.type'
 import { SkeletonRow } from './Skeleton'
+import clsx from 'clsx'
+
+enum Direction {
+    Left = 'left',
+    Right = 'right',
+}
 
 interface Props {
     title?: string
@@ -15,6 +21,7 @@ interface Props {
 function Row({ title, movies, Thumbnail, isLoading }: Props) {
     const rowRef = useRef<HTMLDivElement>(null)
     const [isMoved, setIsMoved] = useState<boolean>(false)
+    // const [showScrollButton, setShowScrollButton] = useState(true)
 
     const navigate = useNavigate()
 
@@ -27,19 +34,28 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
     const handleClick = (direction: string) => {
         setIsMoved(true)
         if (rowRef.current) {
-            const { scrollLeft, clientWidth } = rowRef.current
+            const { scrollLeft, clientWidth, scrollWidth } = rowRef.current
 
             const scrollTo =
-                direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth
+                direction === Direction.Left ? scrollLeft - clientWidth : scrollLeft + clientWidth
 
             rowRef.current.scrollTo({
                 left: scrollTo,
                 behavior: 'smooth',
             })
+
+            // handle scrollLeft = 0 hidden button prev
+            // scrollLeft === 0 ? setIsMoved(false) : setIsMoved(true)
+
+            // handle when scroll end or start
+
+            // scrollWidth === scrollLeft + clientWidth
+            //     ? setShowScrollButton(false)
+            //     : setShowScrollButton(true)
         }
     }
 
-    // handle move page
+    // handle move page when click See all
     const handleMovedPage = () => {
         switch (title) {
             case 'Trending Movies':
@@ -85,8 +101,8 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
             </div>
             <div className='relative group'>
                 <div
-                    className={`absolute left-2 scroll-x ${!isMoved && 'hidden'}`}
-                    onClick={() => handleClick('left')}
+                    className={clsx('absolute left-2 scroll-x', !isMoved && 'hidden')}
+                    onClick={() => handleClick(Direction.Left)}
                 >
                     <BiChevronLeft className='text-black/75 hover:text-black text-2xl' />
                 </div>
@@ -100,7 +116,10 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
                     ))}
                 </div>
 
-                <span className='absolute right-2 scroll-x' onClick={() => handleClick('right')}>
+                <span
+                    className={clsx('absolute right-2 scroll-x')}
+                    onClick={() => handleClick(Direction.Right)}
+                >
                     <BiChevronRight className='text-black/75 hover:text-black text-2xl' />
                 </span>
             </div>

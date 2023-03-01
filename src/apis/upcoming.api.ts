@@ -13,7 +13,7 @@ const getUpcoming = async ({ page = 1 }: Props = {}) => {
             },
         })
 
-        return response.results
+        return response
     } catch (error) {
         console.log(error)
     }

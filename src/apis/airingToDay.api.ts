@@ -2,13 +2,12 @@ import requests from '@/requests'
 import { getHttpRequest } from '@/utils/httpRequets'
 
 interface Props {
-    category: string
     page?: number | string
 }
 
-const getTopRated = async ({ category, page = 1 }: Props) => {
+const getAiringToDay = async ({ page = 1 }: Props = {}) => {
     try {
-        const response = await getHttpRequest(requests.requestTopRated(category), {
+        const response = await getHttpRequest(requests.requestAiringToDay, {
             params: {
                 page,
             },
@@ -20,4 +19,4 @@ const getTopRated = async ({ category, page = 1 }: Props) => {
     }
 }
 
-export { getTopRated }
+export { getAiringToDay }

@@ -12,7 +12,7 @@ function Navbar({ className }: Props) {
             <ul className='flex items-center gap-4 lg:gap-6 select-none'>
                 <NavItem title='Movies' href='movies/trending/page=1' />
                 <NavItem title='Series' href='series' />
-                <NavItem title='TV Shows' href='tv shows' />
+                <NavItem title='TV Shows' href='tv shows/airingToDay/page=1' />
             </ul>
         </nav>
     )

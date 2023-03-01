@@ -28,6 +28,8 @@ type MovieShow = Pick<
     | 'poster_path'
     | 'vote_average'
     | 'vote_count'
+    | 'original_title'
+    | 'release_date'
 >
 
 export interface TV extends MovieShow {
@@ -35,4 +37,9 @@ export interface TV extends MovieShow {
     name: string
     origin_country: string[]
     original_name: string
+}
+
+export enum Category {
+    Movie = 'movie',
+    Tv = 'tv',
 }

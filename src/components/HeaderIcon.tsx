@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { useState } from 'react'
+import { IconType } from 'react-icons/lib'
 
 interface Props {
     Icon?: any

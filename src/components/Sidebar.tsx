@@ -127,7 +127,9 @@ function Sidebar({ className }: Props) {
                 <SidebarMenu data={navbarData} />
             </div>
             <SidebarMenu title='Library' data={sidebarData2} />
-            <SidebarMenu data={sidebarData3} />
+            <div className='mb-14'>
+                <SidebarMenu data={sidebarData3} />
+            </div>
         </aside>
     )
 }
