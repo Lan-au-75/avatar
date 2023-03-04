@@ -1,13 +1,13 @@
 import {
-    fetchTrendingMovie,
-    fetchNowPlaying,
-    fetchTopRated,
-    fetchUpcoming,
-    fetchPopularity,
     fetchAiringToDay,
+    fetchNowPlaying,
+    fetchPopularity,
+    fetchTopRated,
+    fetchTrendingMovie,
+    fetchUpcoming,
 } from '@/hooks/fetchApi'
-import { useQuery } from 'react-query'
 import { useState } from 'react'
+import { useQuery, UseQueryResult } from 'react-query'
 
 function usePagination(category: string) {
     const [pageTrending, setPageTrending] = useState<number>(1)

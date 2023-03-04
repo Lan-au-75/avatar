@@ -12,7 +12,19 @@ const requests = {
     },
     requestNowPlaying: `movie/now_playing?api_key=${ApiKey}`,
     requestUpcoming: `movie/upcoming?api_key=${ApiKey}`,
-    requestAiringToDay: `tv/airing_today?api_key=${ApiKey}`,
+    requestAiringToDay: `https://api.themoviedb.org/3/trending/tv/day?api_key=${ApiKey}`,
+
+    requestDetail(id: number | string, category: string) {
+        return `${category}/${id}?api_key=${ApiKey}`
+    },
+
+    requestGetVideo(id: number | string, category: string) {
+        return `${category}/${id}/videos?api_key=${ApiKey}`
+    },
+
+    requestReview(id: number) {
+        return `movie/${id}/reviews?api_key=${ApiKey}`
+    },
 }
 
 export const baseUrl = 'https://image.tmdb.org/t/p/original'

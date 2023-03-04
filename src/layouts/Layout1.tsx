@@ -17,8 +17,6 @@ function Layout1() {
                     <Dashboard />
                 </Suspense>
             </section>
-
-            <Footer />
         </>
     )
 }

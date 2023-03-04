@@ -23,23 +23,23 @@ function Movies() {
             <div>
                 <ul className='flex w-screen  mobile:justify-center pc:justify-start  overflow-x-auto scrollbar-hide gap-4'>
                     <li className='movie-item'>
-                        <NavLink to='trending/page=1'>Trending</NavLink>
+                        <NavLink to='trending/1'>Trending</NavLink>
                     </li>
 
                     <li className='movie-item'>
-                        <NavLink to='now-playing/page=1'>Continue watching</NavLink>
+                        <NavLink to='now-playing/1'>Continue watching</NavLink>
                     </li>
 
                     <li className='movie-item'>
-                        <NavLink to='top-rated'>Top rated</NavLink>
+                        <NavLink to='top-rated/1'>Top rated</NavLink>
                     </li>
 
                     <li className='movie-item'>
-                        <NavLink to='upcoming'>Upcoming</NavLink>
+                        <NavLink to='upcoming/1'>Upcoming</NavLink>
                     </li>
 
                     <li className='movie-item'>
-                        <NavLink to='popular'>Popular</NavLink>
+                        <NavLink to='popular/1'>Popular</NavLink>
                     </li>
                 </ul>
             </div>

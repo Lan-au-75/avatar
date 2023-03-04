@@ -1,8 +1,8 @@
-import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import DetailMovie from './components/DetailMovie'
+import DetailTV from './components/DetailTV'
 import Layout1 from './layouts/Layout1'
 import AiringToDay from './pages/airingToDay'
-import DetailMovie from './pages/detail-movie'
 import ErrorPage from './pages/error-page'
 import Movies from './pages/movies'
 import NowPlaying from './pages/nowPlaying'
@@ -11,6 +11,7 @@ import TopRated from './pages/topRated'
 import Trending from './pages/trending'
 import TVShow from './pages/tvShows'
 import Upcoming from './pages/upcoming'
+import Watching from './pages/watchcing'
 
 export default function App() {
     const router = createBrowserRouter([
@@ -29,6 +30,7 @@ export default function App() {
                             children: [
                                 {
                                     path: ':pageID',
+                                    element: <Trending />,
                                 },
                             ],
                         },
@@ -39,6 +41,7 @@ export default function App() {
                             children: [
                                 {
                                     path: ':pageID',
+                                    element: <NowPlaying />,
                                 },
                             ],
                         },
@@ -48,6 +51,7 @@ export default function App() {
                             children: [
                                 {
                                     path: ':pageID',
+                                    element: <TopRated />,
                                 },
                             ],
                         },
@@ -57,6 +61,7 @@ export default function App() {
                             children: [
                                 {
                                     path: ':pageID',
+                                    element: <Upcoming />,
                                 },
                             ],
                         },
@@ -66,6 +71,7 @@ export default function App() {
                             children: [
                                 {
                                     path: ':pageID',
+                                    element: <Popular />,
                                 },
                             ],
                         },
@@ -81,6 +87,7 @@ export default function App() {
                             children: [
                                 {
                                     path: ':pageID',
+                                    element: <AiringToDay />,
                                 },
                             ],
                         },
@@ -91,6 +98,16 @@ export default function App() {
         {
             path: 'detail/:detailID',
             element: <DetailMovie />,
+        },
+
+        {
+            path: 'detailTV/:detailID',
+            element: <DetailTV />,
+        },
+
+        {
+            path: 'watching/:watchingKey/:detailID',
+            element: <Watching />,
         },
     ])
     return <RouterProvider router={router} />
