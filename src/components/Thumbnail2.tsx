@@ -36,7 +36,7 @@ function Thumbnail2({ movie }: Props) {
 
                         <div className='flex items-end justify-between gap-4'>
                             <Link
-                                to='/'
+                                to={`/detail/${movie?.id}`}
                                 className='btn relative min-w-[80px] min-h-[38px]  md:min-w-[100px] md:min-h-[41px]'
                             >
                                 Watch now
@@ -44,8 +44,8 @@ function Thumbnail2({ movie }: Props) {
                             <HeaderIcon
                                 Icon={MdAdd}
                                 ActiveIcon={BsCheck}
-                                classActiveIcon='text-white'
-                                classActiveBg='bg-green-500'
+                                classIcon='iconDefault'
+                                classActiveIcon='iconActiveDefault text-white bg-green-500'
                             />
                         </div>
                     </div>

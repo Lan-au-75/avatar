@@ -1,3 +1,5 @@
+import { compileStringAsync } from 'sass'
+
 type TVShow = Pick<TV, 'name' | 'first_air_date'>
 
 export interface Movie extends TVShow {
@@ -42,4 +44,60 @@ export interface TV extends MovieShow {
 export enum Category {
     Movie = 'movie',
     Tv = 'tv',
+}
+
+export interface Detail {
+    backdrop_path: string
+    genres: [
+        {
+            id: number
+            name: string
+        }
+    ]
+    id: number
+    original_language: string
+    original_title: string
+    overview: string
+    poster_path: string
+    production_countries: Array<any>
+    release_date: string
+    revenue: number
+    runtime: number
+    status: string
+    tagline: string
+    title: string
+    vote_average: number
+    vote_count: number
+    name: string
+    last_air_date: string
+    homepage: string
+    number_of_episodes: number
+}
+
+export interface Video {
+    id: string
+    iso_639_1: string
+    iso_3166_1: string
+    key: string
+    name: string
+    official: boolean
+    published_at: string
+    site: string
+    size: number
+    type: string
+}
+
+export interface Review {
+    author: string
+    author_details: {
+        avatar_path: string
+        name: string
+        rating: number
+        username: string
+    }
+    content: string
+    created_at: '2023-02-01T18:18:26.854Z'
+    id: '63daacf2a9117f009da4d879'
+    updated_at: '2023-02-01T18:18:26.960Z'
+    url: 'https://www.themoviedb.org/review/63daacf2a9117f009da4d879'
 }

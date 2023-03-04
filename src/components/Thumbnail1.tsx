@@ -19,7 +19,7 @@ function Thumbnail1({ movie }: Props) {
             <div className='absolute top-3 right-5 flex items-center gap-1 bg-black/80 px-2 py-1 rounded-2xl'>
                 <AiFillStar className='text-yellow-500' size={16} />
                 <span className='text-white text-sm'>
-                    {movie?.vote_average.toString().slice(0, 3)}
+                    {movie?.vote_average.toString()?.slice(0, 3)}
                 </span>
             </div>
             <img
@@ -32,10 +32,10 @@ function Thumbnail1({ movie }: Props) {
                     <h2 className='text-xl md:text-2xl up capitalize line-clamp-1'>
                         {movie?.original_title || movie?.title || movie?.name}
                     </h2>
-                    <p>{movie?.vote_average.toString().slice(0, 3)}</p>
+                    <p>{movie?.vote_average.toString()?.slice(0, 3)}</p>
                     <div className='flex items-end justify-between'>
                         <Link
-                            to='/'
+                            to={`/detail/${movie?.id}`}
                             className='btn relative min-w-[80px] min-h-[38px]  md:min-w-[100px] md:min-h-[41px]'
                         >
                             Watch now
@@ -43,8 +43,8 @@ function Thumbnail1({ movie }: Props) {
                         <HeaderIcon
                             Icon={MdAdd}
                             ActiveIcon={BsCheck}
-                            classActiveIcon='text-white'
-                            classActiveBg='bg-green-500'
+                            classIcon='iconDefault'
+                            classActiveIcon='iconActiveDefault text-white bg-green-500'
                         />
                     </div>
                 </div>

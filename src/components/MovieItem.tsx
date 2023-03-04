@@ -1,5 +1,7 @@
 import { Movie, TV } from '@/types/movies.type'
+import { useEffect } from 'react'
 import { UseQueryResult } from 'react-query'
+import { useLocation, useParams } from 'react-router-dom'
 import Card from './Card'
 import Pagination from './Pagination'
 
@@ -18,10 +20,18 @@ interface Props {
 function MovieItem({ data, page, setPage }: Props) {
     const totalPages = data.data?.totalPages
 
+    const location = useLocation()
+
+    const id = useParams()
+
+    useEffect(() => {
+        setPage(Number(id.pageID))
+    }, [id.pageID])
+
     return (
         <div className='flex flex-col gap-y-20'>
             <ul className='grid gap-x-3 md:gap-x-4 justify-start gap-y-20 grid-cols-2 mobile:grid-cols-3 md:grid-cols-3 xl:grid-cols-4'>
-                {data.data?.movies.map((movie) => (
+                {data.data?.movies?.map((movie) => (
                     <li key={movie.id}>
                         <Card movie={movie} />
                     </li>

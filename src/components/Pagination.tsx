@@ -1,8 +1,7 @@
-import { useState } from 'react'
-import { useMovies } from '@/pages/movies'
-import { FiChevronLeft, FiChevronRight, FiChevronsLeft, FiChevronsRight } from 'react-icons/fi'
-import { NavLink, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
+import { useState } from 'react'
+import { FiChevronLeft, FiChevronsLeft, FiChevronsRight } from 'react-icons/fi'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 enum Direction {
     Prev = 'prev',
@@ -28,18 +27,23 @@ function Pagination({ page, setPage, totalPages }: Props) {
         setIsMoved(true)
         if (direction === Direction.Prev) {
             setPage(page - 1)
-            navigate(`page=${page - 1}`)
+            navigate(`${page - 1}`)
         } else {
             setPage(page + 1)
-            navigate(`page=${page + 1}`)
+            navigate(`${page + 1}`)
         }
     }
 
     // handle Click page
-    const handleClickPage = (currentPage: number | string) => {
+    const handleClickPage = (
+        e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+        currentPage: number | string
+    ) => {
         setIsMoved(true)
         if (currentPage !== '...') {
             setPage(Number(currentPage))
+        } else {
+            e.preventDefault()
         }
     }
 
@@ -47,16 +51,16 @@ function Pagination({ page, setPage, totalPages }: Props) {
     const handleClickStartAndEnd = (direction: string) => {
         if (direction === Direction.Start) {
             setPage(1)
-            navigate(`page=${1}`)
+            navigate(`${1}`)
         } else {
             setPage(Number(totalPages))
-            navigate(`page=${totalPages}`)
+            navigate(`${totalPages}`)
             setIsMoved(true)
         }
     }
 
     return (
-        <ul className='flex items-center gap-3'>
+        <ul className='flex items-center gap-3 '>
             <button
                 className={clsx('pagination disabled:hidden', !isMoved && 'hidden')}
                 onClick={() => handleClickStartAndEnd(Direction.Start)}
@@ -80,11 +84,11 @@ function Pagination({ page, setPage, totalPages }: Props) {
                           className='flex items-center justify-center bg-base200 rounded-full overflow-hidden'
                       >
                           <NavLink
-                              to={clsx('page=' + page)}
+                              to={clsx(page)}
                               className={({ isActive }) =>
                                   clsx('pagination', isActive ? 'bg-green-500' : '')
                               }
-                              onClick={() => handleClickPage(page)}
+                              onClick={(e) => handleClickPage(e, page)}
                           >
                               {page}
                           </NavLink>
@@ -96,11 +100,11 @@ function Pagination({ page, setPage, totalPages }: Props) {
                           className='flex items-center justify-center bg-base200 rounded-full overflow-hidden'
                       >
                           <NavLink
-                              to={clsx('page=' + page)}
+                              to={clsx(page)}
                               className={({ isActive }) =>
                                   clsx('pagination', isActive ? 'bg-green-500' : '')
                               }
-                              onClick={() => handleClickPage(page)}
+                              onClick={(e) => handleClickPage(e, page)}
                           >
                               {page}
                           </NavLink>

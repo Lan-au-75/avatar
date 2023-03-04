@@ -1,25 +1,41 @@
 import { baseUrl } from '@/requests'
 import { Movie, TV } from '@/types/movies.type'
 import { AiFillStar } from 'react-icons/ai'
-import { Link, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 interface Props {
     movie: Movie | TV
 }
 
 function Card({ movie }: Props) {
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    // handle navigate when path movie/tv
+    const handleNavigate = () => {
+        if (location.pathname.match('movies')) {
+            navigate(`/detail/${movie.id} `)
+        } else {
+            navigate(`/detailTV/${movie.id}`)
+        }
+    }
+
+    const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+        ;(e.target as HTMLImageElement).src = '/no-img.png'
+    }
+
     return (
-        <div className='relative hover:scale-110 transition-all ease-linear duration-200 w-[180px] sm:w-[200px] md:w-[230px] lg:w-[250px]'>
-            <Link to={`/detail/${movie.id}`}>
-                <div
-                    style={{
-                        backgroundImage: `url(${
-                            baseUrl + (movie?.poster_path || movie?.backdrop_path)
-                        })`,
-                    }}
-                    className='pt-[100%]  min-h-[270px] sm:min-h-[330px] md:min-h-[350px] rounded-[30px] bg-center bg-no-repeat bg-cover'
-                ></div>
-            </Link>
+        <div className='relative hover:scale-110 transition-all ease-linear duration-200 w-[180px] sm:w-[200px] md:w-[230px] lg:w-[250px] cursor-pointer'>
+            <div onClick={handleNavigate}>
+                <figure className='relative pt-[100%] min-h-[270px] sm:min-h-[330px] md:min-h-[350px] '>
+                    <img
+                        src={`${baseUrl + (movie?.poster_path || movie?.backdrop_path)}`}
+                        alt={movie.original_title || movie.name}
+                        className='absolute top-0 bottom-0 object-cover object-center rounded-t-[30px] '
+                        onError={(e) => handleImgError(e)}
+                    />
+                </figure>
+            </div>
 
             <div className='card-content'>
                 <h2 className='text-base md:text-xl line-clamp-1'>
