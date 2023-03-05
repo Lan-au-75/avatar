@@ -15,6 +15,16 @@
     body {
         overflow: overplay;
     }
+
+    // no drag img
+    img {
+        -webkit-user-drag: none;
+        user-drag: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
 }
 
 @layer components {
@@ -120,6 +130,11 @@
 
     .pagination {
         @apply py-2 px-3 md:py-2 md:px-4 bg-base200 rounded-full hover:text-white hover:bg-green-500 transition-all ease-linear duration-200;
+    }
+
+    .divide {
+        @apply after:absolute after:right-[-6px] after:top-1/2  after:-translate-y-1/2  
+         after:h-4 after:border after:border-solid after:border-red-500;
     }
 }
 

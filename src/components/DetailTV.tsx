@@ -1,9 +1,13 @@
+import { useState, useEffect, startTransition } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { HiBars3BottomLeft } from 'react-icons/hi2'
 import { baseUrl } from '@/requests'
 import { Category, Detail, Video } from '@/types/movies.type'
 import { useQuery } from 'react-query'
 import { fetchDetailMovie } from '@/hooks/fetchApi'
+import { getVideo } from '@/apis/getVideo.api'
+import ReactPlayer from 'react-player'
+import Modal from './Modal'
 
 const socials = [
     {
@@ -22,12 +26,66 @@ const socials = [
 
 function DetailTV() {
     const { detailID } = useParams<{ detailID?: string }>()
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [videoMovie, setVideoMovie] = useState<Video[]>([])
+    const [errorVideos, setErrorVideos] = useState<string[]>([])
 
     const detailTV = useQuery('detailTV', async () =>
         fetchDetailMovie(Number(detailID), Category.Tv)
     )
 
-    const data = detailTV.data
+    const data = detailTV.data!
+    const videos = videoMovie!
+
+    useEffect(() => {
+        const video = async () => {
+            const res: Video[] = await getVideo(Number(detailID), Category.Tv)
+            startTransition(() => {
+                setVideoMovie(res)
+            })
+        }
+
+        video()
+    }, [])
+
+    // handle video error
+    const handleVideoError = (video: string) => {
+        setErrorVideos((errorVideos) => [...errorVideos, video])
+    }
+
+    // render a movie trailer
+
+    const trailerMovie = videos?.find((video) => video.type === 'Trailer')
+
+    // render list movie trailer
+    const trailerMovies = videos
+        ?.filter((video) => video.type === 'Trailer' && !errorVideos.includes(video.id))
+        ?.map((video) => {
+            if (video.type === 'Trailer' && video.key) {
+                return (
+                    <ReactPlayer
+                        key={video?.id}
+                        url={`https://www.youtube.com/watch?v=${video.key}`}
+                        width={254}
+                        height={160}
+                        controls
+                        onError={() => handleVideoError(video.id)}
+                    />
+                )
+            }
+
+            return null // return null if video does not exist
+        })
+
+    // handle close and open
+
+    const showModal = () => {
+        setIsModalOpen(true)
+    }
+
+    const handleCancel = () => {
+        setIsModalOpen(false)
+    }
 
     const date = new Date(data?.release_date! || data?.last_air_date!)
     const formattedDate = date.toLocaleString('en-US', { month: 'long', day: 'numeric' })
@@ -44,7 +102,7 @@ function DetailTV() {
                         }}
                         className='h-screen bg-no-repeat bg-center bg-cover -z-30'
                     >
-                        <div className='flex flex-col md:flex-row justify-between gap-6 md:gap-10 p-4 mobile:p-10 md:p-16'>
+                        <div className='fixed inset-0 bg-black/5 flex flex-col md:flex-row justify-between gap-6 md:gap-10 p-4 mobile:p-10 md:p-16'>
                             {/* left */}
 
                             <div className='flex flex-col h-[530px] w-full md:w-[70%] justify-between'>
@@ -62,11 +120,17 @@ function DetailTV() {
                                     <h2 className='text-5xl md:text-7xl text-white font-semibold mt-5'>
                                         {data?.original_title || data?.name}
                                     </h2>
-                                    <div className='flex gap-4 md:gap-6 mt-10'>
-                                        <button className='btn2 bg-base200/80 op hover:bg-red-500 transition-all ease-linear'>
+                                    <div className='flex gap-4 md:gap-6 mt-10 text-shadow-lg'>
+                                        <Link
+                                            to={`/watchingTV/${trailerMovie?.key}/${data?.id}`}
+                                            className='btn2 bg-base200/80 op hover:bg-red-500 transition-all ease-linear'
+                                        >
                                             Watch now
-                                        </button>
-                                        <button className='btn2 bg-transparent relative btn-effect-2'>
+                                        </Link>
+                                        <button
+                                            className='btn2 bg-transparent relative btn-effect-2'
+                                            onClick={showModal}
+                                        >
                                             <span>Watch the trailer</span>
                                         </button>
                                     </div>
@@ -87,17 +151,18 @@ function DetailTV() {
                                         <p className='text-sm md:text-lg text-white font-semibold capitalize'>
                                             Rito
                                         </p>
-                                        <p className='text-gray-400 capitalize'>nothing</p>
+                                        <p className='text-base200 capitalize'>nothing</p>
                                     </div>
                                 </div>
 
                                 <div className='flex flex-col gap-y-5'>
                                     <span className='text-white text-xl text-shadow-md capitalize'>
-                                        number of episodes
+                                        Trailer
                                     </span>
                                     <div className='flex flex-col gap-3 h-[364px] overflow-y-auto scrollbar-hide'>
                                         {' '}
-                                        {/* img number_of_episodes*/}
+                                        {trailerMovies}
+                                        {errorVideos.length > 0 && ''}
                                     </div>
                                 </div>
 
@@ -113,6 +178,9 @@ function DetailTV() {
                             </div>
                         </div>
                     </div>
+
+                    {/* modal */}
+                    <Modal close={handleCancel} open={isModalOpen} videos={videos} data={data} />
                 </section>
             )}
         </>

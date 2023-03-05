@@ -25,13 +25,57 @@ interface Props {
 function Modal({ close, open, videos, data }: Props) {
     const [isPlaying, setIsPlaying] = useState(false)
     const [muted, setMuted] = useState(false)
+    const [errorVideos, setErrorVideos] = useState<string[]>([])
 
+    // handle stopPropagation
     const handleStop = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
     }
 
-    const trailerMovie = videos?.find((video) => video.type === 'Trailer')
-    const fallBack = videos?.find((video) => video.type === 'Teaser')
+    // handle video error
+    const handleVideoError = (video: string) => {
+        setErrorVideos((errorVideos) => [...errorVideos, video])
+    }
+
+    const trailerMovies = videos
+        ?.filter((video) => video.type === 'Trailer' && !errorVideos.includes(video.id))
+        ?.map((video) => {
+            if (video.type.includes('Trailer') && video?.key) {
+                return (
+                    <ReactPlayer
+                        url={`https://www.youtube.com/watch?v=${video?.key}`}
+                        width='100%'
+                        height='100%'
+                        style={{ position: 'absolute', top: '0', left: '0' }}
+                        playing={isPlaying}
+                        muted={muted}
+                        onError={() => handleVideoError(video.id)}
+                    />
+                )
+            }
+        })
+
+    // fallBack video
+
+    const fallBack = videos?.map((video) => {
+        if (
+            video.type === 'Teaser' ||
+            video.type === 'Featurette' ||
+            video.type === 'Official Teaser Trailer'
+        ) {
+            return (
+                <ReactPlayer
+                    url={`https://www.youtube.com/watch?v=${video?.key}`}
+                    width='100%'
+                    height='100%'
+                    style={{ position: 'absolute', top: '0', left: '0' }}
+                    playing={isPlaying}
+                    muted={muted}
+                    onError={() => handleVideoError(video.id)}
+                />
+            )
+        }
+    })
 
     return (
         // overplay
@@ -50,15 +94,8 @@ function Modal({ close, open, videos, data }: Props) {
                 onClick={(e) => handleStop(e)}
             >
                 <div className='relative pt-[50%]'>
-                    <ReactPlayer
-                        url={`https://www.youtube.com/watch?v=${trailerMovie?.key}`}
-                        width='100%'
-                        height='100%'
-                        style={{ position: 'absolute', top: '0', left: '0' }}
-                        playing={isPlaying}
-                        muted={muted}
-                        onError={() => fallBack?.key}
-                    />
+                    {trailerMovies}
+                    {errorVideos.length > 0 && fallBack}
                     <span
                         className='absolute right-4 top-3 text-xl md:text-2xl text-white bg-base200 rounded-full 
                      p-3 md:p-1 cursor-pointer hover:opacity-80'
@@ -116,9 +153,9 @@ function Modal({ close, open, videos, data }: Props) {
                     </div>
                 </div>
                 <div className='flex flex-col gap-y-4 px-5 py-4  md:px-10 md:py-8'>
-                    <p className='text-green-500 text-sm flex gap-3'>
-                        IMDB {data.vote_average.toFixed(1)}{' '}
-                        <span className=' text-white'> {formattedDate(data)}</span>
+                    <p className='text-green-500 text-sm gap-3 flex  '>
+                        <span className='relative divide'>IMDB {data.vote_average.toFixed(1)}</span>
+                        <span className='text-white'> {formattedDate(data)}</span>
                     </p>
                     <div className='flex flex-col md:flex-row justify-between gap-3 md:gap-5'>
                         <p className=' text-lg w-full md:w-[60%] flex-1 text-white'>
@@ -127,10 +164,11 @@ function Modal({ close, open, videos, data }: Props) {
                         <div className='flex flex-col gap-y-3 text-sm'>
                             <p className='text-gray-300'>
                                 Genres:{' '}
-                                {data.genres.map((genre) => (
+                                {data.genres.map((genre, i) => (
                                     <span key={genre.id} className='text-white'>
                                         {' '}
                                         {genre.name}
+                                        {i !== data.genres.length - 1 ? ',' : ''}
                                     </span>
                                 ))}
                             </p>

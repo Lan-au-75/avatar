@@ -63,7 +63,7 @@ function Comments({ reviews }: Props) {
                                 <p className='text-sm hover:underline cursor-pointer'>like</p>
                                 <p className='text-sm hover:underline cursor-pointer'>reply</p>
                                 <p className='text-sm hover:underline cursor-pointer lowercase'>
-                                    {day} ago
+                                    {day} days ago
                                 </p>
                             </div>
                         </div>

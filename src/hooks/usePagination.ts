@@ -7,33 +7,29 @@ import {
     fetchUpcoming,
 } from '@/hooks/fetchApi'
 import { useState } from 'react'
-import { useQuery, UseQueryResult } from 'react-query'
+import { useQuery } from 'react-query'
 
 function usePagination(category: string) {
-    const [pageTrending, setPageTrending] = useState<number>(1)
-    const [pageNowPlaying, setPageNowPlaying] = useState<number>(1)
+    const [page, setPage] = useState<number>(1)
+    // const [pageNowPlaying, setPageNowPlaying] = useState<number>(1)
     const [pageTopRated, setPageTopRated] = useState<number>(1)
     const [pageUpcoming, setPageUpcoming] = useState<number>(1)
     const [pagePopularity, setPagePopularity] = useState<number>(1)
     const [pageAiringToDay, setPageAiringToDay] = useState<number>(1)
 
     const trendingMovie = useQuery(
-        ['trendingData', { pageTrending }],
-        () => fetchTrendingMovie(category, pageTrending),
+        ['trendingData', { page }],
+        () => fetchTrendingMovie(category, page),
         {
             staleTime: 60 * 1000, // 1 minute
             keepPreviousData: true,
         }
     )
 
-    const nowPlaying = useQuery(
-        ['nowPlayingData', { pageNowPlaying }],
-        async () => fetchNowPlaying(pageNowPlaying),
-        {
-            staleTime: 60 * 1000, // 1 minute
-            keepPreviousData: true,
-        }
-    )
+    const nowPlaying = useQuery(['nowPlayingData', { page }], async () => fetchNowPlaying(page), {
+        staleTime: 60 * 1000, // 1 minute
+        keepPreviousData: true,
+    })
 
     const topRated = useQuery(
         ['topRatedData', { pageTopRated }],
@@ -71,11 +67,10 @@ function usePagination(category: string) {
     )
     return {
         trendingMovie,
-        pageTrending,
-        setPageTrending,
+        page,
+        setPage,
         nowPlaying,
-        pageNowPlaying,
-        setPageNowPlaying,
+
         topRated,
         pageTopRated,
         setPageTopRated,

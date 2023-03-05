@@ -8,18 +8,20 @@ import { Category, Review } from '@/types/movies.type'
 import { useQuery } from 'react-query'
 import { fetchDetailMovie } from '@/hooks/fetchApi'
 
-interface Watching {
+interface WatchingTV {
     watchingKey?: string
     detailID?: string
 }
 
-function Watching() {
+function WatchingTV() {
     const [review, setReview] = useState<Review[]>()
-    const { watchingKey, detailID }: Watching = useParams()
+    const { watchingKey, detailID }: WatchingTV = useParams()
 
     const { data } = useQuery('detailMovie', async () =>
-        fetchDetailMovie(Number(detailID), Category.Movie)
+        fetchDetailMovie(Number(detailID), Category.Tv)
     )
+
+    console.log({ data })
 
     useEffect(() => {
         const video = async () => {
@@ -43,11 +45,11 @@ function Watching() {
             </div>
             <div className='flex flex-col gap-y-3 md:gap-y-4  px-4 py-6 md:p-10'>
                 <div className='text-green-500 text-3xl md:text-4xl font-semibold'>
-                    {data?.name || data?.original_title}
+                    {data?.name || data?.original_title} TV
                 </div>
                 <div className='flex items-center gap-3 md:gap-4'>
                     <span className='text-green-500'>
-                        {data?.vote_average.toFixed(1)} | {data?.release_date.slice(0, 4)}
+                        {data?.vote_average.toFixed(1)} | {data?.release_date?.slice(0, 4)}
                     </span>
                     <p className=' flex gap-2 md:gap-3 text-gray-400'>
                         genres:
@@ -66,4 +68,4 @@ function Watching() {
     )
 }
 
-export default Watching
+export default WatchingTV

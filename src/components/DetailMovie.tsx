@@ -35,8 +35,8 @@ function DetailMovie() {
         fetchDetailMovie(Number(detailID), Category.Movie)
     )
 
-    let data = detailMovie.data!
-    let videos = videoMovie!
+    const data = detailMovie.data!
+    const videos = videoMovie!
 
     useEffect(() => {
         const video = async () => {
@@ -90,10 +90,10 @@ function DetailMovie() {
                         }}
                         className='h-screen bg-no-repeat bg-center bg-cover -z-30'
                     >
-                        <div className='flex flex-col md:flex-row justify-between gap-6 md:gap-10 p-4 mobile:p-10 md:p-14'>
+                        <div className='fixed inset-0 bg-black/5 flex flex-col md:flex-row justify-between gap-6 md:gap-10 p-4 mobile:p-10 md:p-14'>
                             {/* left */}
 
-                            <div className='flex flex-col h-[530px] w-full md:w-[70%] justify-between'>
+                            <div className=' flex flex-col h-[530px] w-full md:w-[70%] justify-between'>
                                 <div className='flex items-center  justify-between'>
                                     <p className='text-2xl lg:text-3xl font-semibold text-gray-600 text-shadow-md'>
                                         {data?.original_title || data?.name}
@@ -139,7 +139,7 @@ function DetailMovie() {
                                         <p className='text-sm md:text-lg text-white font-semibold capitalize'>
                                             Rito
                                         </p>
-                                        <p className='text-gray-400 capitalize'>nothing</p>
+                                        <p className='text-base200 capitalize'>nothing</p>
                                     </div>
                                 </div>
 

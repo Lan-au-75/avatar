@@ -59,23 +59,23 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
     const handleMovedPage = () => {
         switch (title) {
             case 'Trending Movies':
-                navigate('/movies/trending/1')
+                navigate('/movies/trending?page=1')
                 break
 
             case 'Continue watching':
-                navigate('/movies/now-playing/1')
+                navigate('/movies/now-playing?page=1')
                 break
 
             case 'Top rated':
-                navigate('/movies/top-rated/1')
+                navigate('/movies/top-rated?page=1')
                 break
 
             case 'Upcoming':
-                navigate('/movies/upcoming/1')
+                navigate('/movies/upcoming?page=1')
                 break
 
             case 'Popular':
-                navigate('/movies/popular/1')
+                navigate('/movies/popular?page=1')
                 break
 
             default:

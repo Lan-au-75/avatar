@@ -31,7 +31,7 @@ function MenuBox({ menuItem, user, className }: Props, ref: any) {
                 <img
                     src={user.img}
                     alt='avatar user'
-                    className='h-11 w-11 object-cover object-center rounded-full'
+                    className='h-11 w-11 object-cover object-center rounded-full cursor-pointer'
                 />
                 <div className='flex flex-col gap-y-1'>
                     <p>{user.name}</p>

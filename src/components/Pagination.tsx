@@ -1,3 +1,5 @@
+import { usePagination } from '@/context/PaginationContext'
+import { isPaginationActive } from '@/hooks/isPaginationActive'
 import clsx from 'clsx'
 import { useState } from 'react'
 import { FiChevronLeft, FiChevronsLeft, FiChevronsRight } from 'react-icons/fi'
@@ -10,12 +12,11 @@ enum Direction {
     End = 'end',
 }
 interface Props {
-    page: number
-    setPage: React.Dispatch<React.SetStateAction<number>>
     totalPages: number | string | undefined
 }
 
-function Pagination({ page, setPage, totalPages }: Props) {
+function Pagination({ totalPages }: Props) {
+    const { page, setPage } = usePagination()
     const [isMoved, setIsMoved] = useState<boolean>(true)
     const navigate = useNavigate()
 
@@ -27,10 +28,10 @@ function Pagination({ page, setPage, totalPages }: Props) {
         setIsMoved(true)
         if (direction === Direction.Prev) {
             setPage(page - 1)
-            navigate(`${page - 1}`)
+            navigate(`?page=${page - 1}`)
         } else {
             setPage(page + 1)
-            navigate(`${page + 1}`)
+            navigate(`?page=${page + 1}`)
         }
     }
 
@@ -51,10 +52,10 @@ function Pagination({ page, setPage, totalPages }: Props) {
     const handleClickStartAndEnd = (direction: string) => {
         if (direction === Direction.Start) {
             setPage(1)
-            navigate(`${1}`)
+            navigate(`?page=${1}`)
         } else {
             setPage(Number(totalPages))
-            navigate(`${totalPages}`)
+            navigate(`?page=${totalPages}`)
             setIsMoved(true)
         }
     }
@@ -84,9 +85,9 @@ function Pagination({ page, setPage, totalPages }: Props) {
                           className='flex items-center justify-center bg-base200 rounded-full overflow-hidden'
                       >
                           <NavLink
-                              to={clsx(page)}
-                              className={({ isActive }) =>
-                                  clsx('pagination', isActive ? 'bg-green-500' : '')
+                              to={clsx('?page=' + page)}
+                              className={() =>
+                                  clsx('pagination', isPaginationActive(page) ? 'bg-green-500' : '')
                               }
                               onClick={(e) => handleClickPage(e, page)}
                           >
@@ -100,9 +101,9 @@ function Pagination({ page, setPage, totalPages }: Props) {
                           className='flex items-center justify-center bg-base200 rounded-full overflow-hidden'
                       >
                           <NavLink
-                              to={clsx(page)}
-                              className={({ isActive }) =>
-                                  clsx('pagination', isActive ? 'bg-green-500' : '')
+                              to={clsx('?page=' + page)}
+                              className={() =>
+                                  clsx('pagination', isPaginationActive(page) ? 'bg-green-500' : '')
                               }
                               onClick={(e) => handleClickPage(e, page)}
                           >
