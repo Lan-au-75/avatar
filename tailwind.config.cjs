@@ -4,6 +4,7 @@ module.exports = {
     theme: {
         extend: {
             screens: {
+                mini: '396px',
                 mobile: '568px',
                 pc: '1025px',
             },
@@ -20,6 +21,7 @@ module.exports = {
             animation: {
                 modalFadeIn: 'modal .4s ease-in-out',
                 menuBox: 'menu .2s linear ',
+                like: 'like .7s ease-in-out',
             },
 
             keyframes: {
@@ -42,6 +44,14 @@ module.exports = {
                         transform: 'scale(1)',
 
                         opacity: '1',
+                    },
+                },
+                like: {
+                    '0%, 100%': {
+                        transform: 'rotate(0deg)',
+                    },
+                    '50%': {
+                        transform: 'rotate(-30deg)',
                     },
                 },
             },

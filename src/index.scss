@@ -110,7 +110,12 @@
     }
 
     .btn2 {
-        @apply flex items-center justify-center text-lg capitalize rounded-sm px-3 py-3 md:min-w-[172px] min-h-[40px] text-white;
+        @apply flex items-center justify-center text-lg capitalize rounded-sm px-3 py-3 md:min-w-[172px] min-w-[150px]  min-h-[40px] text-white;
+    }
+
+    .btn-number {
+        @apply flex items-center justify-center w-10 h-10 md:w-12 md:h-12 hover:bg-green-500 transition-all 
+        duration-200 ease-in-out text-white rounded-lg bg-base200;
     }
 
     .scroll-x {
@@ -133,7 +138,7 @@
     }
 
     .divide {
-        @apply after:absolute after:right-[-6px] after:top-1/2  after:-translate-y-1/2  
+        @apply after:absolute after:right-[-7px] after:top-1/2  after:-translate-y-1/2  
          after:h-4 after:border after:border-solid after:border-red-500;
     }
 }

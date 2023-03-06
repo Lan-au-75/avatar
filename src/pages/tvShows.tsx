@@ -1,5 +1,3 @@
-import usePagination from '@/hooks/usePagination'
-import { Category } from '@/types/movies.type'
 import { LatestPage } from '@/types/pagination.type'
 import { NavLink, Outlet, useOutletContext } from 'react-router-dom'
 
@@ -8,8 +6,6 @@ interface Props extends LatestPage {}
 type ContextMovie = { movies: Props }
 
 function TVShow() {
-    const movies = usePagination(Category.Tv)
-
     return (
         <main className='relative h-screen overflow-y-auto scrollbar-hide flex flex-col items-center flex-1 p-2 md:p-5 pc:items-start gap-5 md:gap-7'>
             <div className='absolute top-0 -left-8 h-[300px] w-[300px] rounded-full bg-blue-500 blur-3xl -z-10'></div>
@@ -22,7 +18,7 @@ function TVShow() {
                 </ul>
             </div>
 
-            <Outlet context={{ movies }} />
+            <Outlet />
         </main>
     )
 }

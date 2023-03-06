@@ -4,6 +4,7 @@ import { BsStickies } from 'react-icons/bs'
 import { Review } from '@/types/movies.type'
 import { baseUrl } from '@/requests'
 import moment from 'moment'
+import { handleImgError } from '@/hooks/handleImgError'
 
 interface Props {
     reviews: Review[] | undefined
@@ -13,6 +14,7 @@ function Comments({ reviews }: Props) {
     const review = reviews?.find((review) => review)
 
     const date = moment(review?.created_at)
+
     const day = moment().diff(date, 'day')
 
     return (
@@ -26,9 +28,10 @@ function Comments({ reviews }: Props) {
                         src='/avatar-user.jpg'
                         alt=''
                         className='h-10 w-10 rounded-full flex-shrink-0'
+                        onError={(e) => handleImgError(e)}
                     />
 
-                    <div className='flex flex-1 items-center justify-between rounded-lg p-3 bg-base200'>
+                    <div className='w-[288px] mini:w-full flex flex-1 items-center justify-between rounded-lg p-3 bg-base200'>
                         <input
                             type='text'
                             placeholder='write a comment'
@@ -45,18 +48,19 @@ function Comments({ reviews }: Props) {
 
                 {/* box 2 */}
                 {reviews?.map((review) => (
-                    <div className='flex items-start gap-3'>
+                    <div key={review.id} className='flex items-start gap-3'>
                         <img
                             src={`${baseUrl + review.author_details.avatar_path}`}
                             alt=''
                             className='h-10 w-10 rounded-full flex-shrink-0'
+                            onError={(e) => handleImgError(e)}
                         />
                         <div className='flex flex-col gap-1 flex-1'>
-                            <div className='flex flex-col gap-y-1 md:gap-y-2 bg-base200 rounded-lg [-2] text-white p-2 md:p-3'>
-                                <p className='text-base font-semibold'>
-                                    {review.author_details.name}
-                                </p>
-                                <p className='text-sm line-clamp-2'>{review.content}</p>
+                            <div className='w-[288px] mini:w-full flex flex-col gap-y-1 md:gap-y-2 bg-base200 rounded-lg  text-white p-2 md:p-3'>
+                                <span className='text-base font-semibold'>
+                                    {review.author_details.name || review.author}
+                                </span>
+                                <span className='text-sm line-clamp-2'>{review.content}</span>
                             </div>
 
                             <div className='flex px-3 gap-3 capitalize'>

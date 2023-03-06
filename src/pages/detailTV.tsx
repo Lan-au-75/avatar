@@ -1,13 +1,14 @@
-import { useState, useEffect, startTransition } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { startTransition, useEffect, useState } from 'react'
 import { HiBars3BottomLeft } from 'react-icons/hi2'
-import { baseUrl } from '@/requests'
-import { Category, Detail, Video } from '@/types/movies.type'
+import 'default-passive-events'
+import ReactPlayer from 'react-player/youtube'
 import { useQuery } from 'react-query'
-import { fetchDetailMovie } from '@/hooks/fetchApi'
+import { Link, useParams } from 'react-router-dom'
 import { getVideo } from '@/apis/getVideo.api'
-import ReactPlayer from 'react-player'
-import Modal from './Modal'
+import { fetchDetailMovie } from '@/hooks/fetchApi'
+import { baseUrl } from '@/requests'
+import { Category, Video } from '@/types/movies.type'
+import Modal from '../components/Modal'
 
 const socials = [
     {
@@ -37,6 +38,9 @@ function DetailTV() {
     const data = detailTV.data!
     const videos = videoMovie!
 
+    const date = new Date(data?.release_date! || data?.last_air_date!)
+    const formattedDate = date.toLocaleString('en-US', { month: 'long', day: 'numeric' })
+
     useEffect(() => {
         const video = async () => {
             const res: Video[] = await getVideo(Number(detailID), Category.Tv)
@@ -49,32 +53,55 @@ function DetailTV() {
     }, [])
 
     // handle video error
-    const handleVideoError = (video: string) => {
-        setErrorVideos((errorVideos) => [...errorVideos, video])
+    const handleVideoError = (videoId: string) => {
+        setErrorVideos((errorVideos) => [...errorVideos, videoId])
     }
 
     // render a movie trailer
 
-    const trailerMovie = videos?.find((video) => video.type === 'Trailer')
+    const trailerMovie = videos?.find((video) => video.type.includes('Trailer'))
 
     // render list movie trailer
     const trailerMovies = videos
-        ?.filter((video) => video.type === 'Trailer' && !errorVideos.includes(video.id))
+        ?.filter((video) => video.type.includes('Trailer') && !errorVideos.includes(video.id))
         ?.map((video) => {
-            if (video.type === 'Trailer' && video.key) {
+            if (video.type.includes('Trailer') && video.key) {
                 return (
                     <ReactPlayer
                         key={video?.id}
                         url={`https://www.youtube.com/watch?v=${video.key}`}
-                        width={254}
-                        height={160}
+                        width='100%'
+                        height='100%'
                         controls
                         onError={() => handleVideoError(video.id)}
                     />
                 )
             }
+            return null
+        })
 
-            return null // return null if video does not exist
+    // fallBack video
+
+    const fallBack = videos
+        ?.filter(
+            (video) =>
+                (video.type.includes('Teaser') || video.type.includes('Featurette')) &&
+                !errorVideos.includes(video.id)
+        )
+        ?.map((video) => {
+            if (video.key) {
+                return (
+                    <ReactPlayer
+                        key={video?.key}
+                        url={`https://www.youtube.com/watch?v=${video.key}`}
+                        width='100%'
+                        height='100%'
+                        controls
+                        onError={() => handleVideoError(video.id)}
+                    />
+                )
+            }
+            return null
         })
 
     // handle close and open
@@ -87,13 +114,10 @@ function DetailTV() {
         setIsModalOpen(false)
     }
 
-    const date = new Date(data?.release_date! || data?.last_air_date!)
-    const formattedDate = date.toLocaleString('en-US', { month: 'long', day: 'numeric' })
-
     return (
         <>
             {data && (
-                <section>
+                <section className='relative isolate'>
                     <div
                         style={{
                             backgroundImage: `url(${
@@ -102,19 +126,19 @@ function DetailTV() {
                         }}
                         className='h-screen bg-no-repeat bg-center bg-cover -z-30'
                     >
-                        <div className='fixed inset-0 bg-black/5 flex flex-col md:flex-row justify-between gap-6 md:gap-10 p-4 mobile:p-10 md:p-16'>
+                        <div className='absolute inset-0 bg-black/5 flex flex-col md:flex-row justify-between gap-6 md:gap-10 p-4 mobile:p-10 md:p-16'>
                             {/* left */}
 
-                            <div className='flex flex-col h-[530px] w-full md:w-[70%] justify-between'>
+                            <div className='flex  flex-col h-[530px] w-full md:w-[70%] justify-between'>
                                 <div className='flex items-center  justify-between'>
-                                    <p className='text-2xl lg:text-3xl font-semibold text-gray-600 text-shadow-md'>
+                                    <p className='text-2xl lg:text-3xl font-semibold text-red-500 text-shadow-md'>
                                         {data?.original_title || data?.name}
                                     </p>
                                     <HiBars3BottomLeft className='text-4xl md:text-3xl text-white cursor-pointer hover:opacity-90' />
                                 </div>
 
-                                <div className='text-shadow-md'>
-                                    <p className='text-gray-400 text-2xl font-medium'>
+                                <div className='text-shadow-md md:pl-[6px]'>
+                                    <p className='text-gray-400 text-2xl font-medium pt-2 md:pt-0 md:pl-[6px]'>
                                         <span className='text-white'>{formattedDate}</span>
                                     </p>
                                     <h2 className='text-5xl md:text-7xl text-white font-semibold mt-5'>
@@ -122,8 +146,8 @@ function DetailTV() {
                                     </h2>
                                     <div className='flex gap-4 md:gap-6 mt-10 text-shadow-lg'>
                                         <Link
-                                            to={`/watchingTV/${trailerMovie?.key}/${data?.id}`}
-                                            className='btn2 bg-base200/80 op hover:bg-red-500 transition-all ease-linear'
+                                            to={`/watchingTV/${trailerMovie?.key}/${data?.id}?server=1`}
+                                            className='btn2 bg-base200/80  hover:bg-red-500 transition-all ease-linear'
                                         >
                                             Watch now
                                         </Link>
@@ -138,20 +162,22 @@ function DetailTV() {
                             </div>
 
                             {/* right */}
-                            <div className='flex flex-col gap-10 md:gap-14'>
+                            <div className='flex flex-col gap-6 md:gap-10'>
                                 <div className='flex items-center gap-4'>
                                     <figure>
                                         <img
                                             src='/avatar-user.jpg'
                                             alt=''
-                                            className=' h-10 w-10 rounded-full object-cover object-center'
+                                            className='h-16 w-16 md:h-10 md:w-10 rounded-full object-cover object-center cursor-pointer'
                                         />
                                     </figure>
                                     <div className='text-shadow-md'>
-                                        <p className='text-sm md:text-lg text-white font-semibold capitalize'>
+                                        <p className='text-xl  md:text-lg text-white font-semibold capitalize'>
                                             Rito
                                         </p>
-                                        <p className='text-base200 capitalize'>nothing</p>
+                                        <p className='text-lg md:text-base text-gray-400 capitalize'>
+                                            nothing
+                                        </p>
                                     </div>
                                 </div>
 
@@ -159,14 +185,17 @@ function DetailTV() {
                                     <span className='text-white text-xl text-shadow-md capitalize'>
                                         Trailer
                                     </span>
-                                    <div className='flex flex-col gap-3 h-[364px] overflow-y-auto scrollbar-hide'>
-                                        {' '}
-                                        {trailerMovies}
-                                        {errorVideos.length > 0 && ''}
+                                    <div className='h-[364px] overflow-y-auto scrollbar-hide'>
+                                        <ul className='flex flex-col gap-3 w-full h-full sm:w-[254px] sm:h-[160px]'>
+                                            {trailerMovies}
+                                            {fallBack}
+                                        </ul>
                                     </div>
                                 </div>
 
-                                <div className='flex items-center justify-center text-xs gap-3'>
+                                <hr className='border border-solid mx-4 border-red-500' />
+
+                                <div className='flex items-center justify-center text-xs gap-3 mb-10 md:mb-0'>
                                     {socials.map((social) => (
                                         <Link to='/' key={social.title}>
                                             <span className='text-white uppercase font-medium cursor-pointer text-shadow-md'>

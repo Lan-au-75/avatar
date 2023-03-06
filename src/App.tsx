@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import DetailMovie from './components/DetailMovie'
-import DetailTV from './components/DetailTV'
+
 import PaginationProvider from './context/PaginationContext'
 import Layout1 from './layouts/Layout1'
 import AiringToDay from './pages/airingToDay'
+import DetailMovie from './pages/detailMovie'
+import DetailTV from './pages/detailTV'
 import ErrorPage from './pages/error-page'
 import Movies from './pages/movies'
 import NowPlaying from './pages/nowPlaying'

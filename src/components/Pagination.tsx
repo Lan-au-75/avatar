@@ -1,5 +1,5 @@
 import { usePagination } from '@/context/PaginationContext'
-import { isPaginationActive } from '@/hooks/isPaginationActive'
+import { isActive } from '@/hooks/isActive'
 import clsx from 'clsx'
 import { useState } from 'react'
 import { FiChevronLeft, FiChevronsLeft, FiChevronsRight } from 'react-icons/fi'
@@ -87,7 +87,7 @@ function Pagination({ totalPages }: Props) {
                           <NavLink
                               to={clsx('?page=' + page)}
                               className={() =>
-                                  clsx('pagination', isPaginationActive(page) ? 'bg-green-500' : '')
+                                  clsx('pagination', isActive(page, 'page') ? 'bg-green-500' : '')
                               }
                               onClick={(e) => handleClickPage(e, page)}
                           >
@@ -103,7 +103,7 @@ function Pagination({ totalPages }: Props) {
                           <NavLink
                               to={clsx('?page=' + page)}
                               className={() =>
-                                  clsx('pagination', isPaginationActive(page) ? 'bg-green-500' : '')
+                                  clsx('pagination', isActive(page, 'page') ? 'bg-green-500' : '')
                               }
                               onClick={(e) => handleClickPage(e, page)}
                           >

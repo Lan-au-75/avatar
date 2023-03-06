@@ -1,19 +1,18 @@
-import { formattedDate } from '@/hooks/formattedDate'
-import { Detail, Video } from '@/types/movies.type'
+import { FaPause, FaPlay } from 'react-icons/fa'
+import { GoMute, GoUnmute } from 'react-icons/go'
 import clsx from 'clsx'
 import { useState } from 'react'
 import {
-    AiOutlineClose,
-    AiOutlineLike,
     AiFillLike,
+    AiOutlineClose,
     AiOutlineDislike,
+    AiOutlineLike,
     AiTwotoneDislike,
 } from 'react-icons/ai'
-import { FaPlay, FaPause } from 'react-icons/fa'
-import { GoMute, GoUnmute } from 'react-icons/go'
 import ReactPlayer from 'react-player'
-import { NavLink } from 'react-router-dom'
 import HeaderIcon from './HeaderIcon'
+import { formattedDate } from '@/hooks/formattedDate'
+import { Detail, Video } from '@/types/movies.type'
 
 interface Props {
     close: () => void
@@ -37,12 +36,14 @@ function Modal({ close, open, videos, data }: Props) {
         setErrorVideos((errorVideos) => [...errorVideos, video])
     }
 
+    // render video trailer
     const trailerMovies = videos
-        ?.filter((video) => video.type === 'Trailer' && !errorVideos.includes(video.id))
+        ?.filter((video) => video.type.includes('Trailer') && !errorVideos.includes(video.id))
         ?.map((video) => {
             if (video.type.includes('Trailer') && video?.key) {
                 return (
                     <ReactPlayer
+                        key={video?.key}
                         url={`https://www.youtube.com/watch?v=${video?.key}`}
                         width='100%'
                         height='100%'
@@ -61,10 +62,13 @@ function Modal({ close, open, videos, data }: Props) {
         if (
             video.type === 'Teaser' ||
             video.type === 'Featurette' ||
-            video.type === 'Official Teaser Trailer'
+            video.type === 'Official Teaser Trailer' ||
+            video.type === 'Official Trailer' ||
+            video.type === 'SDCC Trailer'
         ) {
             return (
                 <ReactPlayer
+                    key={video?.key}
                     url={`https://www.youtube.com/watch?v=${video?.key}`}
                     width='100%'
                     height='100%'
@@ -94,8 +98,7 @@ function Modal({ close, open, videos, data }: Props) {
                 onClick={(e) => handleStop(e)}
             >
                 <div className='relative pt-[50%]'>
-                    {trailerMovies}
-                    {errorVideos.length > 0 && fallBack}
+                    {trailerMovies ? trailerMovies[0] : errorVideos.length > 0 && fallBack}
                     <span
                         className='absolute right-4 top-3 text-xl md:text-2xl text-white bg-base200 rounded-full 
                      p-3 md:p-1 cursor-pointer hover:opacity-80'
@@ -120,7 +123,7 @@ function Modal({ close, open, videos, data }: Props) {
                                 ) : (
                                     <>
                                         <FaPause className='text-2xl md:text-3xl' />
-                                        <span className='font-semibold'>Pause</span>
+                                        <span className='font-semibold  '>Pause</span>
                                     </>
                                 )}
                             </button>
@@ -129,7 +132,7 @@ function Modal({ close, open, videos, data }: Props) {
                                 Icon={AiOutlineLike}
                                 classIcon='p-3 text-white text-2xl md:text-3xl bg-base200 rounded-full'
                                 ActiveIcon={AiFillLike}
-                                classActiveIcon='p-3 text-2xl md:text-3xl bg-base200 text-green-500 rounded-full'
+                                classActiveIcon='p-3 text-2xl md:text-3xl bg-base200 text-green-500 rounded-full animate-like'
                             />
 
                             <HeaderIcon

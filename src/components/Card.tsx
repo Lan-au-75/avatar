@@ -1,3 +1,4 @@
+import { handleImgError } from '@/hooks/handleImgError'
 import { baseUrl } from '@/requests'
 import { Movie, TV } from '@/types/movies.type'
 import { AiFillStar } from 'react-icons/ai'
@@ -18,10 +19,6 @@ function Card({ movie }: Props) {
         } else {
             navigate(`/detailTV/${movie.id}`)
         }
-    }
-
-    const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-        ;(e.target as HTMLImageElement).src = '/no-img.png'
     }
 
     return (

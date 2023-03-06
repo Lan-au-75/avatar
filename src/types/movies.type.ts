@@ -69,9 +69,20 @@ export interface Detail {
     vote_average: number
     vote_count: number
     name: string
+    first_air_date: string
     last_air_date: string
     homepage: string
     number_of_episodes: number
+    seasons: [
+        {
+            id: number
+            name: string
+            overview: string
+            poster_path: string
+            episode_count: number
+            season_number: number
+        }
+    ]
 }
 
 export interface Video {
