@@ -86,7 +86,7 @@ function Watching() {
                     <p className='flex text-gray-400'>
                         Genres:{' '}
                         {data?.genres.map((genres, i) => (
-                            <span className='pl-1 text-white lowercase'>
+                            <span key={genres.id} className='pl-1 text-white lowercase'>
                                 {genres.name}
                                 {i !== data.genres.length - 1 ? ',' : ''}
                             </span>
@@ -116,57 +116,51 @@ function Watching() {
                 <ul className='flex item-center gap-3 md:gap-4'>
                     {data?.seasons.map((season, seasonID) => {
                         return (
-                            <>
-                                <li
-                                    key={uuidv4()}
-                                    className='min-w-[50px] min-h-10  text-lg md:text-xl hover:bg-red-500 capitalize bg-base200 rounded-xl text-white '
+                            <li
+                                key={uuidv4()}
+                                className='min-w-[50px] min-h-10  text-lg md:text-xl hover:bg-red-500 capitalize bg-base200 rounded-xl text-white '
+                            >
+                                <NavLink
+                                    to={`?server=${params.server}&season=${season.season_number}&episodes=1`}
+                                    className={clsx(
+                                        'inline-block p-3',
+                                        isActive(seasonID + 1, 'season')
+                                            ? 'bg-red-500 rounded-xl'
+                                            : ''
+                                    )}
                                 >
-                                    <NavLink
-                                        to={`?server=${params.server}&season=${season.season_number}&episodes=1`}
-                                        className={clsx(
-                                            'inline-block p-3',
-                                            isActive(seasonID + 1, 'season')
-                                                ? 'bg-red-500 rounded-xl'
-                                                : ''
-                                        )}
-                                    >
-                                        {season.name}
-                                    </NavLink>
-                                </li>
-                            </>
+                                    {season.name}
+                                </NavLink>
+                            </li>
                         )
                     })}
                 </ul>
 
-                <ul className='flex items-center gap-3 md:gap-4 flex-wrap'>
+                <ul className=''>
                     {data?.seasons.map((season, seasonID) => {
                         const arrNumberEpisodes: number[] = Array(season.episode_count)
                             .fill('')
                             .map((__, index) => index + 1)
 
                         return (
-                            <>
-                                {isActive(seasonID + 1, 'season') ? (
-                                    <>
-                                        {arrNumberEpisodes.map((episodes: number) => (
-                                            <NavLink
-                                                key={uuidv4()}
-                                                to={`?server=${params.server}&season=${season.season_number}&episodes=${episodes}`}
-                                                className={clsx(
-                                                    'btn-number',
-                                                    isActive(episodes, 'episodes')
-                                                        ? 'bg-green-500'
-                                                        : ''
-                                                )}
-                                            >
-                                                {episodes}
-                                            </NavLink>
-                                        ))}
-                                    </>
-                                ) : (
-                                    ''
-                                )}
-                            </>
+                            <li
+                                key={uuidv4()}
+                                className='flex items-center gap-3 md:gap-4 flex-wrap'
+                            >
+                                {params.season === (seasonID + 1).toString() &&
+                                    arrNumberEpisodes.map((episodes: number) => (
+                                        <NavLink
+                                            key={uuidv4()}
+                                            to={`?server=${params.server}&season=${season.season_number}&episodes=${episodes}`}
+                                            className={clsx(
+                                                'btn-number',
+                                                isActive(episodes, 'episodes') ? 'bg-green-500' : ''
+                                            )}
+                                        >
+                                            {episodes}
+                                        </NavLink>
+                                    ))}
+                            </li>
                         )
                     })}
                 </ul>
