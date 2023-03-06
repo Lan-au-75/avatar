@@ -146,7 +146,7 @@ function DetailTV() {
                                     </h2>
                                     <div className='flex gap-4 md:gap-6 mt-10 text-shadow-lg'>
                                         <Link
-                                            to={`/watchingTV/${trailerMovie?.key}/${data?.id}?server=1`}
+                                            to={`/watchingTV/${trailerMovie?.key}/${data?.id}?server=1&season=1&episodes=1`}
                                             className='btn2 bg-base200/80  hover:bg-red-500 transition-all ease-linear'
                                         >
                                             Watch now
@@ -196,7 +196,7 @@ function DetailTV() {
                                 <hr className='border border-solid mx-4 border-red-500' />
 
                                 <div className='flex items-center justify-center text-xs gap-3 mb-10 md:mb-0'>
-                                    {socials.map((social) => (
+                                    {socials?.map((social) => (
                                         <Link to='/' key={social.title}>
                                             <span className='text-white uppercase font-medium cursor-pointer text-shadow-md'>
                                                 {social.title}
