@@ -5,15 +5,23 @@ import { AiFillStar } from 'react-icons/ai'
 import { BsCheck } from 'react-icons/bs'
 import { MdAdd } from 'react-icons/md'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
 import HeaderIcon from './HeaderIcon'
-
-import { Fragment } from 'react'
+import 'react-toastify/dist/ReactToastify.css'
 
 interface Props {
     movie?: Movie
 }
 
 function Thumbnail1({ movie }: Props) {
+    const [showToast, setShowToast] = useState(false)
+
+    // handle show toast message
+    const handleIconClick = (e: MouseEvent) => {
+        setShowToast(true)
+    }
+
     return (
         <div className='thumbnail min-w-[calc(400px-160px)] h-[calc(250px-90px)] md:min-w-[400px] md:h-[250px]'>
             <div className='absolute top-3 right-5 flex items-center gap-1 bg-black/80 px-2 py-1 rounded-2xl'>
@@ -27,6 +35,7 @@ function Thumbnail1({ movie }: Props) {
                 alt={movie?.name || movie?.original_title}
                 className='object-cover object-center w-full h-full'
             />
+
             <div className='absolute top-[26%] md:top-[40%] inset-x-0 bottom-0 bg-gradient-to-b from-transparent to-black text-white'>
                 <div className='flex flex-col gap-y-2 px-6 py-2'>
                     <h2 className='text-xl md:text-2xl up capitalize line-clamp-1'>
@@ -45,10 +54,14 @@ function Thumbnail1({ movie }: Props) {
                             ActiveIcon={BsCheck}
                             classIcon='iconDefault'
                             classActiveIcon='iconActiveDefault text-white bg-green-500'
+                            onMouseUp={(e) => handleIconClick(e)}
                         />
                     </div>
                 </div>
             </div>
+
+            {showToast && toast.success('You have saved the movie successfully!')}
+            <ToastContainer />
         </div>
     )
 }

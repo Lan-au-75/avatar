@@ -1,0 +1,51 @@
+export const notifications = [
+    {
+        name: 'Rito',
+        avatar: '/avatar-user.jpg',
+        desc: 'Congratulations on your successful purchase of the premium package',
+        create_time: 'Tuesday 2:20pm',
+        create_day: 'Sep 20,2024',
+    },
+    {
+        name: 'Anubis',
+        avatar: '/avatar-user-anubis.jpg',
+        desc: 'Congratulations on your successful purchase of the premium package',
+        create_time: 'Monday 23:40pm',
+        create_day: 'Sep. 16,2024',
+    },
+    {
+        name: 'Zeus',
+        avatar: '/avatar-user-zeus.jpg',
+        desc: 'Congratulations on your successful purchase of the premium package',
+        create_time: 'Saturday 04:30am',
+        create_day: 'Sep. 12,2024',
+    },
+    {
+        name: 'Adam',
+        avatar: '/avatar-user-2.jpg',
+        desc: 'Congratulations on your successful purchase of the premium package',
+        create_time: 'Wednesday 03:30pm',
+        create_day: 'Aug 19,2024',
+    },
+    {
+        name: 'Eva',
+        avatar: '/avatar-user-3.jpg',
+        desc: 'Congratulations on your successful purchase of the premium package',
+        create_time: 'Sunday 12:20pm',
+        create_day: 'Aug. 07,2024',
+    },
+    {
+        name: 'Shogun',
+        avatar: '/avatar-user-4.jpg',
+        desc: 'Congratulations on your successful purchase of the premium package',
+        create_time: 'Tuesday 6:30am',
+        create_day: 'Jul. 28,2024',
+    },
+    {
+        name: 'Atom',
+        avatar: '/avatar-user-5.jpg',
+        desc: 'Congratulations on your successful purchase of the premium package',
+        create_time: 'Thursday 8:30pm',
+        create_day: 'Jul. 23,2024',
+    },
+]

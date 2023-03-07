@@ -28,7 +28,7 @@ function Comments({ reviews }: Props) {
                         src='/avatar-user.jpg'
                         alt=''
                         className='h-10 w-10 rounded-full flex-shrink-0'
-                        onError={(e) => handleImgError(e)}
+                        onError={(e) => handleImgError(e, '/no-img-avatar.png')}
                     />
 
                     <div className='w-[288px] mini:w-full flex flex-1 items-center justify-between rounded-lg p-3 bg-base200'>
@@ -53,7 +53,7 @@ function Comments({ reviews }: Props) {
                             src={`${baseUrl + review.author_details.avatar_path}`}
                             alt=''
                             className='h-10 w-10 rounded-full flex-shrink-0'
-                            onError={(e) => handleImgError(e)}
+                            onError={(e) => handleImgError(e, '/no-img-avatar.png')}
                         />
                         <div className='flex flex-col gap-1 flex-1'>
                             <div className='w-[288px] mini:w-full flex flex-col gap-y-1 md:gap-y-2 bg-base200 rounded-lg  text-white p-2 md:p-3'>

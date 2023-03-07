@@ -6,14 +6,24 @@ import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 import { Movie } from '@/types/movies.type'
 import { baseUrl } from '@/requests'
+import { useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 interface Props {
     movie?: Movie
 }
 
 function Thumbnail2({ movie }: Props) {
+    const [showToast, setShowToast] = useState(false)
+
+    // handle show toast message
+    const handleIconClick = (e: MouseEvent) => {
+        setShowToast(true)
+    }
+
     return (
-        <div className='thumbnail min-w-[calc(500px-200px)] h-[calc(300px-90px)] md:min-w-[500px] md:h-[300px]'>
+        <div className='relative thumbnail min-w-[calc(500px-200px)] h-[calc(300px-90px)] md:min-w-[500px] md:h-[300px]'>
             <img
                 src={clsx(baseUrl + movie?.backdrop_path)}
                 alt={movie?.name || movie?.original_title}
@@ -46,11 +56,16 @@ function Thumbnail2({ movie }: Props) {
                                 ActiveIcon={BsCheck}
                                 classIcon='iconDefault'
                                 classActiveIcon='iconActiveDefault text-white bg-green-500'
+                                onMouseUp={(e) => handleIconClick(e)}
                             />
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* toast message */}
+            {showToast && toast.success('You have saved the movie successfully!')}
+            <ToastContainer />
         </div>
     )
 }
