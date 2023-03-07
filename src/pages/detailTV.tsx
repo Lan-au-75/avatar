@@ -146,7 +146,7 @@ function DetailTV() {
                                     </h2>
                                     <div className='flex gap-4 md:gap-6 mt-10 text-shadow-lg'>
                                         <Link
-                                            to={`/watchingTV/${trailerMovie?.key}/${data?.id}?server=1&season=1&episodes=1`}
+                                            to={`/watchingTV/${trailerMovie?.key}/${data?.id}?server=1&season=0&episodes=1`}
                                             className='btn2 bg-base200/80  hover:bg-red-500 transition-all ease-linear'
                                         >
                                             Watch now

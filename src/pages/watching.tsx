@@ -59,7 +59,7 @@ function Watching() {
                                 to={`?server=${server.number}`}
                                 className={() =>
                                     clsx(
-                                        'btn2 bg-base200 transition-all duration-300 ease-in',
+                                        'btnCustom text-white text-lg capitalize px-3 py-3 md:min-w-[172px] min-w-[100px]  min-h-[40px] bg-base200',
                                         isActive(serverID + 1, 'server') ? 'bg-green-500' : ''
                                     )
                                 }
@@ -78,7 +78,7 @@ function Watching() {
                         <span className='relative divide'>{data?.vote_average.toFixed(1)}</span>
                         <span>{data?.release_date.slice(0, 4)}</span>
                     </div>
-                    <p className='flex text-gray-400'>
+                    <p className='flex flex-wrap text-gray-400'>
                         Genres:{' '}
                         {data?.genres.map((genres, i) => (
                             <span key={genres.id} className='pl-1 text-white lowercase'>

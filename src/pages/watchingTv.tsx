@@ -46,127 +46,142 @@ function Watching() {
 
     return (
         <>
-            <div className='relative  pt-[50%] lg:pt-[35%]'>
-                <ReactPlayer
-                    url={`https://www.youtube.com/watch?v=${watchingKey}`}
-                    width='100%'
-                    height='100%'
-                    style={{ position: 'absolute', top: 0 }}
-                    controls
-                />
-            </div>
-            <div className='flex flex-col gap-y-3 md:gap-y-4  px-4 py-6 md:p-10'>
-                <ul className='flex items-center justify-center gap-3 md:gap-4'>
-                    {server.map((server, serverID) => (
-                        <li key={uuidv4()}>
-                            <NavLink
-                                to={`?server=${server.number}&season=1&episodes=1`}
-                                className={() =>
-                                    clsx(
-                                        'btn2 bg-base200 transition-all duration-300 ease-in',
-                                        isActive(serverID + 1, 'server') ? 'bg-green-500' : ''
-                                    )
-                                }
-                            >
-                                {server.title}
-                            </NavLink>
-                        </li>
-                    ))}
-                </ul>
-                <div className='text-green-500 text-3xl md:text-4xl font-semibold'>
-                    {data?.name || data?.original_title}
-                </div>
-                <div className='flex items-center gap-3 md:gap-4'>
-                    <div className='text-green-500 flex gap-3 '>
-                        <span className='relative divide'>{data?.vote_average.toFixed(1)}</span>
-                        <span>
-                            {data?.release_date?.slice(0, 4) || data?.first_air_date.slice(0, 4)}
-                        </span>
+            {data && (
+                <>
+                    <div className='relative  pt-[50%] lg:pt-[35%]'>
+                        <ReactPlayer
+                            url={`https://www.youtube.com/watch?v=${watchingKey}`}
+                            width='100%'
+                            height='100%'
+                            style={{ position: 'absolute', top: 0 }}
+                            controls
+                        />
                     </div>
-                    <p className='flex text-gray-400'>
-                        Genres:{' '}
-                        {data?.genres.map((genres, i) => (
-                            <span key={genres.id} className='pl-1 text-white lowercase'>
-                                {genres.name}
-                                {i !== data.genres.length - 1 ? ',' : ''}
-                            </span>
-                        ))}
-                    </p>
-                </div>
-                <div className='flex flex-col gap-y-3 text-lg text-start w-full md:w-[80%]  overflow-hidden text-white'>
-                    <span
-                        className='flex items-center justify-center flex-shrink-0 select-none w-12 h-12 
+                    <div className='flex flex-col gap-y-3 md:gap-y-4  px-4 py-6 md:p-10'>
+                        <ul className='flex items-center justify-center gap-3 md:gap-4'>
+                            {server.map((server, serverID) => (
+                                <li key={uuidv4()}>
+                                    <NavLink
+                                        to={`?server=${server.number}&season=1&episodes=1`}
+                                        className={() =>
+                                            clsx(
+                                                'btnCustom text-white text-lg capitalize px-3 py-3 md:min-w-[172px] min-w-[100px]  min-h-[40px] bg-base200',
+                                                isActive(serverID + 1, 'server')
+                                                    ? 'bg-green-500'
+                                                    : ''
+                                            )
+                                        }
+                                    >
+                                        {server.title}
+                                    </NavLink>
+                                </li>
+                            ))}
+                        </ul>
+                        <div className='text-green-500 text-3xl md:text-4xl font-semibold'>
+                            {data?.name || data?.original_title}
+                        </div>
+                        <div className='flex items-center gap-3 md:gap-4'>
+                            <div className='text-green-500 flex gap-3 '>
+                                <span className='relative divide'>
+                                    {data?.vote_average.toFixed(1)}
+                                </span>
+                                <span>
+                                    {data?.release_date?.slice(0, 4) ||
+                                        data?.first_air_date.slice(0, 4)}
+                                </span>
+                            </div>
+                            <p className='flex flex-wrap text-gray-400'>
+                                Genres:{' '}
+                                {data?.genres?.map((genres, i) => (
+                                    <span key={genres.id} className='pl-1 text-white lowercase'>
+                                        {genres.name}
+                                        {i !== data.genres.length - 1 ? ',' : ''}
+                                    </span>
+                                ))}
+                            </p>
+                        </div>
+                        <div className='flex flex-col gap-y-3 text-lg text-start w-full md:w-[80%]  overflow-hidden text-white'>
+                            <span
+                                className='flex items-center justify-center flex-shrink-0 select-none w-12 h-12 
                         md:w-10 md:h-10 rounded-lg bg-red-500 text-2xl cursor-pointer'
-                        onClick={handleShowOverview}
-                    >
-                        {openOverview ? '-' : '+'}
-                    </span>
-                    <p
-                        className={clsx(
-                            'transition-all duration-500 ease-in-out',
-                            openOverview
-                                ? 'max-h-[300px] transition-all'
-                                : 'max-h-[50px] transition-all'
-                        )}
-                    >
-                        {data?.overview || data?.number_of_episodes}
-                    </p>
-                </div>
-
-                <ul className='flex item-center gap-3 md:gap-4'>
-                    {data?.seasons.map((season, seasonID) => {
-                        return (
-                            <li
-                                key={uuidv4()}
-                                className='min-w-[50px] min-h-10  text-lg md:text-xl hover:bg-red-500 capitalize bg-base200 rounded-xl text-white '
+                                onClick={handleShowOverview}
                             >
-                                <NavLink
-                                    to={`?server=${params.server}&season=${season.season_number}&episodes=1`}
-                                    className={clsx(
-                                        'inline-block p-3',
-                                        isActive(seasonID + 1, 'season')
-                                            ? 'bg-red-500 rounded-xl'
-                                            : ''
-                                    )}
-                                >
-                                    {season.name}
-                                </NavLink>
-                            </li>
-                        )
-                    })}
-                </ul>
-
-                <ul className=''>
-                    {data?.seasons.map((season, seasonID) => {
-                        const arrNumberEpisodes: number[] = Array(season.episode_count)
-                            .fill('')
-                            .map((__, index) => index + 1)
-
-                        return (
-                            <li
-                                key={uuidv4()}
-                                className='flex items-center gap-3 md:gap-4 flex-wrap'
+                                {openOverview ? '-' : '+'}
+                            </span>
+                            <p
+                                className={clsx(
+                                    'transition-all duration-500 ease-in-out',
+                                    openOverview
+                                        ? 'max-h-[300px] transition-all'
+                                        : 'max-h-[50px] transition-all'
+                                )}
                             >
-                                {params.season === (seasonID + 1).toString() &&
-                                    arrNumberEpisodes.map((episodes: number) => (
+                                {data?.overview || data?.number_of_episodes}
+                            </p>
+                        </div>
+
+                        <ul className='flex item-center gap-3 md:gap-4 overflow-x-auto scrollBarCustom '>
+                            {data?.seasons?.map((season) => {
+                                return (
+                                    <li
+                                        key={uuidv4()}
+                                        className='flex-shrink-0 btnCustom min-w-[50px] min-h-10  text-lg md:text-xl hover:bg-red-500 capitalize bg-base200 rounded-xl text-white '
+                                    >
                                         <NavLink
-                                            key={uuidv4()}
-                                            to={`?server=${params.server}&season=${season.season_number}&episodes=${episodes}`}
+                                            to={`?server=${params.server}&season=${
+                                                season.season_number !== 0
+                                                    ? season.season_number
+                                                    : ''
+                                            }&episodes=1`}
                                             className={clsx(
-                                                'btn-number',
-                                                isActive(episodes, 'episodes') ? 'bg-green-500' : ''
+                                                'inline-block p-3',
+                                                isActive(season.season_number, 'season')
+                                                    ? 'bg-red-500 rounded-xl'
+                                                    : ''
                                             )}
                                         >
-                                            {episodes}
+                                            {season.name}
                                         </NavLink>
-                                    ))}
-                            </li>
-                        )
-                    })}
-                </ul>
+                                    </li>
+                                )
+                            })}
+                        </ul>
 
-                <Comments reviews={review} />
-            </div>
+                        <ul className=''>
+                            {data?.seasons?.map((season, seasonID) => {
+                                const arrNumberEpisodes: number[] = Array(season.episode_count)
+                                    .fill('')
+                                    ?.map((__, index) => index + 1)
+
+                                return (
+                                    <li
+                                        key={uuidv4()}
+                                        className='flex items-center gap-3 md:gap-4 flex-wrap'
+                                    >
+                                        {params.season === (seasonID + 1).toString() &&
+                                            arrNumberEpisodes?.map((episodes: number) => (
+                                                <NavLink
+                                                    key={uuidv4()}
+                                                    to={`?server=${params.server}&season=${params.season}&episodes=${episodes}`}
+                                                    className={clsx(
+                                                        'btn-number',
+                                                        isActive(episodes, 'episodes')
+                                                            ? 'bg-green-500'
+                                                            : ''
+                                                    )}
+                                                >
+                                                    {episodes}
+                                                </NavLink>
+                                            ))}
+                                    </li>
+                                )
+                            })}
+                        </ul>
+
+                        <Comments reviews={review} />
+                    </div>
+                </>
+            )}
 
             <Footer />
         </>
