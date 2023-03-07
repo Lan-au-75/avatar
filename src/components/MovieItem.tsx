@@ -7,7 +7,7 @@ interface Props {
     data: UseQueryResult<
         | {
               totalPages: string | number
-              movies: Movie[]
+              movies: Movie[] | TV[]
           }
         | undefined,
         unknown
