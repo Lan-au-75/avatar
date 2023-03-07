@@ -6,7 +6,7 @@ import { baseUrl } from '@/requests'
 import { Category, Detail, Video } from '@/types/movies.type'
 import ReactPlayer from 'react-player'
 import { formattedDate } from '@/hooks/formattedDate'
-import Modal from './Modal'
+import Modal from '../components/Modal'
 import { fetchDetailMovie } from '@/hooks/fetchApi'
 import { getVideo } from '@/apis/getVideo.api'
 
@@ -35,8 +35,8 @@ function DetailMovie() {
         fetchDetailMovie(Number(detailID), Category.Movie)
     )
 
-    let data = detailMovie.data!
-    let videos = videoMovie!
+    const data = detailMovie.data!
+    const videos = videoMovie!
 
     useEffect(() => {
         const video = async () => {
@@ -56,8 +56,8 @@ function DetailMovie() {
                 <ReactPlayer
                     key={video?.id}
                     url={`https://www.youtube.com/watch?v=${video.key}`}
-                    width={254}
-                    height={160}
+                    width='100%'
+                    height='100%'
                     controls
                 />
             )
@@ -81,7 +81,7 @@ function DetailMovie() {
     return (
         <>
             {data && (
-                <section>
+                <section className='relative isolate'>
                     <div
                         style={{
                             backgroundImage: `url(${
@@ -90,19 +90,19 @@ function DetailMovie() {
                         }}
                         className='h-screen bg-no-repeat bg-center bg-cover -z-30'
                     >
-                        <div className='flex flex-col md:flex-row justify-between gap-6 md:gap-10 p-4 mobile:p-10 md:p-14'>
+                        <div className='absolute inset-0 bg-black/5 flex flex-col md:flex-row justify-between gap-6 md:gap-10 p-4 mobile:p-10 md:p-16'>
                             {/* left */}
 
-                            <div className='flex flex-col h-[530px] w-full md:w-[70%] justify-between'>
+                            <div className='flex  flex-col h-[530px] w-full md:w-[70%] justify-between'>
                                 <div className='flex items-center  justify-between'>
-                                    <p className='text-2xl lg:text-3xl font-semibold text-gray-600 text-shadow-md'>
+                                    <p className='text-2xl lg:text-3xl font-semibold text-red-500 text-shadow-md'>
                                         {data?.original_title || data?.name}
                                     </p>
                                     <HiBars3BottomLeft className='text-4xl md:text-3xl text-white cursor-pointer hover:opacity-90' />
                                 </div>
 
-                                <div className='text-shadow-md'>
-                                    <p className='text-gray-400 text-2xl font-medium'>
+                                <div className='text-shadow-md md:pl-[6px]'>
+                                    <p className='text-gray-400 text-2xl font-medium pt-2 md:pt-0 md:pl-[6px]'>
                                         <span className='text-white'>{formattedDate(data)}</span>
                                     </p>
                                     <h2 className='text-5xl md:text-7xl text-white font-semibold mt-5'>
@@ -110,8 +110,8 @@ function DetailMovie() {
                                     </h2>
                                     <div className='flex gap-4 md:gap-6 mt-10 text-shadow-lg'>
                                         <Link
-                                            to={`/watching/${trailerMovie?.key}/${data?.id}`}
-                                            className='btn2 bg-base200/80 op hover:bg-red-500 transition-all ease-linear'
+                                            to={`/watching/${trailerMovie?.key}/${data?.id}?server=1`}
+                                            className='btn2 bg-base200/80  hover:bg-red-500 transition-all ease-linear'
                                         >
                                             Watch now
                                         </Link>
@@ -126,35 +126,39 @@ function DetailMovie() {
                             </div>
 
                             {/* right */}
-                            <div className='flex flex-col gap-10 justify-between md:gap-14'>
+                            <div className='flex flex-col gap-6 md:gap-10'>
                                 <div className='flex items-center gap-4'>
                                     <figure>
                                         <img
                                             src='/avatar-user.jpg'
                                             alt=''
-                                            className=' h-10 w-10 rounded-full object-cover object-center'
+                                            className='h-16 w-16 md:h-10 md:w-10 rounded-full object-cover object-center cursor-pointer'
                                         />
                                     </figure>
                                     <div className='text-shadow-md'>
-                                        <p className='text-sm md:text-lg text-white font-semibold capitalize'>
+                                        <p className='text-xl  md:text-lg text-white font-semibold capitalize'>
                                             Rito
                                         </p>
-                                        <p className='text-gray-400 capitalize'>nothing</p>
+                                        <p className='text-lg md:text-base text-gray-400 capitalize'>
+                                            nothing
+                                        </p>
                                     </div>
                                 </div>
 
                                 <div className='flex flex-col gap-y-5'>
-                                    <span className='text-white text-xl text-shadow-md'>
+                                    <span className='text-white text-xl text-shadow-md capitalize'>
                                         Trailer
                                     </span>
-
-                                    <div className='flex flex-col gap-3 h-[364px] overflow-y-auto scrollbar-hide'>
-                                        {' '}
-                                        {trailerMovies}
+                                    <div className='h-[364px] overflow-y-auto scrollbar-hide'>
+                                        <ul className='flex flex-col gap-3 w-full h-full sm:w-[254px] sm:h-[160px]'>
+                                            {trailerMovies}
+                                        </ul>
                                     </div>
                                 </div>
 
-                                <div className='flex items-center justify-center text-xs gap-3'>
+                                <hr className='border border-solid mx-4 border-red-500' />
+
+                                <div className='flex items-center justify-center text-xs gap-3 mb-10 md:mb-0'>
                                     {socials.map((social) => (
                                         <Link to='/' key={social.title}>
                                             <span className='text-white uppercase font-medium cursor-pointer text-shadow-md'>

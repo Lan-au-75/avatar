@@ -1,8 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import DetailMovie from './components/DetailMovie'
-import DetailTV from './components/DetailTV'
+
+import PaginationProvider from './context/PaginationContext'
 import Layout1 from './layouts/Layout1'
 import AiringToDay from './pages/airingToDay'
+import DetailMovie from './pages/detailMovie'
+import DetailTV from './pages/detailTV'
 import ErrorPage from './pages/error-page'
 import Movies from './pages/movies'
 import NowPlaying from './pages/nowPlaying'
@@ -11,7 +13,12 @@ import TopRated from './pages/topRated'
 import Trending from './pages/trending'
 import TVShow from './pages/tvShows'
 import Upcoming from './pages/upcoming'
-import Watching from './pages/watchcing'
+import Watching from './pages/watching'
+import WatchingTV from './pages/watchingTv'
+
+interface IProps {
+    children: React.ReactNode
+}
 
 export default function App() {
     const router = createBrowserRouter([
@@ -26,54 +33,44 @@ export default function App() {
                     children: [
                         {
                             path: 'trending',
-                            element: <Trending />,
-                            children: [
-                                {
-                                    path: ':pageID',
-                                    element: <Trending />,
-                                },
-                            ],
+                            element: (
+                                <PaginationProvider>
+                                    <Trending />
+                                </PaginationProvider>
+                            ),
                         },
 
                         {
                             path: 'now-playing',
-                            element: <NowPlaying />,
-                            children: [
-                                {
-                                    path: ':pageID',
-                                    element: <NowPlaying />,
-                                },
-                            ],
+                            element: (
+                                <PaginationProvider>
+                                    <NowPlaying />
+                                </PaginationProvider>
+                            ),
                         },
                         {
                             path: 'top-rated',
-                            element: <TopRated />,
-                            children: [
-                                {
-                                    path: ':pageID',
-                                    element: <TopRated />,
-                                },
-                            ],
+                            element: (
+                                <PaginationProvider>
+                                    <TopRated />
+                                </PaginationProvider>
+                            ),
                         },
                         {
                             path: 'upcoming',
-                            element: <Upcoming />,
-                            children: [
-                                {
-                                    path: ':pageID',
-                                    element: <Upcoming />,
-                                },
-                            ],
+                            element: (
+                                <PaginationProvider>
+                                    <Upcoming />
+                                </PaginationProvider>
+                            ),
                         },
                         {
                             path: 'popular',
-                            element: <Popular />,
-                            children: [
-                                {
-                                    path: ':pageID',
-                                    element: <Popular />,
-                                },
-                            ],
+                            element: (
+                                <PaginationProvider>
+                                    <Popular />
+                                </PaginationProvider>
+                            ),
                         },
                     ],
                 },
@@ -83,13 +80,11 @@ export default function App() {
                     children: [
                         {
                             path: 'airingToDay',
-                            element: <AiringToDay />,
-                            children: [
-                                {
-                                    path: ':pageID',
-                                    element: <AiringToDay />,
-                                },
-                            ],
+                            element: (
+                                <PaginationProvider>
+                                    <AiringToDay />
+                                </PaginationProvider>
+                            ),
                         },
                     ],
                 },
@@ -109,6 +104,10 @@ export default function App() {
             path: 'watching/:watchingKey/:detailID',
             element: <Watching />,
         },
+        {
+            path: 'watchingTV/:watchingKey/:detailID',
+            element: <WatchingTV />,
+        },
     ])
-    return <RouterProvider router={router} />
+    return <RouterProvider router={router}></RouterProvider>
 }

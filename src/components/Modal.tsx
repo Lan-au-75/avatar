@@ -1,19 +1,18 @@
-import { formattedDate } from '@/hooks/formattedDate'
-import { Detail, Video } from '@/types/movies.type'
+import { FaPause, FaPlay } from 'react-icons/fa'
+import { GoMute, GoUnmute } from 'react-icons/go'
 import clsx from 'clsx'
 import { useState } from 'react'
 import {
-    AiOutlineClose,
-    AiOutlineLike,
     AiFillLike,
+    AiOutlineClose,
     AiOutlineDislike,
+    AiOutlineLike,
     AiTwotoneDislike,
 } from 'react-icons/ai'
-import { FaPlay, FaPause } from 'react-icons/fa'
-import { GoMute, GoUnmute } from 'react-icons/go'
 import ReactPlayer from 'react-player'
-import { NavLink } from 'react-router-dom'
 import HeaderIcon from './HeaderIcon'
+import { formattedDate } from '@/hooks/formattedDate'
+import { Detail, Video } from '@/types/movies.type'
 
 interface Props {
     close: () => void
@@ -25,13 +24,62 @@ interface Props {
 function Modal({ close, open, videos, data }: Props) {
     const [isPlaying, setIsPlaying] = useState(false)
     const [muted, setMuted] = useState(false)
+    const [errorVideos, setErrorVideos] = useState<string[]>([])
 
+    // handle stopPropagation
     const handleStop = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
     }
 
-    const trailerMovie = videos?.find((video) => video.type === 'Trailer')
-    const fallBack = videos?.find((video) => video.type === 'Teaser')
+    // handle video error
+    const handleVideoError = (video: string) => {
+        setErrorVideos((errorVideos) => [...errorVideos, video])
+    }
+
+    // render video trailer
+    const trailerMovies = videos
+        ?.filter((video) => video.type.includes('Trailer') && !errorVideos.includes(video.id))
+        ?.map((video) => {
+            if (video.type.includes('Trailer') && video?.key) {
+                return (
+                    <ReactPlayer
+                        key={video?.key}
+                        url={`https://www.youtube.com/watch?v=${video?.key}`}
+                        width='100%'
+                        height='100%'
+                        style={{ position: 'absolute', top: '0', left: '0' }}
+                        playing={isPlaying}
+                        muted={muted}
+                        onError={() => handleVideoError(video.id)}
+                    />
+                )
+            }
+        })
+
+    // fallBack video
+
+    const fallBack = videos?.map((video) => {
+        if (
+            video.type === 'Teaser' ||
+            video.type === 'Featurette' ||
+            video.type === 'Official Teaser Trailer' ||
+            video.type === 'Official Trailer' ||
+            video.type === 'SDCC Trailer'
+        ) {
+            return (
+                <ReactPlayer
+                    key={video?.key}
+                    url={`https://www.youtube.com/watch?v=${video?.key}`}
+                    width='100%'
+                    height='100%'
+                    style={{ position: 'absolute', top: '0', left: '0' }}
+                    playing={isPlaying}
+                    muted={muted}
+                    onError={() => handleVideoError(video.id)}
+                />
+            )
+        }
+    })
 
     return (
         // overplay
@@ -50,15 +98,7 @@ function Modal({ close, open, videos, data }: Props) {
                 onClick={(e) => handleStop(e)}
             >
                 <div className='relative pt-[50%]'>
-                    <ReactPlayer
-                        url={`https://www.youtube.com/watch?v=${trailerMovie?.key}`}
-                        width='100%'
-                        height='100%'
-                        style={{ position: 'absolute', top: '0', left: '0' }}
-                        playing={isPlaying}
-                        muted={muted}
-                        onError={() => fallBack?.key}
-                    />
+                    {trailerMovies ? trailerMovies[0] : errorVideos.length > 0 && fallBack}
                     <span
                         className='absolute right-4 top-3 text-xl md:text-2xl text-white bg-base200 rounded-full 
                      p-3 md:p-1 cursor-pointer hover:opacity-80'
@@ -83,7 +123,7 @@ function Modal({ close, open, videos, data }: Props) {
                                 ) : (
                                     <>
                                         <FaPause className='text-2xl md:text-3xl' />
-                                        <span className='font-semibold'>Pause</span>
+                                        <span className='font-semibold  '>Pause</span>
                                     </>
                                 )}
                             </button>
@@ -92,7 +132,7 @@ function Modal({ close, open, videos, data }: Props) {
                                 Icon={AiOutlineLike}
                                 classIcon='p-3 text-white text-2xl md:text-3xl bg-base200 rounded-full'
                                 ActiveIcon={AiFillLike}
-                                classActiveIcon='p-3 text-2xl md:text-3xl bg-base200 text-green-500 rounded-full'
+                                classActiveIcon='p-3 text-2xl md:text-3xl bg-base200 text-green-500 rounded-full animate-like'
                             />
 
                             <HeaderIcon
@@ -116,9 +156,9 @@ function Modal({ close, open, videos, data }: Props) {
                     </div>
                 </div>
                 <div className='flex flex-col gap-y-4 px-5 py-4  md:px-10 md:py-8'>
-                    <p className='text-green-500 text-sm flex gap-3'>
-                        IMDB {data.vote_average.toFixed(1)}{' '}
-                        <span className=' text-white'> {formattedDate(data)}</span>
+                    <p className='text-green-500 text-sm gap-3 flex  '>
+                        <span className='relative divide'>IMDB {data.vote_average.toFixed(1)}</span>
+                        <span className='text-white'> {formattedDate(data)}</span>
                     </p>
                     <div className='flex flex-col md:flex-row justify-between gap-3 md:gap-5'>
                         <p className=' text-lg w-full md:w-[60%] flex-1 text-white'>
@@ -127,10 +167,11 @@ function Modal({ close, open, videos, data }: Props) {
                         <div className='flex flex-col gap-y-3 text-sm'>
                             <p className='text-gray-300'>
                                 Genres:{' '}
-                                {data.genres.map((genre) => (
+                                {data.genres.map((genre, i) => (
                                     <span key={genre.id} className='text-white'>
                                         {' '}
                                         {genre.name}
+                                        {i !== data.genres.length - 1 ? ',' : ''}
                                     </span>
                                 ))}
                             </p>

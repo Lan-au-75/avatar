@@ -1,32 +1,21 @@
 import { Movie, TV } from '@/types/movies.type'
-import { useEffect } from 'react'
 import { UseQueryResult } from 'react-query'
-import { useLocation, useParams } from 'react-router-dom'
 import Card from './Card'
 import Pagination from './Pagination'
 
 interface Props {
-    page: number
-    setPage: React.Dispatch<React.SetStateAction<number>>
     data: UseQueryResult<
-        {
-            totalPages: string | number
-            movies: Movie[] | TV[]
-        },
+        | {
+              totalPages: string | number
+              movies: Movie[]
+          }
+        | undefined,
         unknown
     >
 }
 
-function MovieItem({ data, page, setPage }: Props) {
+function MovieItem({ data }: Props) {
     const totalPages = data.data?.totalPages
-
-    const location = useLocation()
-
-    const id = useParams()
-
-    useEffect(() => {
-        setPage(Number(id.pageID))
-    }, [id.pageID])
 
     return (
         <div className='flex flex-col gap-y-20'>
@@ -38,7 +27,7 @@ function MovieItem({ data, page, setPage }: Props) {
                 ))}
             </ul>
             <div className='flex justify-center'>
-                <Pagination page={page} setPage={setPage} totalPages={totalPages} />
+                <Pagination totalPages={totalPages} />
             </div>
         </div>
     )

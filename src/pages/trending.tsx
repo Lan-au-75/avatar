@@ -1,20 +1,26 @@
+import { useQuery } from 'react-query'
+import { Category } from '@/types/movies.type'
 import MovieItem from '@/components/MovieItem'
 import { SkeletonCard } from '@/components/Skeleton'
+import { usePagination } from '@/context/PaginationContext'
 import { fetchTrendingMovie } from '@/hooks/fetchApi'
-import usePagination from '@/hooks/usePagination'
-import { Category, Movie } from '@/types/movies.type'
-import { useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
-import { useLocation, useParams } from 'react-router-dom'
 
 function Trending() {
-    const { trendingMovie, pageTrending, setPageTrending } = usePagination(Category.Movie)
+    const { page } = usePagination()
+    const trendingMovie = useQuery(
+        ['trendingData', { page }],
+        () => fetchTrendingMovie(Category.Movie, page),
+        {
+            staleTime: 60 * 1000, // 1 minute
+            keepPreviousData: true,
+        }
+    )
 
     if (trendingMovie.isLoading) {
         return <SkeletonCard />
     }
 
-    return <MovieItem data={trendingMovie} page={pageTrending} setPage={setPageTrending} />
+    return <MovieItem data={trendingMovie} />
 }
 
 export default Trending

@@ -22,8 +22,8 @@ const requests = {
         return `${category}/${id}/videos?api_key=${ApiKey}`
     },
 
-    requestReview(id: number) {
-        return `movie/${id}/reviews?api_key=${ApiKey}`
+    requestReview(id: number, category: string) {
+        return `${category}/${id}/reviews?api_key=${ApiKey}`
     },
 }
 
