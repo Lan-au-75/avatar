@@ -5,6 +5,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    .Toastify__toast-icon {
+        margin: 0;
+    }
+}
+
 @layer base {
     html {
         @apply font-inter text-base100 bg-secondary text-sm lg:text-base scrollBarCustom scroll-smooth;
@@ -369,15 +375,6 @@
     @keyframes shine {
         to {
             background-position: right -40px top 0;
-        }
-    }
-
-    @keyframes modalFadeIn {
-        from {
-            transition: translateY(-100px);
-        }
-        to {
-            transition: translateY(0);
         }
     }
 }

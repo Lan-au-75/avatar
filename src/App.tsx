@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-
 import PaginationProvider from './context/PaginationContext'
 import Layout1 from './layouts/Layout1'
 import AiringToDay from './pages/airingToDay'

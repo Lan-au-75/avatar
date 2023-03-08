@@ -1,5 +1,6 @@
 import { Movie } from '@/types/movies.type'
 import clsx from 'clsx'
+import { memo } from 'react'
 import { useRef, useState } from 'react'
 import { AiOutlineRight } from 'react-icons/ai'
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
@@ -16,13 +17,13 @@ interface Props {
     movies?: Movie[]
     Thumbnail?: any
     isLoading?: boolean
+    handleShowToast?: () => void
 }
 
-function Row({ title, movies, Thumbnail, isLoading }: Props) {
+function Row({ title, movies, Thumbnail, isLoading, handleShowToast }: Props) {
     const rowRef = useRef<HTMLDivElement>(null)
     const [isMoved, setIsMoved] = useState<boolean>(false)
     // const [showScrollButton, setShowScrollButton] = useState(true)
-
     const navigate = useNavigate()
 
     // Skeleton
@@ -113,7 +114,13 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
                         className='flex w-screen items-center gap-2 md:gap-3 overflow-x-scroll scrollbar-hide'
                     >
                         {movies?.map((movie) => (
-                            <Thumbnail key={movie.id} movie={movie} />
+                            <>
+                                <Thumbnail
+                                    key={movie.id}
+                                    movie={movie}
+                                    handleShowToast={handleShowToast}
+                                />
+                            </>
                         ))}
                     </div>
 
@@ -129,4 +136,4 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
     )
 }
 
-export default Row
+export default memo(Row)

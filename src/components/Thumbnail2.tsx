@@ -1,27 +1,18 @@
-import HeaderIcon from './HeaderIcon'
-
-import { MdAdd } from 'react-icons/md'
-import { BsCheck } from 'react-icons/bs'
-import { Link } from 'react-router-dom'
 import clsx from 'clsx'
-import { Movie } from '@/types/movies.type'
+import { memo } from 'react'
+import { BsCheck } from 'react-icons/bs'
+import { MdAdd } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 import { baseUrl } from '@/requests'
-import { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { Movie } from '@/types/movies.type'
+import HeaderIcon from './HeaderIcon'
 
 interface Props {
     movie?: Movie
+    handleShowToast?: () => void
 }
 
-function Thumbnail2({ movie }: Props) {
-    const [showToast, setShowToast] = useState(false)
-
-    // handle show toast message
-    const handleIconClick = (e: MouseEvent) => {
-        setShowToast(true)
-    }
-
+function Thumbnail2({ movie, handleShowToast }: Props) {
     return (
         <div className='relative thumbnail min-w-[calc(500px-200px)] h-[calc(300px-90px)] md:min-w-[500px] md:h-[300px]'>
             <img
@@ -56,18 +47,14 @@ function Thumbnail2({ movie }: Props) {
                                 ActiveIcon={BsCheck}
                                 classIcon='iconDefault'
                                 classActiveIcon='iconActiveDefault text-white bg-green-500'
-                                onMouseUp={(e) => handleIconClick(e)}
+                                onMouseUp={handleShowToast}
                             />
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/* toast message */}
-            {showToast && toast.success('You have saved the movie successfully!')}
-            <ToastContainer />
         </div>
     )
 }
 
-export default Thumbnail2
+export default memo(Thumbnail2)

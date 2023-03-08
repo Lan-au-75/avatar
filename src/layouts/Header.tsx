@@ -19,6 +19,7 @@ function Header() {
     const [showNavbar, setShowNavbar] = useState<boolean>(false)
     const [showMenu, setShowMenu] = useState<boolean>(false)
     const [showNotification, setShowNotification] = useState<boolean>(false)
+    const [quantity, setQuantity] = useState(notifications.length)
 
     const menuRef = useRef<HTMLInputElement>(null)
     const notificationRef = useRef<HTMLInputElement>(null)
@@ -43,9 +44,10 @@ function Header() {
                 !notificationRef.current?.contains(e.target as Node) &&
                 !iconNotificationRef.current?.current.contains(e.target as Node))
         ) {
-            iconNotificationRef.current?.setToggleIcon(false)
             setShowMenu(false)
+            setQuantity(0)
             setShowNotification(false)
+            iconNotificationRef.current?.setToggleIcon(false)
         }
     }
 
@@ -117,7 +119,7 @@ function Header() {
                     classIcon='iconDefault'
                     classActiveIcon='iconActiveDefault'
                     onMouseUp={(e) => handleShowNotification(e)}
-                    quantity={notifications.length}
+                    quantity={quantity}
                     offset='top-14 -right-8'
                     tooltip='notification'
                 />

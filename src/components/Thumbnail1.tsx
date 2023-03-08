@@ -15,12 +15,12 @@ interface Props {
 }
 
 function Thumbnail1({ movie }: Props) {
-    const [showToast, setShowToast] = useState(false)
+    // const [showToast, setShowToast] = useState(false)
 
-    // handle show toast message
-    const handleIconClick = (e: MouseEvent) => {
-        setShowToast(true)
-    }
+    // // handle show toast message
+    // const handleIconClick = (e: MouseEvent) => {
+    //     setShowToast(true)
+    // }
 
     return (
         <div className='thumbnail min-w-[calc(400px-160px)] h-[calc(250px-90px)] md:min-w-[400px] md:h-[250px]'>
@@ -54,14 +54,14 @@ function Thumbnail1({ movie }: Props) {
                             ActiveIcon={BsCheck}
                             classIcon='iconDefault'
                             classActiveIcon='iconActiveDefault text-white bg-green-500'
-                            onMouseUp={(e) => handleIconClick(e)}
+                            // onMouseUp={(e) => handleIconClick(e)}
                         />
                     </div>
                 </div>
             </div>
 
-            {showToast && toast.success('You have saved the movie successfully!')}
-            <ToastContainer />
+            {/* {showToast && toast.success('You have saved the movie successfully!')}
+            <ToastContainer /> */}
         </div>
     )
 }
