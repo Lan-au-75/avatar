@@ -22,6 +22,7 @@ module.exports = {
                 modalFadeIn: 'modal .4s ease-in-out',
                 menuBox: 'menu .2s linear ',
                 like: 'like .7s ease-in-out',
+                toast: 'toast 1s ease, fadeout 2s ease-in-out 3s forwards',
             },
 
             keyframes: {
@@ -52,6 +53,21 @@ module.exports = {
                     },
                     '50%': {
                         transform: 'rotate(-30deg)',
+                    },
+                },
+                toast: {
+                    from: {
+                        transform: 'translateX(100%)',
+                        opacity: '0',
+                    },
+                    to: {
+                        transform: 'translateX(0%)',
+                        opacity: '1',
+                    },
+                },
+                fadeout: {
+                    to: {
+                        opacity: '0',
                     },
                 },
             },

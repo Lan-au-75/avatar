@@ -1,19 +1,20 @@
-import HeaderIcon from './HeaderIcon'
-
-import { MdAdd } from 'react-icons/md'
-import { BsCheck } from 'react-icons/bs'
-import { Link } from 'react-router-dom'
 import clsx from 'clsx'
-import { Movie } from '@/types/movies.type'
+import { memo, useState } from 'react'
+import { BsCheck } from 'react-icons/bs'
+import { MdAdd } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 import { baseUrl } from '@/requests'
+import { Movie } from '@/types/movies.type'
+import HeaderIcon from './HeaderIcon'
 
 interface Props {
     movie?: Movie
+    handleShowToast?: () => void
 }
 
-function Thumbnail2({ movie }: Props) {
+function Thumbnail2({ movie, handleShowToast }: Props) {
     return (
-        <div className='thumbnail min-w-[calc(500px-200px)] h-[calc(300px-90px)] md:min-w-[500px] md:h-[300px]'>
+        <div className='relative thumbnail min-w-[calc(500px-200px)] h-[calc(300px-90px)] md:min-w-[500px] md:h-[300px]'>
             <img
                 src={clsx(baseUrl + movie?.backdrop_path)}
                 alt={movie?.name || movie?.original_title}
@@ -46,6 +47,7 @@ function Thumbnail2({ movie }: Props) {
                                 ActiveIcon={BsCheck}
                                 classIcon='iconDefault'
                                 classActiveIcon='iconActiveDefault text-white bg-green-500'
+                                onMouseUp={handleShowToast}
                             />
                         </div>
                     </div>
@@ -55,4 +57,4 @@ function Thumbnail2({ movie }: Props) {
     )
 }
 
-export default Thumbnail2
+export default memo(Thumbnail2)

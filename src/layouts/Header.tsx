@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, MutableRefObject, RefObject } from 'react'
 import { Link } from 'react-router-dom'
 import { FaUser } from 'react-icons/fa'
 import { AiOutlineMenu } from 'react-icons/ai'
@@ -11,24 +11,43 @@ import Sidebar from '@/components/Sidebar'
 import MenuBox from '@/components/MenuBox'
 import { MENU_ITEM } from '@/mockapi/menu-item'
 import { USER } from '@/mockapi/user'
+import Notification from '@/components/Notification'
+import { notifications } from '@/mockapi/notification'
+import Tooltip from '@/components/Tooltip'
 
 function Header() {
     const [showNavbar, setShowNavbar] = useState<boolean>(false)
     const [showMenu, setShowMenu] = useState<boolean>(false)
+    const [showNotification, setShowNotification] = useState<boolean>(false)
+    const [quantity, setQuantity] = useState(notifications.length)
 
     const menuRef = useRef<HTMLInputElement>(null)
+    const notificationRef = useRef<HTMLInputElement>(null)
     const imgRef = useRef<HTMLInputElement>(null)
+    const iconNotificationRef: any = useRef(null)
 
     const user = true
+
+    // handle show notification
+
+    const handleShowNotification = (e: MouseEvent) => {
+        setShowNotification(!showNotification)
+    }
 
     // handle menu when outside
     const handleOutsideClick = (e: MouseEvent) => {
         if (
-            menuRef.current &&
-            !menuRef.current.contains(e.target as Node) &&
-            !imgRef.current?.contains(e.target as Node)
+            (menuRef.current &&
+                !menuRef.current.contains(e.target as Node) &&
+                !imgRef.current?.contains(e.target as Node)) ||
+            (notificationRef.current &&
+                !notificationRef.current?.contains(e.target as Node) &&
+                !iconNotificationRef.current?.current.contains(e.target as Node))
         ) {
             setShowMenu(false)
+            setQuantity(0)
+            setShowNotification(false)
+            iconNotificationRef.current?.setToggleIcon(false)
         }
     }
 
@@ -94,33 +113,43 @@ function Header() {
                 </div>
 
                 <HeaderIcon
+                    ref={iconNotificationRef}
                     Icon={IoIosNotificationsOutline}
                     ActiveIcon={IoIosNotifications}
                     classIcon='iconDefault'
                     classActiveIcon='iconActiveDefault'
+                    onMouseUp={(e) => handleShowNotification(e)}
+                    quantity={quantity}
+                    offset='top-14 -right-8'
+                    tooltip='notification'
                 />
+
+                {showNotification && <Notification ref={notificationRef} />}
 
                 {user ? (
                     <div>
-                        <figure
-                            ref={imgRef}
-                            className='relative  w-11 h-11 rounded-full overflow-hidden cursor-pointer'
-                        >
-                            <img
-                                src='/avatar-user.jpg'
-                                alt=''
-                                className='h-full w-full object-cover object-center transition-all ease-linear duration-200'
-                                onMouseUp={(e) => handleShowMenu(e)}
-                                onMouseDown={(e) => handleAvatarImg(e)}
-                            />
-                        </figure>
+                        <div className='group'>
+                            <figure
+                                ref={imgRef}
+                                className='relative w-11 h-11 rounded-full overflow-hidden cursor-pointer'
+                            >
+                                <img
+                                    src='/avatar-user.jpg'
+                                    alt=''
+                                    className='h-full w-full object-cover object-center transition-all ease-linear duration-200'
+                                    onMouseUp={(e) => handleShowMenu(e)}
+                                    onMouseDown={(e) => handleAvatarImg(e)}
+                                />
+                            </figure>
+                            <Tooltip offset='top-14 right-0' tooltip='account' />
+                        </div>
                         <div className=''>
                             {showMenu && (
                                 <MenuBox
                                     ref={menuRef}
                                     menuItem={MENU_ITEM}
                                     user={USER}
-                                    className='menu-box  min-w-[80%] mobile:min-w-[50%] md:min-w-[40%] ld:min-w-[30%] xl:min-w-[20%] min-h-[300px] bg-base200 rounded-lg origin-top-right shadow-lg'
+                                    className='sm:menu-box fixed top-14 bottom-0 left-0 w-screen sm:w-auto sm:bottom-auto sm:left-auto mobile:min-w-[50%] md:min-w-[40%] ld:min-w-[30%] xl:min-w-[20%] min-h-[300px] bg-base200 rounded-lg origin-top-right shadow-lg'
                                 />
                             )}
                         </div>

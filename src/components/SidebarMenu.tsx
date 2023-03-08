@@ -2,15 +2,16 @@ import SidebarRow from './SidebarRow'
 
 interface Props {
     title?: string
-    data?: any
+    data: any
+    isCollapsed?: boolean
 }
 
-function SidebarMenu({ title, data }: Props) {
+function SidebarMenu({ title, data, isCollapsed }: Props) {
     return (
         <ul className='flex flex-col gap-y-4 pb-6 pt-3'>
             {title && (
                 <label htmlFor='' className='px-3 uppercase'>
-                    {title}
+                    {!isCollapsed && title}
                 </label>
             )}
             {data.map((item: any) => (
@@ -20,7 +21,7 @@ function SidebarMenu({ title, data }: Props) {
                     title={item.title}
                     Icon={item.Icon}
                     ActiveIcon={item.ActiveIcon}
-                    active={item.active}
+                    isCollapsed={isCollapsed}
                 />
             ))}
         </ul>
