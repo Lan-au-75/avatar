@@ -5,9 +5,11 @@ import AiringToDay from './pages/airingToDay'
 import DetailMovie from './pages/detailMovie'
 import DetailTV from './pages/detailTV'
 import ErrorPage from './pages/error-page'
+import Login from './pages/login'
 import Movies from './pages/movies'
 import NowPlaying from './pages/nowPlaying'
 import Popular from './pages/popular'
+import SignUp from './pages/sign-up'
 import TopRated from './pages/topRated'
 import Trending from './pages/trending'
 import TVShow from './pages/tvShows'
@@ -106,6 +108,14 @@ export default function App() {
         {
             path: 'watchingTV/:watchingKey/:detailID',
             element: <WatchingTV />,
+        },
+        {
+            path: '/login',
+            element: <Login />,
+        },
+        {
+            path: '/sign up',
+            element: <SignUp />,
         },
     ])
     return <RouterProvider router={router}></RouterProvider>
