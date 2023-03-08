@@ -44,8 +44,8 @@
     }
 
     .sidebar {
-        @apply hidden pc:block p-4 min-w-[300px] bg-secondary h-screen divide-y divide-base100 select-none 
-        scrollBarCustom overflow-y-hidden hover:overflow-y-auto;
+        @apply hidden pc:block bg-secondary h-screen divide-y divide-base100 select-none 
+        scrollBarCustom overflow-y-hidden hover:overflow-y-auto transition-all duration-300 ease-linear;
     }
 
     .active,
