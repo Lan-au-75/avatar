@@ -1,6 +1,5 @@
-import Footer from './Footer'
-import React, { Suspense } from 'react'
 import { SkeletonHeader } from '@/components/Skeleton'
+import React, { Suspense } from 'react'
 
 const Header = React.lazy(() => import('./Header'))
 const Dashboard = React.lazy(() => import('@/components/Dashboard'))

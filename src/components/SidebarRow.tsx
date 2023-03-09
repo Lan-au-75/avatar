@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import { useRef } from 'react'
 import { NavLink } from 'react-router-dom'
+import { useNavbarMobile } from '@/context/NavbarMobile'
 
 interface Props {
     Icon?: any
@@ -11,7 +11,12 @@ interface Props {
 }
 
 function SidebarRow({ Icon, ActiveIcon, title, href, isCollapsed }: Props) {
-    console.log({ isCollapsed })
+    const { setShowNavbar } = useNavbarMobile()
+
+    // handle click close sidebar mobile
+    const handleClick = () => {
+        setShowNavbar(false)
+    }
 
     return (
         <li className='relative menu-item overflow-hidden '>
@@ -26,6 +31,7 @@ function SidebarRow({ Icon, ActiveIcon, title, href, isCollapsed }: Props) {
                             : 'flex items-center py-4 px-5 md:px-3 md:py-2'
                     )
                 }
+                onClick={handleClick}
             >
                 <ActiveIcon className='active-icon flex-shrink-0 text-blue-500' size={20} />
                 <Icon className='icon flex-shrink-0' size={20} />

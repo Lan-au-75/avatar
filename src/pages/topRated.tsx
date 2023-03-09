@@ -24,7 +24,17 @@ function TopRated() {
     }
 
     if (topRated.data?.movies === undefined) {
-        return <div className='text-red-500 text-2xl md:text-3xl'>No Data</div>
+        return (
+            <div className='flex items-center justify-center'>
+                <div className='min-w-[300px] min-h-[100px]'>
+                    <img
+                        src='/public/no-data.png'
+                        alt=''
+                        className='object-contain object-center'
+                    />
+                </div>
+            </div>
+        )
     }
 
     return <MovieItem data={topRated} />

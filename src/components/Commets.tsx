@@ -1,9 +1,9 @@
+import moment from 'moment'
 import { AiOutlineCamera, AiOutlineGift } from 'react-icons/ai'
 import { MdInsertEmoticon } from 'react-icons/md'
 import { BsStickies } from 'react-icons/bs'
-import { Review } from '@/types/movies.type'
 import { baseUrl } from '@/requests'
-import moment from 'moment'
+import { Review } from '@/types/movies.type'
 import { handleImgError } from '@/hooks/handleImgError'
 
 interface Props {

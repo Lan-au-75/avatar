@@ -1,3 +1,9 @@
+import { useState } from 'react'
+import { AiFillCheckCircle, AiOutlineClose } from 'react-icons/ai'
+import { useQuery } from 'react-query'
+import { Slide, toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import {
     fetchNowPlaying,
     fetchPopularity,
@@ -6,17 +12,12 @@ import {
     fetchUpcoming,
 } from '@/hooks/fetchApi'
 import { Category } from '@/types/movies.type'
-import { useState } from 'react'
-import { useQuery } from 'react-query'
-import { AiFillCheckCircle, AiOutlineClose } from 'react-icons/ai'
-import { ToastContainer, toast, Slide } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import ToastMessage from './ToastMessage'
 
 import Row from './Row'
 import Thumbnail1 from './Thumbnail1'
 import Thumbnail2 from './Thumbnail2'
 import Thumbnail3 from './Thumbnail3'
+import ToastMessage from './ToastMessage'
 
 function Container() {
     const trendingMovie = useQuery(['trendingData'], () => fetchTrendingMovie(Category.Movie))
@@ -35,15 +36,6 @@ function Container() {
         // default: 'bg-indigo-600',
         // dark: 'bg-white-600 font-gray-300',
     }
-
-    const Msg = () => (
-        <div className='flex flex-col flex-1 gap-y-1'>
-            <h2 className='text-base'>Success</h2>
-            <p className='text-sm text-gray-400 normal-case line-clamp-2'>
-                You have successfully saved the movie
-            </p>
-        </div>
-    )
 
     // handle show toast
     const handleShowToast = () => {
@@ -70,20 +62,22 @@ function Container() {
                 movies={topRated.data?.movies}
                 Thumbnail={Thumbnail1}
                 isLoading={topRated.isLoading}
+                handleShowToast={handleShowToast}
             />
             <Row
                 title='Upcoming'
                 movies={upcoming.data?.movies}
                 Thumbnail={Thumbnail1}
                 isLoading={upcoming.isLoading}
+                handleShowToast={handleShowToast}
             />
             <Row
                 title='Popular'
                 movies={popularity.data?.movies}
                 Thumbnail={Thumbnail1}
                 isLoading={popularity.isLoading}
+                handleShowToast={handleShowToast}
             />
-
             {/* toast message */}
             <ToastContainer
                 className='flex flex-col gap-3 !top-14'
@@ -97,15 +91,24 @@ function Container() {
                 hideProgressBar
                 position='top-right'
                 autoClose={3000}
-                icon={
-                    <AiFillCheckCircle className='text-green-500 text-lg md:text-xl text-center' />
-                }
-                closeButton={
-                    <AiOutlineClose className='text-gray-300 text-lg md:text-xl ml-1 mr-3 hover:opacity-80' />
-                }
                 transition={Slide}
             />
-            {showToast && toast.success(<Msg />)}
+            {showToast &&
+                toast.success(
+                    <ToastMessage
+                        status='Success'
+                        message='You have successfully saved the movie'
+                    />,
+                    {
+                        icon: (
+                            <AiFillCheckCircle className='text-green-500 text-lg md:text-xl text-center' />
+                        ),
+
+                        closeButton: (
+                            <AiOutlineClose className='text-gray-300 text-lg md:text-xl ml-1 mr-3 hover:opacity-80' />
+                        ),
+                    }
+                )}
         </div>
     )
 }

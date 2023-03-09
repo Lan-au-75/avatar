@@ -1,8 +1,8 @@
+import { AiFillStar } from 'react-icons/ai'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { handleImgError } from '@/hooks/handleImgError'
 import { baseUrl } from '@/requests'
 import { Movie, TV } from '@/types/movies.type'
-import { AiFillStar } from 'react-icons/ai'
-import { useLocation, useNavigate } from 'react-router-dom'
 
 interface Props {
     movie: Movie | TV

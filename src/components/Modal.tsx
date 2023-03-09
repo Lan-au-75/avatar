@@ -9,7 +9,7 @@ import {
     AiOutlineLike,
     AiTwotoneDislike,
 } from 'react-icons/ai'
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player/youtube'
 import HeaderIcon from './HeaderIcon'
 import { formattedDate } from '@/hooks/formattedDate'
 import { Detail, Video } from '@/types/movies.type'

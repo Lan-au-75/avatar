@@ -45,3 +45,26 @@ export const MENU_ITEM = [
         to: '/login',
     },
 ]
+
+export const MENU_ITEM_MOVIES = [
+    {
+        title: 'Trending Movies',
+        to: '/#Trending Movies',
+    },
+    {
+        title: 'Continue Watching',
+        to: '/#Continue watching',
+    },
+    {
+        title: 'Top Rated',
+        to: '/#Top rated',
+    },
+    {
+        title: 'Upcoming',
+        to: '/#Upcoming',
+    },
+    {
+        title: 'Popular',
+        to: '/#Popular',
+    },
+]

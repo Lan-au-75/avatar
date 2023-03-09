@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import { BsPlayFill } from 'react-icons/bs'
+import { NavLink } from 'react-router-dom'
 import { baseUrl } from '@/requests'
 import { Movie } from '@/types/movies.type'
-import { NavLink } from 'react-router-dom'
 
 interface Props {
     movie?: Movie

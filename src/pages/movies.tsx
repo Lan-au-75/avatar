@@ -1,15 +1,4 @@
-import {
-    NowPlayingPage,
-    PopularityPage,
-    TopRatedPage,
-    TrendingPage,
-    UpcomingPage,
-} from '@/types/pagination.type'
-import { NavLink, Outlet, useOutletContext } from 'react-router-dom'
-
-interface Props extends TrendingPage, NowPlayingPage, TopRatedPage, UpcomingPage, PopularityPage {}
-
-type ContextMovie = { movies: Props }
+import { NavLink, Outlet } from 'react-router-dom'
 
 function Movies() {
     return (
@@ -46,7 +35,3 @@ function Movies() {
 }
 
 export default Movies
-
-export function useMovies() {
-    return useOutletContext<ContextMovie>()
-}

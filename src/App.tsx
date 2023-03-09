@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import PaginationProvider from './context/PaginationContext'
+import ContextProvider from './context/ContextProvider'
 import Layout1 from './layouts/Layout1'
 import AiringToDay from './pages/airingToDay'
 import DetailMovie from './pages/detailMovie'
@@ -17,15 +17,15 @@ import Upcoming from './pages/upcoming'
 import Watching from './pages/watching'
 import WatchingTV from './pages/watchingTv'
 
-interface IProps {
-    children: React.ReactNode
-}
-
 export default function App() {
     const router = createBrowserRouter([
         {
             path: '/',
-            element: <Layout1 />,
+            element: (
+                <ContextProvider>
+                    <Layout1 />
+                </ContextProvider>
+            ),
             errorElement: <ErrorPage />,
             children: [
                 {
@@ -34,44 +34,24 @@ export default function App() {
                     children: [
                         {
                             path: 'trending',
-                            element: (
-                                <PaginationProvider>
-                                    <Trending />
-                                </PaginationProvider>
-                            ),
+                            element: <Trending />,
                         },
 
                         {
                             path: 'now-playing',
-                            element: (
-                                <PaginationProvider>
-                                    <NowPlaying />
-                                </PaginationProvider>
-                            ),
+                            element: <NowPlaying />,
                         },
                         {
                             path: 'top-rated',
-                            element: (
-                                <PaginationProvider>
-                                    <TopRated />
-                                </PaginationProvider>
-                            ),
+                            element: <TopRated />,
                         },
                         {
                             path: 'upcoming',
-                            element: (
-                                <PaginationProvider>
-                                    <Upcoming />
-                                </PaginationProvider>
-                            ),
+                            element: <Upcoming />,
                         },
                         {
                             path: 'popular',
-                            element: (
-                                <PaginationProvider>
-                                    <Popular />
-                                </PaginationProvider>
-                            ),
+                            element: <Popular />,
                         },
                     ],
                 },
@@ -81,11 +61,7 @@ export default function App() {
                     children: [
                         {
                             path: 'airingToDay',
-                            element: (
-                                <PaginationProvider>
-                                    <AiringToDay />
-                                </PaginationProvider>
-                            ),
+                            element: <AiringToDay />,
                         },
                     ],
                 },
