@@ -1,10 +1,6 @@
+import { Outlet, useLocation } from 'react-router-dom'
 import Container from './Container'
 import Sidebar from './Sidebar'
-import Widgets from './Widgets'
-
-import { useLocation } from 'react-router-dom'
-
-import { Outlet } from 'react-router-dom'
 
 function Dashboard() {
     const location = useLocation()

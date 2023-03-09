@@ -1,9 +1,8 @@
+import { useQuery } from 'react-query'
 import MovieItem from '@/components/MovieItem'
 import { SkeletonCard } from '@/components/Skeleton'
 import { usePagination } from '@/context/PaginationContext'
 import { fetchUpcoming } from '@/hooks/fetchApi'
-
-import { useQuery } from 'react-query'
 
 function Upcoming() {
     const { page } = usePagination()

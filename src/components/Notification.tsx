@@ -1,9 +1,9 @@
-import { handleImgError } from '@/hooks/handleImgError'
-import { notifications } from '@/mockapi/notification'
 import clsx from 'clsx'
 import { forwardRef, useRef, useImperativeHandle } from 'react'
 import { Link } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
+import { handleImgError } from '@/hooks/handleImgError'
+import { notifications } from '@/mockapi/notification'
 
 function Notification({}, ref: any) {
     const notificationRef = useRef<HTMLInputElement>(null)
@@ -21,9 +21,13 @@ function Notification({}, ref: any) {
 
             <header className='flex flex-col gap-3 md:gap-y-4 px-5 py-4 md:px-3 md:py-2'>
                 <span className='text-xl md:text-2xl '>Notifications</span>
-                <ul className='flex items-center gap-3 md:gap-y-4'>
-                    <Link to=''>View all</Link>
-                    <Link to=''>Mentions</Link>
+                <ul className='flex items-center gap-3 md:gap-y-4 '>
+                    <Link to='#' className='hover:opacity-90'>
+                        View all
+                    </Link>
+                    <Link to='#' className='hover:opacity-90'>
+                        Mentions
+                    </Link>
                 </ul>
             </header>
 
@@ -40,12 +44,12 @@ function Notification({}, ref: any) {
                             className='h-16 w-16 flex-shrink-0 object-cover object-center rounded-full cursor-pointer'
                             onError={(e) => handleImgError(e, '/no-img-avatar.png')}
                         />
-                        <div className='flex flex-col flex-wrap gap-y-1'>
+                        <div className='flex flex-col flex-wrap'>
                             <div className='flex items-center justify-between'>
                                 <p className='text-lg capitalize'>{notification.name}</p>
                                 <span className='h-3 w-3 rounded-full bg-blue-500'></span>
                             </div>
-                            <p className='text-base md:text-lg line-clamp-2'>{notification.desc}</p>
+                            <p className='text-base line-clamp-2'>{notification.desc}</p>
                             <div className='flex items-center justify-between text-sm text-blue-500'>
                                 <span className='lowercase'>{notification.create_time}</span>
                                 <span>{notification.create_day}</span>

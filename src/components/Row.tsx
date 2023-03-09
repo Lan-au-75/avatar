@@ -1,10 +1,10 @@
-import { Movie } from '@/types/movies.type'
 import clsx from 'clsx'
 import { memo } from 'react'
 import { useRef, useState } from 'react'
 import { AiOutlineRight } from 'react-icons/ai'
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
+import { Movie } from '@/types/movies.type'
 import { SkeletonRow } from './Skeleton'
 
 enum Direction {
@@ -87,7 +87,7 @@ function Row({ title, movies, Thumbnail, isLoading, handleShowToast }: Props) {
 
     return (
         <>
-            <div className='relative flex  flex-col gap-y-4'>
+            <div id={title} className='relative flex  flex-col gap-y-4'>
                 <div className='absolute top-0 -left-8 h-[200px] w-[200px] rounded-full bg-blue-500 blur-3xl -z-10'></div>
                 <div className='absolute top-0 -left-8 h-[200px] w-[200px] rounded-full bg-blue-500 blur-3xl -z-10'></div>
 

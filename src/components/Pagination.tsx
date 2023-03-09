@@ -1,9 +1,9 @@
-import { usePagination } from '@/context/PaginationContext'
-import { isActive } from '@/hooks/isActive'
 import clsx from 'clsx'
 import { useState } from 'react'
 import { FiChevronLeft, FiChevronsLeft, FiChevronsRight } from 'react-icons/fi'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { usePagination } from '@/context/PaginationContext'
+import { isActive } from '@/hooks/isActive'
 
 enum Direction {
     Prev = 'prev',

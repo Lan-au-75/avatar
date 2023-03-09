@@ -1,19 +1,20 @@
+import clsx from 'clsx'
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
+import { useSidebarCollapse } from '@/context/SidebarCollapseContext'
 import { navbarData } from '@/mockapi/navbar'
 import { sidebarData1, sidebarData2, sidebarData3 } from '@/mockapi/sidebar'
-import clsx from 'clsx'
 import SidebarMenu from './SidebarMenu'
-import { useState } from 'react'
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 
 interface Props {
     className?: string
 }
 
 function Sidebar({ className }: Props) {
-    const [isCollapsed, setIsCollapsed] = useState(false)
+    const { isCollapsed, setIsCollapsed } = useSidebarCollapse()
 
     // toggle sidebar-collapse
     const toggleSidebar = () => {
+        console.log(123)
         setIsCollapsed(!isCollapsed)
     }
 
@@ -34,7 +35,7 @@ function Sidebar({ className }: Props) {
 
             {/* click sidebar collapse */}
             <div
-                className='flex items-center justify-center rounded-full absolute top-8 -right-2 w-6 bg-blue-500 hover:scale-105 
+                className='hidden pc:flex items-center justify-center rounded-full absolute top-8 -right-2 w-6 bg-blue-500 hover:scale-105 
             h-6 cursor-pointer transition-all duration-300 ease-in-out z-10'
                 onClick={toggleSidebar}
             >

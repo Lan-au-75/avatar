@@ -3,7 +3,7 @@ import { RiMovie2Fill, RiMovie2Line } from 'react-icons/ri'
 
 const navbarData = [
     {
-        href: '/movies',
+        href: '/movies/trending?page=1',
         title: 'Movie',
         Icon: MdMovie,
         ActiveIcon: MdMovie,
@@ -15,7 +15,7 @@ const navbarData = [
         ActiveIcon: MdLocalMovies,
     },
     {
-        href: 'tv shows',
+        href: 'tv shows/airingToDay?page=1',
         title: 'Tv shows',
         Icon: RiMovie2Line,
         ActiveIcon: RiMovie2Fill,

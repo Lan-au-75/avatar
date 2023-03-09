@@ -32,7 +32,6 @@ function SignUp() {
                         className='p-3 outline-none border-b-2 border-solid border-blue-500 bg-base200  flex-1 text-base'
                     />
 
-
                     <input
                         type='email'
                         placeholder='Email'
@@ -48,10 +47,6 @@ function SignUp() {
                         <AiFillEye className='text-xl md:text-2xl text-base100 mr-6 cursor-pointer' />
                     </div>
                 </div>
-
-                <Link to='/sign up' className='text-base text-right text-blue-500 hover:opacity-95'>
-                    Forgot password?
-                </Link>
 
                 <button
                     className='btnCustom text-lg md:text-xl text-white bg-blue-500 p-3 rounded-2xl

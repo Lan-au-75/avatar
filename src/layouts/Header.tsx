@@ -14,9 +14,10 @@ import { USER } from '@/mockapi/user'
 import Notification from '@/components/Notification'
 import { notifications } from '@/mockapi/notification'
 import Tooltip from '@/components/Tooltip'
+import { useNavbarMobile } from '@/context/NavbarMobile'
 
 function Header() {
-    const [showNavbar, setShowNavbar] = useState<boolean>(false)
+    const { showNavbar, setShowNavbar } = useNavbarMobile()
     const [showMenu, setShowMenu] = useState<boolean>(false)
     const [showNotification, setShowNotification] = useState<boolean>(false)
     const [quantity, setQuantity] = useState(notifications.length)

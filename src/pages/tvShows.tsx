@@ -1,9 +1,4 @@
-import { LatestPage } from '@/types/pagination.type'
-import { NavLink, Outlet, useOutletContext } from 'react-router-dom'
-
-interface Props extends LatestPage {}
-
-type ContextMovie = { movies: Props }
+import { NavLink, Outlet } from 'react-router-dom'
 
 function TVShow() {
     return (
@@ -13,7 +8,7 @@ function TVShow() {
             <div>
                 <ul className='flex w-screen  mobile:justify-center pc:justify-start  overflow-x-auto scrollbar-hide gap-4'>
                     <li className='movie-item capitalize'>
-                        <NavLink to='airingToDay'>airing today</NavLink>
+                        <NavLink to='airingToDay?page=1'>airing today</NavLink>
                     </li>
                 </ul>
             </div>
@@ -24,7 +19,3 @@ function TVShow() {
 }
 
 export default TVShow
-
-export function useMovies() {
-    return useOutletContext<ContextMovie>()
-}
