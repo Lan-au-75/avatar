@@ -1,5 +1,7 @@
+import { userAth } from '@/context/AuthContext'
 import clsx from 'clsx'
-import { forwardRef, useRef, useImperativeHandle } from 'react'
+import { forwardRef, useImperativeHandle, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link'
 
 import { v4 as uuidv4 } from 'uuid'
@@ -11,19 +13,28 @@ interface Props {
         to: string
         rightIcon?: JSX.Element
     }[]
-    user?: {
-        name: string
-        email: string
-        img: string
-    }
 
     className?: string
 }
 
-function MenuBox({ menuItem, user, className }: Props, ref: any) {
+function MenuBox({ menuItem, className }: Props, ref: any) {
+    const { logOut, user } = userAth()
     const menuRef = useRef<HTMLInputElement>(null)
 
     useImperativeHandle(ref, () => menuRef.current, [])
+
+    //  handle title
+    const handleTitle = async (title: string) => {
+        switch (title) {
+            case 'logout':
+                await logOut()
+                window.location.reload()
+                break
+
+            default:
+                break
+        }
+    }
 
     return (
         <div ref={menuRef} className={clsx('py-3 md:py-4 animate-menuBox', className)}>
@@ -32,12 +43,12 @@ function MenuBox({ menuItem, user, className }: Props, ref: any) {
                 <>
                     <header className='flex items-center gap-2 md:gap-3  px-5 py-4 md:px-3 md:py-2'>
                         <img
-                            src={user?.img}
+                            src={(user?.photoURL as string) || '/user-account.jpg'}
                             alt='avatar user'
                             className='h-11 w-11 object-cover object-center rounded-full cursor-pointer'
                         />
                         <div className='flex flex-col gap-y-1'>
-                            <p>{user?.name}</p>
+                            <p>{user?.displayName}</p>
                             <p>{user?.email}</p>
                         </div>
                     </header>
@@ -53,6 +64,7 @@ function MenuBox({ menuItem, user, className }: Props, ref: any) {
                         key={uuidv4()}
                         className='menu-box__link'
                         scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: 'center' })}
+                        onClick={() => handleTitle(item.title)}
                     >
                         <div className='flex items-center gap-1 md:gap-2'>
                             {item.leftIcon && (

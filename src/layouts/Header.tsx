@@ -15,8 +15,12 @@ import Notification from '@/components/Notification'
 import { notifications } from '@/mockapi/notification'
 import Tooltip from '@/components/Tooltip'
 import { useNavbarMobile } from '@/context/NavbarMobile'
+import { userAth } from '@/context/AuthContext'
+import { handleImgError } from '@/hooks/handleImgError'
 
 function Header() {
+    const { user } = userAth()
+
     const { showNavbar, setShowNavbar } = useNavbarMobile()
     const [showMenu, setShowMenu] = useState<boolean>(false)
     const [showNotification, setShowNotification] = useState<boolean>(false)
@@ -26,8 +30,6 @@ function Header() {
     const notificationRef = useRef<HTMLInputElement>(null)
     const imgRef = useRef<HTMLInputElement>(null)
     const iconNotificationRef: any = useRef(null)
-
-    const user = true
 
     // handle show notification
 
@@ -135,11 +137,12 @@ function Header() {
                                 className='relative w-11 h-11 rounded-full overflow-hidden cursor-pointer'
                             >
                                 <img
-                                    src='/avatar-user.jpg'
+                                    src={(user?.photoURL as string) || '/user-account.jpg'}
                                     alt=''
                                     className='h-full w-full object-cover object-center transition-all ease-linear duration-200'
                                     onMouseUp={(e) => handleShowMenu(e)}
                                     onMouseDown={(e) => handleAvatarImg(e)}
+                                    onError={(e) => handleImgError(e)}
                                 />
                             </figure>
                             <Tooltip offset='top-14 right-0' tooltip='account' />
@@ -149,7 +152,6 @@ function Header() {
                                 <MenuBox
                                     ref={menuRef}
                                     menuItem={MENU_ITEM}
-                                    user={USER}
                                     className='sm:menu-box fixed top-14 bottom-0 left-0 w-screen sm:w-auto sm:bottom-auto sm:left-auto mobile:min-w-[50%] md:min-w-[40%] ld:min-w-[30%] xl:min-w-[20%] min-h-[300px] bg-base200 rounded-lg origin-top-right shadow-lg'
                                 />
                             )}

@@ -114,13 +114,11 @@ function Row({ title, movies, Thumbnail, isLoading, handleShowToast }: Props) {
                         className='flex w-screen items-center gap-2 md:gap-3 overflow-x-scroll scrollbar-hide'
                     >
                         {movies?.map((movie) => (
-                            <>
-                                <Thumbnail
-                                    key={movie.id}
-                                    movie={movie}
-                                    handleShowToast={handleShowToast}
-                                />
-                            </>
+                            <Thumbnail
+                                key={movie.id}
+                                movie={movie}
+                                handleShowToast={handleShowToast}
+                            />
                         ))}
                     </div>
 
