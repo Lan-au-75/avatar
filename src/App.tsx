@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Protected from './components/Protected'
 import ContextProvider from './context/ContextProvider'
 import Layout1 from './layouts/Layout1'
 import AiringToDay from './pages/airingToDay'
@@ -23,7 +24,9 @@ export default function App() {
             path: '/',
             element: (
                 <ContextProvider>
-                    <Layout1 />
+                    <Protected>
+                        <Layout1 />
+                    </Protected>
                 </ContextProvider>
             ),
             errorElement: <ErrorPage />,
@@ -87,11 +90,19 @@ export default function App() {
         },
         {
             path: '/login',
-            element: <Login />,
+            element: (
+                <ContextProvider>
+                    <Login />
+                </ContextProvider>
+            ),
         },
         {
             path: '/sign up',
-            element: <SignUp />,
+            element: (
+                <ContextProvider>
+                    <SignUp />
+                </ContextProvider>
+            ),
         },
     ])
     return <RouterProvider router={router}></RouterProvider>

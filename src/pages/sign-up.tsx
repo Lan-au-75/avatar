@@ -1,9 +1,32 @@
-import { AiFillEye } from 'react-icons/ai'
+import { userAth } from '@/context/AuthContext'
+import { useState, useEffect } from 'react'
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { BsFacebook } from 'react-icons/bs'
 import { FcGoogle } from 'react-icons/fc'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function SignUp() {
+    const { signUp, user, errorMessage } = userAth()
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+
+    const navigate = useNavigate()
+
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword)
+    }
+
+    const handleSignUp = async () => {
+        await signUp(email, password)
+    }
+
+    useEffect(() => {
+        if (user) {
+            navigate('/')
+        }
+    }, [user])
+
     return (
         <aside
             style={{
@@ -11,7 +34,10 @@ function SignUp() {
             }}
             className='h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat -z-10'
         >
-            <div className='flex flex-col gap-3 md:gap-y-4 p-5 md:p-8 rounded-lg min-w-full min-h-full  md:min-w-[400px] md:min-h-[100px] bg-base200 shadow-lg'>
+            <form
+                className='flex flex-col gap-3 md:gap-y-4 p-5 md:p-8 rounded-lg min-w-full min-h-full  md:min-w-[400px] md:min-h-[100px] bg-base200 shadow-lg'
+                onSubmit={(e) => e.preventDefault()}
+            >
                 <div className='flex items-center flex-col gap-3'>
                     <img
                         src='/logoAvatar.png'
@@ -29,28 +55,44 @@ function SignUp() {
                     <input
                         type='text'
                         placeholder='Full name'
+                        required
+                        autoComplete='on'
                         className='p-3 outline-none border-b-2 border-solid border-blue-500 bg-base200  flex-1 text-base'
                     />
 
                     <input
+                        value={email}
                         type='email'
                         placeholder='Email'
+                        required
+                        autoComplete='on'
                         className='p-3 outline-none border-b-2 border-solid border-blue-500 bg-base200  flex-1 text-base'
+                        onChange={(e) => setEmail(e.target.value)}
                     />
 
                     <div className='flex items-center justify-between border-b-2 border-solid border-blue-500'>
                         <input
-                            type='password'
+                            value={password}
+                            type={showPassword ? 'text' : 'password'}
+                            required
+                            autoComplete='on'
                             placeholder='Password'
                             className='p-3 outline-none bg-base200  flex-1 text-base'
+                            onChange={(e) => setPassword(e.target.value)}
                         />
-                        <AiFillEye className='text-xl md:text-2xl text-base100 mr-6 cursor-pointer' />
+                        <span
+                            className='text-xl md:text-2xl text-base100 mr-6 cursor-pointer'
+                            onClick={handleShowPassword}
+                        >
+                            {!showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                        </span>
                     </div>
                 </div>
 
                 <button
                     className='btnCustom text-lg md:text-xl text-white bg-blue-500 p-3 rounded-2xl
                 font-semibold capitalize min-w-[80px] min-h-[50px] hover:scale-105 hover:opacity-90 transition-all duration-300 ease-in'
+                    onClick={handleSignUp}
                 >
                     Sign up
                 </button>
@@ -61,7 +103,13 @@ function SignUp() {
                         Login
                     </Link>{' '}
                 </p>
-            </div>
+
+                {errorMessage && (
+                    <div className='flex items-center justify-center'>
+                        <span className='text-red-600'>Wrong email or password</span>
+                    </div>
+                )}
+            </form>
         </aside>
     )
 }

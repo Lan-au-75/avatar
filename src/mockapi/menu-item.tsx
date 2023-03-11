@@ -38,6 +38,19 @@ export const MENU_ITEM = [
         title: 'Language: English',
         to: '#',
         rightIcon: <BsChevronRight />,
+        children: {
+            title: 'Language',
+            data: [
+                {
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    code: 'vi',
+                    title: 'VietNamese',
+                },
+            ],
+        },
     },
     {
         leftIcon: <AiOutlineLogout />,
