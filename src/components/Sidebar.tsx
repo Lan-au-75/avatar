@@ -14,7 +14,6 @@ function Sidebar({ className }: Props) {
 
     // toggle sidebar-collapse
     const toggleSidebar = () => {
-        console.log(123)
         setIsCollapsed(!isCollapsed)
     }
 

@@ -20,7 +20,6 @@ import { handleImgError } from '@/hooks/handleImgError'
 
 function Header() {
     const { user } = userAth()
-
     const { showNavbar, setShowNavbar } = useNavbarMobile()
     const [showMenu, setShowMenu] = useState<boolean>(false)
     const [showNotification, setShowNotification] = useState<boolean>(false)
