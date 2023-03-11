@@ -1,6 +1,6 @@
 import { userAth } from '@/context/AuthContext'
 import { useState, useEffect } from 'react'
-import { AiFillEye } from 'react-icons/ai'
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { BsFacebook } from 'react-icons/bs'
 import { FcGoogle } from 'react-icons/fc'
 import { Link, useNavigate } from 'react-router-dom'
@@ -80,10 +80,12 @@ function SignUp() {
                             className='p-3 outline-none bg-base200  flex-1 text-base'
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <AiFillEye
+                        <span
                             className='text-xl md:text-2xl text-base100 mr-6 cursor-pointer'
                             onClick={handleShowPassword}
-                        />
+                        >
+                            {!showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                        </span>
                     </div>
                 </div>
 
