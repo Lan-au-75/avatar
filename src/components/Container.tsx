@@ -3,6 +3,7 @@ import { AiFillCheckCircle, AiOutlineClose } from 'react-icons/ai'
 import { useQuery } from 'react-query'
 import { Slide, toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
 
 import {
     fetchNowPlaying,
@@ -11,15 +12,19 @@ import {
     fetchTrendingMovie,
     fetchUpcoming,
 } from '@/hooks/fetchApi'
-import { Category } from '@/types/movies.type'
+import { Category, Movie } from '@/types/movies.type'
 
 import Row from './Row'
 import Thumbnail1 from './Thumbnail1'
 import Thumbnail2 from './Thumbnail2'
 import Thumbnail3 from './Thumbnail3'
 import ToastMessage from './ToastMessage'
+import { db } from '@/firebase'
+import { userAth } from '@/context/AuthContext'
+import { baseUrl } from '@/requests'
 
 function Container() {
+    const { user } = userAth()
     const trendingMovie = useQuery(['trendingData'], () => fetchTrendingMovie(Category.Movie))
     const nowPlaying = useQuery(['nowPlayingData'], async () => fetchNowPlaying())
     const topRated = useQuery(['topRatedData'], async () => fetchTopRated(Category.Movie))
@@ -37,9 +42,25 @@ function Container() {
         // dark: 'bg-white-600 font-gray-300',
     }
 
-    // handle show toast
-    const handleShowToast = () => {
+    // handle show toast and bookmark
+    const handleShowToast = async (movie: Movie) => {
         setShowToast(!showToast)
+
+        try {
+            // saved movies when user click
+            await updateDoc(doc(db, 'users', user?.email as string), {
+                savedMovies: arrayUnion({
+                    id: movie.id,
+                    poster_path: movie.poster_path || movie.backdrop_path,
+                    original_title: movie.original_title || movie.name,
+                    vote_average: movie.vote_average,
+                    release_date: movie.release_date,
+                    // media_type: movie.media_type || 'movies',
+                }),
+            })
+        } catch (error: any) {
+            console.log(error.message)
+        }
     }
 
     return (
@@ -92,6 +113,12 @@ function Container() {
                 position='top-right'
                 autoClose={3000}
                 transition={Slide}
+                closeButton={({ closeToast }: any) => (
+                    <AiOutlineClose
+                        onClick={closeToast}
+                        className='text-gray-300 text-lg md:text-xl ml-1 mr-3 hover:opacity-80'
+                    />
+                )}
             />
             {showToast &&
                 toast.success(
@@ -102,10 +129,6 @@ function Container() {
                     {
                         icon: (
                             <AiFillCheckCircle className='text-green-500 text-lg md:text-xl text-center' />
-                        ),
-
-                        closeButton: (
-                            <AiOutlineClose className='text-gray-300 text-lg md:text-xl ml-1 mr-3 hover:opacity-80' />
                         ),
                     }
                 )}

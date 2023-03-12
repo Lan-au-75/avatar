@@ -3,6 +3,7 @@ import Protected from './components/Protected'
 import ContextProvider from './context/ContextProvider'
 import Layout1 from './layouts/Layout1'
 import AiringToDay from './pages/airingToDay'
+import Bookmark from './pages/bookmark'
 import DetailMovie from './pages/detailMovie'
 import DetailTV from './pages/detailTV'
 import ErrorPage from './pages/error-page'
@@ -67,6 +68,11 @@ export default function App() {
                             element: <AiringToDay />,
                         },
                     ],
+                },
+
+                {
+                    path: '/bookmarked',
+                    element: <Bookmark />,
                 },
             ],
         },

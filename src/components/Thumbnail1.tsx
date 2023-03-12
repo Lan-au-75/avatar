@@ -9,8 +9,8 @@ import { Movie } from '@/types/movies.type'
 import HeaderIcon from './HeaderIcon'
 
 interface Props {
-    movie?: Movie
-    handleShowToast?: () => void
+    movie: Movie
+    handleShowToast?: (movie: Movie) => Promise<void>
 }
 
 function Thumbnail1({ movie, handleShowToast }: Props) {
@@ -46,7 +46,11 @@ function Thumbnail1({ movie, handleShowToast }: Props) {
                             ActiveIcon={BsCheck}
                             classIcon='iconDefault'
                             classActiveIcon='iconActiveDefault text-white bg-green-500'
-                            onMouseUp={handleShowToast}
+                            onMouseUp={() => {
+                                if (typeof handleShowToast === 'function') {
+                                    handleShowToast(movie as Movie)
+                                }
+                            }}
                         />
                     </div>
                 </div>

@@ -17,7 +17,7 @@ interface Props {
     movies?: Movie[]
     Thumbnail?: any
     isLoading?: boolean
-    handleShowToast?: () => void
+    handleShowToast?: (movie: Movie) => Promise<void>
 }
 
 function Row({ title, movies, Thumbnail, isLoading, handleShowToast }: Props) {
