@@ -13,6 +13,7 @@ import ReactPlayer from 'react-player/youtube'
 import HeaderIcon from './HeaderIcon'
 import { formattedDate } from '@/hooks/formattedDate'
 import { Detail, Video } from '@/types/movies.type'
+import timeConvert from '@/hooks/timeConvert'
 
 interface Props {
     close: () => void
@@ -97,7 +98,7 @@ function Modal({ close, open, videos, data }: Props) {
                 )}
                 onClick={(e) => handleStop(e)}
             >
-                <div className='relative pt-[50%]'>
+                <div className='relative pt-[50%] xl:pt-[45%]'>
                     {trailerMovies ? trailerMovies[0] : errorVideos.length > 0 && fallBack}
                     <span
                         className='absolute right-4 top-3 text-xl md:text-2xl text-white bg-base200 rounded-full 
@@ -174,6 +175,10 @@ function Modal({ close, open, videos, data }: Props) {
                                         {i !== data.genres.length - 1 ? ',' : ''}
                                     </span>
                                 ))}
+                            </p>
+                            <p className='text-gray-300'>
+                                Run time:{' '}
+                                <span className='text-white'>{timeConvert(data.runtime)}</span>
                             </p>
                             <p className='text-gray-300'>
                                 Original language:{' '}

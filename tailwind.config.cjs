@@ -17,6 +17,12 @@ module.exports = {
                 base100: '#4d4f57',
                 base200: '#313649',
             },
+            gridTemplateColumns: {
+                autoPC: 'repeat(auto-fit, minmax(180px, 250px))',
+                autoTablet: 'repeat(auto-fit, minmax(180px, 230px))',
+                autoMobile: 'repeat(auto-fit, minmax(0, 200px))',
+                autoMini: 'repeat(auto-fit, minmax(0, 180px))',
+            },
 
             animation: {
                 modalFadeIn: 'modal .4s ease-in-out',

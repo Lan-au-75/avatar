@@ -1,5 +1,3 @@
-import { compileStringAsync } from 'sass'
-
 type TVShow = Pick<TV, 'name' | 'first_air_date'>
 
 export interface Movie extends TVShow {
@@ -17,6 +15,7 @@ export interface Movie extends TVShow {
     video: boolean
     vote_average: number | string
     vote_count: number
+    media_type: string
 }
 
 type MovieShow = Pick<
@@ -32,6 +31,7 @@ type MovieShow = Pick<
     | 'vote_count'
     | 'original_title'
     | 'release_date'
+    | 'media_type'
 >
 
 export interface TV extends MovieShow {

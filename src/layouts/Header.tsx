@@ -141,7 +141,7 @@ function Header() {
                                     className='h-full w-full object-cover object-center transition-all ease-linear duration-200'
                                     onMouseUp={(e) => handleShowMenu(e)}
                                     onMouseDown={(e) => handleAvatarImg(e)}
-                                    onError={(e) => handleImgError(e)}
+                                    onError={(e) => handleImgError(e, '/no-img-avatar.png')}
                                 />
                             </figure>
                             <Tooltip offset='top-14 right-0' tooltip='account' />

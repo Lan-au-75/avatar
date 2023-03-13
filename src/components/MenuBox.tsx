@@ -1,4 +1,5 @@
 import { userAth } from '@/context/AuthContext'
+import { handleImgError } from '@/hooks/handleImgError'
 import clsx from 'clsx'
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
@@ -68,6 +69,7 @@ function MenuBox({ menuItem, className }: Props, ref: any) {
                             src={(user?.photoURL as string) || '/user-account.jpg'}
                             alt='avatar user'
                             className='h-11 w-11 object-cover object-center rounded-full cursor-pointer'
+                            onError={(e) => handleImgError(e, '/no-img-avatar.png')}
                         />
                         <div className='flex flex-col gap-y-1'>
                             <p>{user?.displayName}</p>
