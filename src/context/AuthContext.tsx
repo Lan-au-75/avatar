@@ -1,19 +1,15 @@
-import { auth } from '@/firebase'
-import { assert } from 'console'
+import { auth, db } from '@/firebase'
 import {
     createUserWithEmailAndPassword,
+    FacebookAuthProvider,
     GoogleAuthProvider,
     onAuthStateChanged,
     signInWithEmailAndPassword,
     signInWithRedirect,
     signOut,
-    FacebookAuthProvider,
-    signInWithPopup,
     User,
-    getRedirectResult,
-    UserCredential,
-    OAuthCredential,
 } from 'firebase/auth'
+import { doc, setDoc } from 'firebase/firestore'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
 interface Props {
@@ -44,6 +40,11 @@ function AuthProvider({ children }: { children: ReactNode }) {
     const signUp = async (email: string, password: string) => {
         try {
             await createUserWithEmailAndPassword(auth, email, password)
+
+            // Cloud Firestore
+            await setDoc(doc(db, 'users', email), {
+                savedMovies: [],
+            })
         } catch (error: any) {
             setErrorMessage(error.message)
         }
@@ -90,9 +91,17 @@ function AuthProvider({ children }: { children: ReactNode }) {
                     JSON.parse(localStorage.getItem('user') as string)
                 }
 
-                console.log({ user })
+                // Cloud Firestore
+                ;(async () => {
+                    // add collection users
+                    await setDoc(doc(db, 'users', currentUser?.email as string), {
+                        savedMovies: [],
+                    })
+                })()
+
+                // console.log({ user })
             } else {
-                console.log('fail')
+                // console.log('fail')
             }
         })
 

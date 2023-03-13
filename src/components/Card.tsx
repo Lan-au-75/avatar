@@ -3,6 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { handleImgError } from '@/hooks/handleImgError'
 import { baseUrl } from '@/requests'
 import { Movie, TV } from '@/types/movies.type'
+import { arrayRemove, doc, updateDoc } from 'firebase/firestore'
+import { db } from '@/firebase'
+import { userAth } from '@/context/AuthContext'
 
 interface Props {
     movie: Movie | TV
@@ -12,9 +15,17 @@ function Card({ movie }: Props) {
     const location = useLocation()
     const navigate = useNavigate()
 
+    const { user } = userAth()
+
+    const handleDeleteSaveMovies = async () => {
+        await updateDoc(doc(db, 'users', user?.email as string), {
+            savedMovies: arrayRemove(movie),
+        })
+    }
+
     // handle navigate when path movie/tv
     const handleNavigate = () => {
-        if (location.pathname.match('movies')) {
+        if (location.pathname.match('movies') || !('name' in movie)) {
             navigate(`/detail/${movie.id} `)
         } else {
             navigate(`/detailTV/${movie.id}`)
@@ -22,7 +33,7 @@ function Card({ movie }: Props) {
     }
 
     return (
-        <div className='relative hover:scale-110 transition-all ease-linear duration-200 w-[180px] sm:w-[200px] md:w-[230px] lg:w-[250px] cursor-pointer'>
+        <div className='relative hover:scale-110 transition-all ease-linear duration-200 cursor-pointer'>
             <div onClick={handleNavigate}>
                 <figure className='relative pt-[100%] min-h-[270px] sm:min-h-[330px] md:min-h-[350px] '>
                     <img

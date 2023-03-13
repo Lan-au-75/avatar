@@ -18,14 +18,12 @@ interface Props {
 
 function MovieItem({ data }: Props) {
     const totalPages = data.data?.totalPages
-    const { isCollapsed } = useSidebarCollapse()
 
     return (
-        <div className='flex flex-col gap-y-20'>
+        <div className='flex flex-col gap-y-20 w-full'>
             <ul
                 className={clsx(
-                    'grid gap-x-3 md:gap-x-4 justify-start gap-y-20 grid-cols-2 mobile:grid-cols-3 md:grid-cols-3 xl:grid-cols-4',
-                    isCollapsed && 'md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-5'
+                    'grid gap-x-1 mobile:gap-x-3 md:gap-x-4 justify-center pc:justify-start gap-y-20 grid-cols-autoMini sm:grid-cols-autoMobile md:grid-cols-autoTablet lg:grid-cols-autoPC'
                 )}
             >
                 {data.data?.movies?.map((movie) => (
