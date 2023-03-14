@@ -7,13 +7,15 @@ import 'react-toastify/dist/ReactToastify.css'
 import { baseUrl } from '@/requests'
 import { Movie } from '@/types/movies.type'
 import HeaderIcon from './HeaderIcon'
+import { useBookmark } from '@/context/BookmarkContext'
 
 interface Props {
     movie: Movie
-    handleShowToast?: (movie: Movie) => Promise<void>
 }
 
-function Thumbnail1({ movie, handleShowToast }: Props) {
+function Thumbnail1({ movie }: Props) {
+    const { handleBookmark } = useBookmark()
+
     return (
         <div className='thumbnail min-w-[calc(400px-160px)] h-[calc(250px-90px)] md:min-w-[400px] md:h-[250px]'>
             <div className='absolute top-3 right-5 flex items-center gap-1 bg-black/80 px-2 py-1 rounded-2xl'>
@@ -47,8 +49,8 @@ function Thumbnail1({ movie, handleShowToast }: Props) {
                             classIcon='iconDefault'
                             classActiveIcon='iconActiveDefault text-white bg-green-500'
                             onMouseUp={() => {
-                                if (typeof handleShowToast === 'function') {
-                                    handleShowToast(movie as Movie)
+                                if (typeof handleBookmark === 'function') {
+                                    handleBookmark(movie as Movie)
                                 }
                             }}
                         />

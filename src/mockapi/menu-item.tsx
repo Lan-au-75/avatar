@@ -3,7 +3,7 @@ import { VscCommentDiscussion } from 'react-icons/vsc'
 import { GrUnorderedList } from 'react-icons/gr'
 import { RiMovie2Line } from 'react-icons/ri'
 import { MdDarkMode, MdOutlineList } from 'react-icons/md'
-import { BsChevronRight } from 'react-icons/bs'
+import { BsChevronRight, BsFillBookmarkCheckFill, BsFillBookmarkDashFill } from 'react-icons/bs'
 import { IoLanguageOutline } from 'react-icons/io5'
 
 export const MENU_ITEM = [
@@ -79,5 +79,19 @@ export const MENU_ITEM_MOVIES = [
     {
         title: 'Popular',
         to: '/#Popular',
+    },
+]
+
+export const MENU_ITEM_CARD1 = [
+    {
+        title: 'Bookmark',
+        to: '#',
+    },
+]
+
+export const MENU_ITEM_CARD2 = [
+    {
+        title: 'Remove Bookmark',
+        to: '#',
     },
 ]

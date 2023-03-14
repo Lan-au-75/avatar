@@ -17,10 +17,9 @@ interface Props {
     movies?: Movie[]
     Thumbnail?: any
     isLoading?: boolean
-    handleShowToast?: (movie: Movie) => Promise<void>
 }
 
-function Row({ title, movies, Thumbnail, isLoading, handleShowToast }: Props) {
+function Row({ title, movies, Thumbnail, isLoading }: Props) {
     const rowRef = useRef<HTMLDivElement>(null)
     const [isMoved, setIsMoved] = useState<boolean>(false)
     // const [showScrollButton, setShowScrollButton] = useState(true)
@@ -114,11 +113,7 @@ function Row({ title, movies, Thumbnail, isLoading, handleShowToast }: Props) {
                         className='flex w-screen items-center gap-2 md:gap-3 overflow-x-scroll scrollbar-hide'
                     >
                         {movies?.map((movie) => (
-                            <Thumbnail
-                                key={movie.id}
-                                movie={movie}
-                                handleShowToast={handleShowToast}
-                            />
+                            <Thumbnail key={movie.id} movie={movie} />
                         ))}
                     </div>
 

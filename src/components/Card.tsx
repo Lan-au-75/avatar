@@ -1,11 +1,13 @@
-import { AiFillStar } from 'react-icons/ai'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
 import { handleImgError } from '@/hooks/handleImgError'
+import { MENU_ITEM_CARD1, MENU_ITEM_CARD2 } from '@/mockapi/menu-item'
 import { baseUrl } from '@/requests'
 import { Movie, TV } from '@/types/movies.type'
-import { arrayRemove, doc, updateDoc } from 'firebase/firestore'
-import { db } from '@/firebase'
-import { userAth } from '@/context/AuthContext'
+import { useState } from 'react'
+import { AiFillStar } from 'react-icons/ai'
+import { BsThreeDotsVertical } from 'react-icons/bs'
+import { useLocation, useNavigate } from 'react-router-dom'
+import MenuBox from './MenuBox'
 
 interface Props {
     movie: Movie | TV
@@ -15,12 +17,33 @@ function Card({ movie }: Props) {
     const location = useLocation()
     const navigate = useNavigate()
 
-    const { user } = userAth()
+    const [showMenu, setShowMenu] = useState<boolean>(false)
 
-    const handleDeleteSaveMovies = async () => {
-        await updateDoc(doc(db, 'users', user?.email as string), {
-            savedMovies: arrayRemove(movie),
-        })
+    const menuRef = useRef<HTMLInputElement>(null)
+    const iconRef = useRef<HTMLInputElement>(null)
+
+    // handle menu when outside
+    const handleOutsideClick = (e: MouseEvent) => {
+        if (
+            menuRef.current &&
+            !menuRef.current.contains(e.target as Node) &&
+            !iconRef.current?.contains(e.target as Node)
+        ) {
+            setShowMenu(false)
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('mousedown', (e) => handleOutsideClick(e))
+        return () => {
+            document.removeEventListener('mousedown', (e) => handleOutsideClick(e))
+        }
+    }, [])
+
+    // show menu when click
+    const handleOpenMenu = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+        e.stopPropagation()
+        setShowMenu(!showMenu)
     }
 
     // handle navigate when path movie/tv
@@ -42,6 +65,25 @@ function Card({ movie }: Props) {
                         className='absolute top-0 bottom-0 object-cover object-center rounded-t-[30px] '
                         onError={(e) => handleImgError(e)}
                     />
+                    <span
+                        ref={iconRef}
+                        onClick={(e) => handleOpenMenu(e)}
+                        className='absolute top-2 right-2 p-2 rounded-full hover:bg-white/30'
+                    >
+                        <BsThreeDotsVertical className='text-base100 text-xl md:text-lg' />
+                    </span>
+                    {showMenu && (
+                        <MenuBox
+                            ref={menuRef}
+                            movie={movie}
+                            menuItem={
+                                location.pathname !== '/bookmarked'
+                                    ? MENU_ITEM_CARD1
+                                    : MENU_ITEM_CARD2
+                            }
+                            className='absolute top-11 right-0 md:right-2 min-w-full min-h-full md:min-w-[80px] md:min-h-[50px] bg-base200 rounded-md origin-top-right shadow-md'
+                        />
+                    )}
                 </figure>
             </div>
 

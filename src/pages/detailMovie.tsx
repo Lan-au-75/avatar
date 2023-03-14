@@ -1,13 +1,13 @@
-import { startTransition, useEffect, useState } from 'react'
-import { HiBars3BottomLeft } from 'react-icons/hi2'
-import ReactPlayer from 'react-player/youtube'
-import { useQuery } from 'react-query'
-import { Link, useParams } from 'react-router-dom'
 import { getVideo } from '@/apis/getVideo.api'
 import { fetchDetailMovie } from '@/hooks/fetchApi'
 import { formattedDate } from '@/hooks/formattedDate'
 import { baseUrl } from '@/requests'
 import { Category, Video } from '@/types/movies.type'
+import { startTransition, useEffect, useState } from 'react'
+import { HiBars3BottomLeft } from 'react-icons/hi2'
+import ReactPlayer from 'react-player/youtube'
+import { useQuery } from 'react-query'
+import { Link, useParams } from 'react-router-dom'
 import Modal from '../components/Modal'
 
 const socials = [
