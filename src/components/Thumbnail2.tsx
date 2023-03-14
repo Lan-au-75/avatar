@@ -18,6 +18,7 @@ function Thumbnail2({ movie }: Props) {
     return (
         <div className='relative thumbnail min-w-[calc(500px-200px)] h-[calc(300px-90px)] md:min-w-[500px] md:h-[300px]'>
             <img
+                title={movie?.name || movie?.original_title}
                 src={clsx(baseUrl + movie?.backdrop_path)}
                 alt={movie?.name || movie?.original_title}
                 className='object-cover object-center w-full h-full'

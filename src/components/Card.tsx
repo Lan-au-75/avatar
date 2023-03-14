@@ -58,7 +58,10 @@ function Card({ movie }: Props) {
     return (
         <div className='relative hover:scale-110 transition-all ease-linear duration-200 cursor-pointer'>
             <div onClick={handleNavigate}>
-                <figure className='relative pt-[100%] min-h-[270px] sm:min-h-[330px] md:min-h-[350px] '>
+                <figure
+                    title={movie?.name || movie?.original_title}
+                    className='relative pt-[100%] min-h-[270px] sm:min-h-[330px] md:min-h-[350px] '
+                >
                     <img
                         src={`${baseUrl + (movie?.poster_path || movie?.backdrop_path)}`}
                         alt={movie.original_title || movie.name}

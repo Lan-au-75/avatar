@@ -31,6 +31,11 @@
         -ms-user-select: none;
         user-select: none;
     }
+
+    a,
+    button {
+        @apply outline-none;
+    }
 }
 
 @layer components {

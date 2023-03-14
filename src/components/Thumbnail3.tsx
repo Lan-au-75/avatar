@@ -12,6 +12,7 @@ function Thumbnail3({ movie }: Props) {
     return (
         <div className='thumbnail min-w-[calc(300px-50px)] h-[calc(300px-80px)] md:min-w-[300px] md:h-[300px]'>
             <img
+                title={movie?.name || movie?.original_title}
                 src={clsx(baseUrl + movie?.poster_path)}
                 alt={movie?.name || movie?.original_title}
                 className='object-cover object-center w-full h-full'

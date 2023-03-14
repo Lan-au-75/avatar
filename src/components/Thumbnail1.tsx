@@ -25,6 +25,7 @@ function Thumbnail1({ movie }: Props) {
                 </span>
             </div>
             <img
+                title={movie?.name || movie?.original_title}
                 src={clsx(baseUrl + movie?.backdrop_path)}
                 alt={movie?.name || movie?.original_title}
                 className='object-cover object-center w-full h-full'

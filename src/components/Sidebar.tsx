@@ -24,7 +24,7 @@ function Sidebar({ className }: Props) {
             >
                 <SidebarMenu title='Menu' data={sidebarData1} isCollapsed={isCollapsed} />
                 <div className='pc:hidden'>
-                    <SidebarMenu data={navbarData} />
+                    <SidebarMenu data={navbarData} isCollapsed={isCollapsed} />
                 </div>
                 <SidebarMenu title='Library' data={sidebarData2} isCollapsed={isCollapsed} />
                 <div className='mb-14'>

@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Protected from './components/Protected'
+import Search from './components/Search'
 import ContextProvider from './context/ContextProvider'
 import Layout1 from './layouts/Layout1'
 import AiringToDay from './pages/airingToDay'
@@ -73,6 +74,10 @@ export default function App() {
                 {
                     path: '/bookmarked',
                     element: <Bookmark />,
+                },
+                {
+                    path: '/search',
+                    element: <Search />,
                 },
             ],
         },
