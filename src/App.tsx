@@ -7,6 +7,7 @@ import Bookmark from './pages/bookmark'
 import DetailMovie from './pages/detailMovie'
 import DetailTV from './pages/detailTV'
 import ErrorPage from './pages/error-page'
+import Filter from './pages/filter'
 import Login from './pages/login'
 import Movies from './pages/movies'
 import NowPlaying from './pages/nowPlaying'
@@ -73,6 +74,10 @@ export default function App() {
                 {
                     path: '/bookmarked',
                     element: <Bookmark />,
+                },
+                {
+                    path: '/filter',
+                    element: <Filter />,
                 },
             ],
         },

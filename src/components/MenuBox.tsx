@@ -1,5 +1,7 @@
 import { userAth } from '@/context/AuthContext'
+import { useBookmark } from '@/context/BookmarkContext'
 import { handleImgError } from '@/hooks/handleImgError'
+import { Movie, TV } from '@/types/movies.type'
 import clsx from 'clsx'
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
@@ -8,6 +10,7 @@ import { HashLink } from 'react-router-hash-link'
 import { v4 as uuidv4 } from 'uuid'
 
 interface Props {
+    movie?: Movie | TV
     menuItem: {
         leftIcon?: JSX.Element
         title: string
@@ -16,8 +19,8 @@ interface Props {
         children?: {
             title: string
             data: {
-                code: string
-                title: string
+                code?: string
+                title?: string
             }[]
         }
     }[]
@@ -25,8 +28,9 @@ interface Props {
     className?: string
 }
 
-function MenuBox({ menuItem, className }: Props, ref: any) {
+function MenuBox({ menuItem, className, movie }: Props, ref: any) {
     const { logOut, user } = userAth()
+    const { handleBookmark, handleRemoveBookmark } = useBookmark()
     const menuRef = useRef<HTMLInputElement>(null)
     const [history, setHistory] = useState([{ data: menuItem, title: '' }])
 
@@ -35,7 +39,14 @@ function MenuBox({ menuItem, className }: Props, ref: any) {
 
     useImperativeHandle(ref, () => menuRef.current, [])
 
-    const currentTitle = menuItem.find((item) => item.title === 'Trending Movies')
+    const currentTitle = menuItem.find(
+        (item) =>
+            item.title === 'Trending Movies' ||
+            item.title === 'Bookmark' ||
+            item.title === 'Remove Bookmark'
+    )
+
+    const isTitle = menuItem.find((item) => item.title.includes('Trending Movies'))
 
     // handle back menu
     const handleBackMenu = () => {
@@ -43,12 +54,28 @@ function MenuBox({ menuItem, className }: Props, ref: any) {
     }
 
     //  handle title and children
-    const handleTitle = async (title: string, children: any) => {
+    const handleTitle = async (
+        e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+        title: string,
+        children: any
+    ) => {
+        // check remove anchor in menu
+        if (!isTitle) {
+            e.preventDefault()
+        }
+
+        // sub menu
         if (children) {
             setHistory((prev: any) => [...prev, children])
         }
 
         switch (title) {
+            case 'Bookmark':
+                handleBookmark(movie as Movie)
+                break
+            case 'Remove Bookmark':
+                handleRemoveBookmark(movie as Movie)
+                break
             case 'logout':
                 await logOut()
                 window.location.reload()
@@ -60,11 +87,15 @@ function MenuBox({ menuItem, className }: Props, ref: any) {
     }
 
     return (
-        <div ref={menuRef} className={clsx('py-3 md:py-4 animate-menuBox', className)}>
+        <div
+            ref={menuRef}
+            className={clsx('py-3 md:py-4 animate-menuBox', className)}
+            onClick={(e) => e.stopPropagation()}
+        >
             {/* menu header */}
             {user && !currentTitle && history.length <= 1 ? (
                 <>
-                    <header className='flex items-center gap-2 md:gap-3  px-5 py-4 md:px-3 md:py-2'>
+                    <header className='flex items-center gap-4 md:gap-3  px-5 py-4 md:px-3 md:py-2'>
                         <img
                             src={(user?.photoURL as string) || '/user-account.jpg'}
                             alt='avatar user'
@@ -96,16 +127,16 @@ function MenuBox({ menuItem, className }: Props, ref: any) {
             )}
 
             {/* menu item */}
-            <ul className='flex flex-col gap-y-2 md:gap-y-3'>
+            <ul className='flex flex-col gap-y-2 md:gap-y-3 max-h-[500px] overflow-y-hidden scrollBarCustom hover:overflow-y-auto'>
                 {currentMenu.data.map((item) => (
                     <HashLink
                         to={item.to}
                         key={uuidv4()}
                         className='menu-box__link'
                         scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: 'center' })}
-                        onClick={() => handleTitle(item.title, item.children)}
+                        onClick={(e) => handleTitle(e, item.title, item.children)}
                     >
-                        <div className='flex items-center gap-1 md:gap-2'>
+                        <div className='flex items-center gap-2 md:gap-3'>
                             {item.leftIcon && (
                                 <span className='text-xl md:text-lg'>{item.leftIcon}</span>
                             )}

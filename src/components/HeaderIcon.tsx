@@ -1,6 +1,5 @@
 import clsx from 'clsx'
-import { useState, useRef, useImperativeHandle, forwardRef } from 'react'
-import { IconType } from 'react-icons/lib'
+import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import Tooltip from '@/components/Tooltip'
 
 interface Props {
@@ -45,20 +44,22 @@ function HeaderIcon(
     return (
         <>
             {toggleIcon ? (
-                <div ref={iconNotificationRef} className={classActiveIcon}>
-                    <ActiveIcon
-                        className={'cursor-pointer'}
-                        onClick={() => setToggleIcon(!toggleIcon)}
-                        onMouseUp={onMouseUp}
-                    />
+                <div
+                    ref={iconNotificationRef}
+                    className={classActiveIcon}
+                    onClick={() => setToggleIcon(!toggleIcon)}
+                    onMouseUp={onMouseUp as any}
+                >
+                    <ActiveIcon className={'cursor-pointer'} />
                 </div>
             ) : (
-                <div ref={iconNotificationRef} className={clsx(classIcon, 'relative group')}>
-                    <Icon
-                        className={'cursor-pointer'}
-                        onClick={() => setToggleIcon(!toggleIcon)}
-                        onMouseUp={onMouseUp}
-                    />
+                <div
+                    ref={iconNotificationRef}
+                    className={clsx(classIcon, 'relative group')}
+                    onClick={() => setToggleIcon(!toggleIcon)}
+                    onMouseUp={onMouseUp as any}
+                >
+                    <Icon className={'cursor-pointer'} />
 
                     {tooltip && <Tooltip offset={offset as string} tooltip={tooltip} />}
 

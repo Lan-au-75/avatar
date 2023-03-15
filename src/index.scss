@@ -31,6 +31,11 @@
         -ms-user-select: none;
         user-select: none;
     }
+
+    a,
+    button {
+        @apply outline-none;
+    }
 }
 
 @layer components {
@@ -359,7 +364,7 @@
     // skeleton
 
     .skeleton {
-        background-color: rgba(77, 79, 87, 0.86);
+        background-color: rgba(77, 79, 87, 0.859);
         background-image: linear-gradient(
             90deg,
             rgba(#4e4f50, 0),

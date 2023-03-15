@@ -1,3 +1,4 @@
+import Toast from '@/components/Toast'
 import { NavLink, Outlet } from 'react-router-dom'
 
 function Movies() {
@@ -30,6 +31,8 @@ function Movies() {
             </div>
 
             <Outlet />
+            {/* toast */}
+            <Toast />
         </main>
     )
 }

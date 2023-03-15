@@ -12,12 +12,16 @@ function Thumbnail3({ movie }: Props) {
     return (
         <div className='thumbnail min-w-[calc(300px-50px)] h-[calc(300px-80px)] md:min-w-[300px] md:h-[300px]'>
             <img
+                title={movie?.name || movie?.original_title}
                 src={clsx(baseUrl + movie?.poster_path)}
                 alt={movie?.name || movie?.original_title}
                 className='object-cover object-center w-full h-full'
             />
             <NavLink to={`/detail/${movie?.id}`}>
-                <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-base100/60 p-4 hover:bg-red-500 rounded-full shadow-lg cursor-pointer'>
+                <div
+                    className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-base100/60 p-4 hover:bg-red-500 
+                rounded-full shadow-lg cursor-pointer transition-all duration-200 ease-out'
+                >
                     <BsPlayFill className='' size={24} color='white' />
                 </div>
             </NavLink>

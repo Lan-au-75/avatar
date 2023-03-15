@@ -73,6 +73,7 @@ export interface Detail {
     last_air_date: string
     homepage: string
     number_of_episodes: number
+    episode_run_time: number[]
     seasons: [
         {
             id: number
@@ -111,4 +112,9 @@ export interface Review {
     id: '63daacf2a9117f009da4d879'
     updated_at: '2023-02-01T18:18:26.960Z'
     url: 'https://www.themoviedb.org/review/63daacf2a9117f009da4d879'
+}
+
+export interface Genres {
+    id: number
+    name: string
 }

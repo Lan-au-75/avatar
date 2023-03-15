@@ -6,16 +6,19 @@ import { Link } from 'react-router-dom'
 import { baseUrl } from '@/requests'
 import { Movie } from '@/types/movies.type'
 import HeaderIcon from './HeaderIcon'
+import { useBookmark } from '@/context/BookmarkContext'
 
 interface Props {
     movie: Movie
-    handleShowToast?: (movie: Movie) => Promise<void>
 }
 
-function Thumbnail2({ movie, handleShowToast }: Props) {
+function Thumbnail2({ movie }: Props) {
+    const { handleBookmark } = useBookmark()
+
     return (
         <div className='relative thumbnail min-w-[calc(500px-200px)] h-[calc(300px-90px)] md:min-w-[500px] md:h-[300px]'>
             <img
+                title={movie?.name || movie?.original_title}
                 src={clsx(baseUrl + movie?.backdrop_path)}
                 alt={movie?.name || movie?.original_title}
                 className='object-cover object-center w-full h-full'
@@ -48,8 +51,8 @@ function Thumbnail2({ movie, handleShowToast }: Props) {
                                 classIcon='iconDefault'
                                 classActiveIcon='iconActiveDefault text-white bg-green-500'
                                 onMouseUp={() => {
-                                    if (typeof handleShowToast === 'function') {
-                                        handleShowToast(movie as Movie)
+                                    if (typeof handleBookmark === 'function') {
+                                        handleBookmark(movie as Movie)
                                     }
                                 }}
                             />

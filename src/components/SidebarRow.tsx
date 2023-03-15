@@ -11,7 +11,7 @@ interface Props {
 }
 
 function SidebarRow({ Icon, ActiveIcon, title, href, isCollapsed }: Props) {
-    const { setShowNavbar } = useNavbarMobile()
+    const { setShowNavbar, showNavbar } = useNavbarMobile()
 
     // handle click close sidebar mobile
     const handleClick = () => {
@@ -28,15 +28,24 @@ function SidebarRow({ Icon, ActiveIcon, title, href, isCollapsed }: Props) {
                         isActive ? 'menu-active' : '',
                         isCollapsed
                             ? 'flex items-center justify-center py-4 px-5 '
-                            : 'flex items-center py-4 px-5 md:px-3 md:py-2'
+                            : 'flex items-center py-4 px-5 md:px-3 md:py-2',
+                        showNavbar && 'flex items-center !justify-start py-4 px-5 md:px-3 md:py-2'
                     )
                 }
                 onClick={handleClick}
+                title={isCollapsed ? title : ''}
             >
                 <ActiveIcon className='active-icon flex-shrink-0 text-blue-500' size={20} />
                 <Icon className='icon flex-shrink-0' size={20} />
 
                 {!isCollapsed && (
+                    <>
+                        <span>{title}</span>
+                        <div className='absolute active-icon h-5 w-5 bg-blue-500 rounded-md -right-4'></div>
+                    </>
+                )}
+
+                {showNavbar && isCollapsed && (
                     <>
                         <span>{title}</span>
                         <div className='absolute active-icon h-5 w-5 bg-blue-500 rounded-md -right-4'></div>

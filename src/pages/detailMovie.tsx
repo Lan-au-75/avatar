@@ -1,13 +1,14 @@
+import { getVideo } from '@/apis/getVideo.api'
+import SEO from '@/components/SEO'
+import { fetchDetailMovie } from '@/hooks/fetchApi'
+import { formattedDate } from '@/hooks/formattedDate'
+import { baseUrl } from '@/requests'
+import { Category, Video } from '@/types/movies.type'
 import { startTransition, useEffect, useState } from 'react'
 import { HiBars3BottomLeft } from 'react-icons/hi2'
 import ReactPlayer from 'react-player/youtube'
 import { useQuery } from 'react-query'
 import { Link, useParams } from 'react-router-dom'
-import { getVideo } from '@/apis/getVideo.api'
-import { fetchDetailMovie } from '@/hooks/fetchApi'
-import { formattedDate } from '@/hooks/formattedDate'
-import { baseUrl } from '@/requests'
-import { Category, Video } from '@/types/movies.type'
 import Modal from '../components/Modal'
 
 const socials = [
@@ -26,10 +27,11 @@ const socials = [
 ]
 
 function DetailMovie() {
+    const { detailID } = useParams<{ detailID?: string }>()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [videoMovie, setVideoMovie] = useState<Video[]>()
-
-    const { detailID } = useParams<{ detailID?: string }>()
+    const [isPlaying, setIsPlaying] = useState(false)
+    const [errorVideos, setErrorVideos] = useState<string[]>([])
 
     const detailMovie = useQuery('detailMovie', async () =>
         fetchDetailMovie(Number(detailID), Category.Movie)
@@ -49,24 +51,57 @@ function DetailMovie() {
         video()
     }, [])
 
-    // render list movie trailer
-    const trailerMovies = videos?.map((video) => {
-        if (video.type === 'Trailer') {
-            return (
-                <ReactPlayer
-                    key={video?.id}
-                    url={`https://www.youtube.com/watch?v=${video.key}`}
-                    width='100%'
-                    height='100%'
-                    controls
-                />
-            )
-        }
-    })
+    // handle video error
+    const handleVideoError = (videoId: string) => {
+        setErrorVideos((errorVideos) => [...errorVideos, videoId])
+    }
 
     // render a movie trailer
 
-    const trailerMovie = videos?.find((video) => video.type === 'Trailer')
+    const trailerMovie = videos?.find((video) => video.type.includes('Trailer'))
+
+    // render list movie trailer
+    const trailerMovies = videos
+        ?.filter((video) => video.type.includes('Trailer') && !errorVideos.includes(video.id))
+        ?.map((video) => {
+            if (video.type.includes('Trailer') && video.key) {
+                return (
+                    <ReactPlayer
+                        key={video?.id}
+                        url={`https://www.youtube.com/watch?v=${video.key}`}
+                        width='100%'
+                        height='100%'
+                        controls
+                        onError={() => handleVideoError(video.id)}
+                    />
+                )
+            }
+            return null
+        })
+
+    // fallBack video
+
+    const fallBack = videos
+        ?.filter(
+            (video) =>
+                (video.type.includes('Teaser') || video.type.includes('Featurette')) &&
+                !errorVideos.includes(video.id)
+        )
+        ?.map((video) => {
+            if (video.key) {
+                return (
+                    <ReactPlayer
+                        key={video?.key}
+                        url={`https://www.youtube.com/watch?v=${video.key}`}
+                        width='100%'
+                        height='100%'
+                        controls
+                        onError={() => handleVideoError(video.id)}
+                    />
+                )
+            }
+            return null
+        })
 
     // handle close and open
 
@@ -76,10 +111,15 @@ function DetailMovie() {
 
     const handleCancel = () => {
         setIsModalOpen(false)
+        setIsPlaying(false)
     }
 
     return (
         <>
+            <SEO
+                title={`${data?.original_title || data?.name} - avatar`}
+                description={data?.original_title || data?.name}
+            />
             {data && (
                 <section className='relative isolate'>
                     <div
@@ -95,7 +135,7 @@ function DetailMovie() {
 
                             <div className='flex  flex-col h-[530px] w-full md:w-[70%] justify-between'>
                                 <div className='flex items-center  justify-between'>
-                                    <p className='text-2xl lg:text-3xl font-semibold text-red-500 text-shadow-md'>
+                                    <p className='text-2xl lg:text-3xl font-semibold text-red-500 text-shadow-md line-clamp-2'>
                                         {data?.original_title || data?.name}
                                     </p>
                                     <HiBars3BottomLeft className='text-4xl md:text-3xl text-white cursor-pointer hover:opacity-90' />
@@ -105,7 +145,7 @@ function DetailMovie() {
                                     <p className='text-gray-400 text-2xl font-medium pt-2 md:pt-0 md:pl-[6px]'>
                                         <span className='text-white'>{formattedDate(data)}</span>
                                     </p>
-                                    <h2 className='text-5xl md:text-7xl text-white font-semibold mt-5'>
+                                    <h2 className='text-5xl md:text-7xl text-white font-semibold mt-5 line-clamp-3'>
                                         {data?.original_title || data?.name}
                                     </h2>
                                     <div className='flex gap-4 md:gap-6 mt-10 text-shadow-lg'>
@@ -152,6 +192,7 @@ function DetailMovie() {
                                     <div className='h-[364px] overflow-y-auto scrollbar-hide'>
                                         <ul className='flex flex-col gap-3 w-full h-full sm:w-[254px] sm:h-[160px]'>
                                             {trailerMovies}
+                                            {fallBack}
                                         </ul>
                                     </div>
                                 </div>
@@ -172,7 +213,14 @@ function DetailMovie() {
                     </div>
 
                     {/* modal */}
-                    <Modal close={handleCancel} open={isModalOpen} videos={videos} data={data} />
+                    <Modal
+                        close={handleCancel}
+                        open={isModalOpen}
+                        videos={videos}
+                        data={data}
+                        isPlaying={isPlaying}
+                        setIsPlaying={setIsPlaying}
+                    />
                 </section>
             )}
         </>

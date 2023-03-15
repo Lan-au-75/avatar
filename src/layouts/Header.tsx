@@ -1,22 +1,23 @@
-import { useEffect, useRef, useState, MutableRefObject, RefObject } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { AiFillFilter, AiOutlineFilter, AiOutlineMenu } from 'react-icons/ai'
 import { FaUser } from 'react-icons/fa'
-import { AiOutlineMenu } from 'react-icons/ai'
-import { MdFilterListAlt } from 'react-icons/md'
 import { IoIosNotifications, IoIosNotificationsOutline } from 'react-icons/io'
+import { Link } from 'react-router-dom'
 import HeaderIcon from '@/components/HeaderIcon'
-import Search from '@/components/Search'
-import Navbar from '@/components/Navbar'
-import Sidebar from '@/components/Sidebar'
 import MenuBox from '@/components/MenuBox'
-import { MENU_ITEM } from '@/mockapi/menu-item'
-import { USER } from '@/mockapi/user'
+import Navbar from '@/components/Navbar'
 import Notification from '@/components/Notification'
-import { notifications } from '@/mockapi/notification'
+import Search from '@/components/Search'
+import Sidebar from '@/components/Sidebar'
 import Tooltip from '@/components/Tooltip'
-import { useNavbarMobile } from '@/context/NavbarMobile'
 import { userAth } from '@/context/AuthContext'
+import { useNavbarMobile } from '@/context/NavbarMobile'
 import { handleImgError } from '@/hooks/handleImgError'
+import { MENU_ITEM } from '@/mockapi/menu-item'
+import { notifications } from '@/mockapi/notification'
+import { MdFilterAlt } from 'react-icons/md'
+import { HiFilter, HiOutlineFilter } from 'react-icons/hi'
+import { BiFilterAlt } from 'react-icons/bi'
 
 function Header() {
     const { user } = userAth()
@@ -114,6 +115,17 @@ function Header() {
                     <AiOutlineMenu size={24} />
                 </div>
 
+                <Link to='filter'>
+                    <HeaderIcon
+                        Icon={BiFilterAlt}
+                        ActiveIcon={BiFilterAlt}
+                        classIcon='iconDefault text-white'
+                        classActiveIcon='iconActiveDefault'
+                        offset='top-12 -right-3'
+                        tooltip='filter'
+                    />
+                </Link>
+
                 <HeaderIcon
                     ref={iconNotificationRef}
                     Icon={IoIosNotificationsOutline}
@@ -122,7 +134,7 @@ function Header() {
                     classActiveIcon='iconActiveDefault'
                     onMouseUp={(e) => handleShowNotification(e)}
                     quantity={quantity}
-                    offset='top-14 -right-8'
+                    offset='top-12 -right-8'
                     tooltip='notification'
                 />
 
@@ -151,7 +163,8 @@ function Header() {
                                 <MenuBox
                                     ref={menuRef}
                                     menuItem={MENU_ITEM}
-                                    className='sm:menu-box fixed top-14 bottom-0 left-0 w-screen sm:w-auto sm:bottom-auto sm:left-auto mobile:min-w-[50%] md:min-w-[40%] ld:min-w-[30%] xl:min-w-[20%] min-h-[300px] bg-base200 rounded-lg origin-top-right shadow-lg'
+                                    className='sm:menu-box fixed top-14 bottom-0 left-0 w-screen sm:w-auto sm:bottom-auto sm:left-auto mobile:min-w-[50%] md:min-w-[40%] ld:min-w-[30%] xl:min-w-[20%] 
+                                    min-h-[300px] bg-base200 rounded-lg origin-top-right shadow-lg'
                                 />
                             )}
                         </div>
