@@ -16,11 +16,21 @@ import Thumbnail3 from './Thumbnail3'
 import Toast from './Toast'
 
 function Container() {
-    const trendingMovie = useQuery(['trendingData'], () => fetchTrendingMovie(Category.Movie))
-    const nowPlaying = useQuery(['nowPlayingData'], async () => fetchNowPlaying())
-    const topRated = useQuery(['topRatedData'], async () => fetchTopRated(Category.Movie))
-    const upcoming = useQuery(['upcomingData'], async () => fetchUpcoming())
-    const popularity = useQuery(['popularityData'], async () => fetchPopularity(Category.Movie))
+    const trendingMovie = useQuery(['trendingData'], () => fetchTrendingMovie(Category.Movie), {
+        staleTime: 60 * 1000,
+    })
+    const nowPlaying = useQuery(['nowPlayingData'], async () => fetchNowPlaying(), {
+        staleTime: 60 * 1000,
+    })
+    const topRated = useQuery(['topRatedData'], async () => fetchTopRated(Category.Movie), {
+        staleTime: 60 * 1000,
+    })
+    const upcoming = useQuery(['upcomingData'], async () => fetchUpcoming(), {
+        staleTime: 60 * 1000,
+    })
+    const popularity = useQuery(['popularityData'], async () => fetchPopularity(Category.Movie), {
+        staleTime: 60 * 1000,
+    })
 
     return (
         <div className='container-zero'>

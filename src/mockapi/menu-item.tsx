@@ -1,10 +1,9 @@
-import { AiOutlineLogout, AiOutlineBarChart } from 'react-icons/ai'
-import { VscCommentDiscussion } from 'react-icons/vsc'
-import { GrUnorderedList } from 'react-icons/gr'
-import { RiMovie2Line } from 'react-icons/ri'
-import { MdDarkMode, MdOutlineList } from 'react-icons/md'
-import { BsChevronRight, BsFillBookmarkCheckFill, BsFillBookmarkDashFill } from 'react-icons/bs'
+import { AiOutlineBarChart, AiOutlineLogout } from 'react-icons/ai'
+import { BsChevronRight } from 'react-icons/bs'
 import { IoLanguageOutline } from 'react-icons/io5'
+import { MdDarkMode, MdOutlineList } from 'react-icons/md'
+import { RiMovie2Line } from 'react-icons/ri'
+import { VscCommentDiscussion } from 'react-icons/vsc'
 
 export const MENU_ITEM = [
     {

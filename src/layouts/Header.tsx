@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { AiOutlineMenu } from 'react-icons/ai'
+import { AiFillFilter, AiOutlineFilter, AiOutlineMenu } from 'react-icons/ai'
 import { FaUser } from 'react-icons/fa'
 import { IoIosNotifications, IoIosNotificationsOutline } from 'react-icons/io'
 import { Link } from 'react-router-dom'
@@ -15,6 +15,9 @@ import { useNavbarMobile } from '@/context/NavbarMobile'
 import { handleImgError } from '@/hooks/handleImgError'
 import { MENU_ITEM } from '@/mockapi/menu-item'
 import { notifications } from '@/mockapi/notification'
+import { MdFilterAlt } from 'react-icons/md'
+import { HiFilter, HiOutlineFilter } from 'react-icons/hi'
+import { BiFilterAlt } from 'react-icons/bi'
 
 function Header() {
     const { user } = userAth()
@@ -111,6 +114,17 @@ function Header() {
                 >
                     <AiOutlineMenu size={24} />
                 </div>
+
+                <Link to='filter'>
+                    <HeaderIcon
+                        Icon={BiFilterAlt}
+                        ActiveIcon={BiFilterAlt}
+                        classIcon='iconDefault text-white'
+                        classActiveIcon='iconActiveDefault'
+                        offset='top-12 -right-3'
+                        tooltip='filter'
+                    />
+                </Link>
 
                 <HeaderIcon
                     ref={iconNotificationRef}

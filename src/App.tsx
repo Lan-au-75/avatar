@@ -12,6 +12,7 @@ import Login from './pages/login'
 import Movies from './pages/movies'
 import NowPlaying from './pages/nowPlaying'
 import Popular from './pages/popular'
+import Filter from './pages/filter'
 import SignUp from './pages/sign-up'
 import TopRated from './pages/topRated'
 import Trending from './pages/trending'
@@ -76,8 +77,8 @@ export default function App() {
                     element: <Bookmark />,
                 },
                 {
-                    path: '/search',
-                    element: <Search />,
+                    path: '/filter',
+                    element: <Filter />,
                 },
             ],
         },
