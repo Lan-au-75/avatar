@@ -73,6 +73,7 @@ export interface Detail {
     last_air_date: string
     homepage: string
     number_of_episodes: number
+    episode_run_time: number[]
     seasons: [
         {
             id: number

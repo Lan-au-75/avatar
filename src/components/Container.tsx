@@ -1,9 +1,4 @@
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
-import { useState } from 'react'
-import { AiFillCheckCircle, AiOutlineClose } from 'react-icons/ai'
 import { useQuery } from 'react-query'
-import { Slide, toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 import {
     fetchNowPlaying,
@@ -12,34 +7,20 @@ import {
     fetchTrendingMovie,
     fetchUpcoming,
 } from '@/hooks/fetchApi'
-import { Category, Movie } from '@/types/movies.type'
+import { Category } from '@/types/movies.type'
 
-import { userAth } from '@/context/AuthContext'
-import { db } from '@/firebase'
 import Row from './Row'
 import Thumbnail1 from './Thumbnail1'
 import Thumbnail2 from './Thumbnail2'
 import Thumbnail3 from './Thumbnail3'
-import ToastMessage from './ToastMessage'
-import { useBookmark } from '@/context/BookmarkContext'
+import Toast from './Toast'
 
 function Container() {
-    const { showToast } = useBookmark()
-
     const trendingMovie = useQuery(['trendingData'], () => fetchTrendingMovie(Category.Movie))
     const nowPlaying = useQuery(['nowPlayingData'], async () => fetchNowPlaying())
     const topRated = useQuery(['topRatedData'], async () => fetchTopRated(Category.Movie))
     const upcoming = useQuery(['upcomingData'], async () => fetchUpcoming())
     const popularity = useQuery(['popularityData'], async () => fetchPopularity(Category.Movie))
-
-    const contextClass: any = {
-        success: 'bg-base200',
-        // error: 'bg-red-600',
-        // info: 'bg-gray-600',
-        // warning: 'bg-orange-400',
-        // default: 'bg-indigo-600',
-        // dark: 'bg-white-600 font-gray-300',
-    }
 
     return (
         <div className='container-zero'>
@@ -74,38 +55,7 @@ function Container() {
                 isLoading={popularity.isLoading}
             />
             {/* toast message */}
-            <ToastContainer
-                className='flex flex-col gap-3 !top-14'
-                toastClassName={({ type }: any) =>
-                    contextClass[type || 'default'] +
-                    ' relative flex p-1 min-h-10 border-l-4 border-solid border-green-500 rounded-sm items-center justify-between overflow-hidden cursor-pointer'
-                }
-                bodyClassName={() =>
-                    'flex items-center  justify-center  gap-2 md:gap-3 text-sm font-white font-med block p-1'
-                }
-                hideProgressBar
-                position='top-right'
-                autoClose={3000}
-                transition={Slide}
-                closeButton={({ closeToast }: any) => (
-                    <AiOutlineClose
-                        onClick={closeToast}
-                        className='text-gray-300 text-lg md:text-xl ml-1 mr-3 hover:opacity-80'
-                    />
-                )}
-            />
-            {showToast &&
-                toast.success(
-                    <ToastMessage
-                        status='Success'
-                        message='You have successfully saved the movie'
-                    />,
-                    {
-                        icon: (
-                            <AiFillCheckCircle className='text-green-500 text-lg md:text-xl text-center' />
-                        ),
-                    }
-                )}
+            <Toast />
         </div>
     )
 }

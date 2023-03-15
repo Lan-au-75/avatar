@@ -9,6 +9,7 @@ import { fetchDetailMovie } from '@/hooks/fetchApi'
 import { baseUrl } from '@/requests'
 import { Category, Video } from '@/types/movies.type'
 import Modal from '../components/Modal'
+import { formattedDate } from '@/hooks/formattedDate'
 
 const socials = [
     {
@@ -28,6 +29,7 @@ const socials = [
 function DetailTV() {
     const { detailID } = useParams<{ detailID?: string }>()
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(false)
     const [videoMovie, setVideoMovie] = useState<Video[]>([])
     const [errorVideos, setErrorVideos] = useState<string[]>([])
 
@@ -37,9 +39,6 @@ function DetailTV() {
 
     const data = detailTV.data!
     const videos = videoMovie!
-
-    const date = new Date(data?.release_date! || data?.last_air_date!)
-    const formattedDate = date.toLocaleString('en-US', { month: 'long', day: 'numeric' })
 
     useEffect(() => {
         const video = async () => {
@@ -131,7 +130,7 @@ function DetailTV() {
 
                             <div className='flex  flex-col h-[530px] w-full md:w-[70%] justify-between'>
                                 <div className='flex items-center  justify-between'>
-                                    <p className='text-2xl lg:text-3xl font-semibold text-red-500 text-shadow-md'>
+                                    <p className='text-2xl lg:text-3xl font-semibold text-red-500 text-shadow-md line-clamp-2'>
                                         {data?.original_title || data?.name}
                                     </p>
                                     <HiBars3BottomLeft className='text-4xl md:text-3xl text-white cursor-pointer hover:opacity-90' />
@@ -139,9 +138,9 @@ function DetailTV() {
 
                                 <div className='text-shadow-md md:pl-[6px]'>
                                     <p className='text-gray-400 text-2xl font-medium pt-2 md:pt-0 md:pl-[6px]'>
-                                        <span className='text-white'>{formattedDate}</span>
+                                        <span className='text-white'>{formattedDate(data)}</span>
                                     </p>
-                                    <h2 className='text-5xl md:text-7xl text-white font-semibold mt-5'>
+                                    <h2 className='text-5xl md:text-7xl text-white font-semibold mt-5 line-clamp-3'>
                                         {data?.original_title || data?.name}
                                     </h2>
                                     <div className='flex gap-4 md:gap-6 mt-10 text-shadow-lg'>
@@ -209,7 +208,14 @@ function DetailTV() {
                     </div>
 
                     {/* modal */}
-                    <Modal close={handleCancel} open={isModalOpen} videos={videos} data={data} />
+                    <Modal
+                        close={handleCancel}
+                        open={isModalOpen}
+                        videos={videos}
+                        data={data}
+                        isPlaying={isPlaying}
+                        setIsPlaying={setIsPlaying}
+                    />
                 </section>
             )}
         </>

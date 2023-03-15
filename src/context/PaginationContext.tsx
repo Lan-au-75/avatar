@@ -18,6 +18,7 @@ function PaginationProvider({ children }: { children: React.ReactNode }) {
     const location = useLocation()
     const queryParams = queryString.parse(location.search)
 
+    // listen change params
     useEffect(() => {
         const currentPage = parseInt(queryParams.page as string, 10)
         if (!isNaN(currentPage) && currentPage > 0) {

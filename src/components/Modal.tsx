@@ -20,10 +20,11 @@ interface Props {
     open: boolean
     videos: Video[]
     data: Detail
+    isPlaying: boolean
+    setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function Modal({ close, open, videos, data }: Props) {
-    const [isPlaying, setIsPlaying] = useState(false)
+function Modal({ close, open, videos, data, isPlaying, setIsPlaying }: Props) {
     const [muted, setMuted] = useState(false)
     const [errorVideos, setErrorVideos] = useState<string[]>([])
 
@@ -178,7 +179,11 @@ function Modal({ close, open, videos, data }: Props) {
                             </p>
                             <p className='text-gray-300'>
                                 Run time:{' '}
-                                <span className='text-white'>{timeConvert(data.runtime)}</span>
+                                <span className='text-white'>
+                                    {data.runtime
+                                        ? timeConvert(data.runtime)
+                                        : data.episode_run_time[0] + 'm'}
+                                </span>
                             </p>
                             <p className='text-gray-300'>
                                 Original language:{' '}

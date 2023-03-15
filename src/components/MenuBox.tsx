@@ -19,8 +19,8 @@ interface Props {
         children?: {
             title: string
             data: {
-                code: string
-                title: string
+                code?: string
+                title?: string
             }[]
         }
     }[]
@@ -32,7 +32,6 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
     const { logOut, user } = userAth()
     const { handleBookmark, handleRemoveBookmark } = useBookmark()
     const menuRef = useRef<HTMLInputElement>(null)
-
     const [history, setHistory] = useState([{ data: menuItem, title: '' }])
 
     // render last element
@@ -47,6 +46,8 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
             item.title === 'Remove Bookmark'
     )
 
+    const isTitle = menuItem.find((item) => item.title.includes('Trending Movies'))
+
     // handle back menu
     const handleBackMenu = () => {
         setHistory((prev) => [...prev.slice(0, prev.length - 1)])
@@ -58,8 +59,12 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
         title: string,
         children: any
     ) => {
-        e.preventDefault()
+        // check remove anchor in menu
+        if (!isTitle) {
+            e.preventDefault()
+        }
 
+        // sub menu
         if (children) {
             setHistory((prev: any) => [...prev, children])
         }
@@ -90,7 +95,7 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
             {/* menu header */}
             {user && !currentTitle && history.length <= 1 ? (
                 <>
-                    <header className='flex items-center gap-2 md:gap-3  px-5 py-4 md:px-3 md:py-2'>
+                    <header className='flex items-center gap-4 md:gap-3  px-5 py-4 md:px-3 md:py-2'>
                         <img
                             src={(user?.photoURL as string) || '/user-account.jpg'}
                             alt='avatar user'
@@ -122,7 +127,7 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
             )}
 
             {/* menu item */}
-            <ul className='flex flex-col gap-y-2 md:gap-y-3'>
+            <ul className='flex flex-col gap-y-2 md:gap-y-3 max-h-[500px] overflow-y-hidden scrollBarCustom hover:overflow-y-auto'>
                 {currentMenu.data.map((item) => (
                     <HashLink
                         to={item.to}
@@ -131,7 +136,7 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
                         scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: 'center' })}
                         onClick={(e) => handleTitle(e, item.title, item.children)}
                     >
-                        <div className='flex items-center gap-1 md:gap-2'>
+                        <div className='flex items-center gap-2 md:gap-3'>
                             {item.leftIcon && (
                                 <span className='text-xl md:text-lg'>{item.leftIcon}</span>
                             )}

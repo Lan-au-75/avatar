@@ -32,6 +32,17 @@ export const MENU_ITEM = [
         title: 'Appearance: Dark',
         to: '#',
         rightIcon: <BsChevronRight />,
+        children: {
+            title: 'Appearance',
+            data: [
+                {
+                    title: 'Dark',
+                },
+                {
+                    title: 'Light',
+                },
+            ],
+        },
     },
     {
         leftIcon: <IoLanguageOutline />,
@@ -48,6 +59,86 @@ export const MENU_ITEM = [
                 {
                     code: 'vi',
                     title: 'VietNamese',
+                },
+                {
+                    code: '',
+                    title: 'العربية',
+                },
+                {
+                    code: '',
+                    title: 'বাঙ্গালি (ভারত)',
+                },
+                {
+                    code: '',
+                    title: 'Cebuano (Pilipinas)',
+                },
+                {
+                    code: '',
+                    title: 'Čeština (Česká republika)',
+                },
+                {
+                    code: '',
+                    title: 'Deutsch',
+                },
+                {
+                    code: '',
+                    title: 'Ελληνικά (Ελλάδα)',
+                },
+                {
+                    code: '',
+                    title: 'Español',
+                },
+                {
+                    code: '',
+                    title: 'Suomi (Suomi)',
+                },
+                {
+                    code: '',
+                    title: 'Filipino (Pilipinas)',
+                },
+                {
+                    code: '',
+                    title: 'Français',
+                },
+                {
+                    code: '',
+                    title: 'עברית (ישראל)',
+                },
+                {
+                    code: '',
+                    title: 'Magyar (Magyarország)',
+                },
+                {
+                    code: '',
+                    title: 'Bahasa Indonesia (Indonesia)',
+                },
+                {
+                    code: '',
+                    title: 'Italiano (Italia)',
+                },
+                {
+                    code: '',
+                    title: '日本語（日本）',
+                },
+                {
+                    code: '',
+                    title: 'Basa Jawa (Indonesia)',
+                },
+                {
+                    code: '',
+                    title: 'ខ្មែរ (កម្ពុជា)',
+                },
+                {
+                    code: '',
+                    title: '한국어 (대한민국)',
+                },
+                {
+                    code: '',
+                    title: 'Bahasa Melayu (Malaysia)',
+                },
+                {
+                    code: '',
+                    title: 'မြန်မာ (မြန်မာ)',
                 },
             ],
         },

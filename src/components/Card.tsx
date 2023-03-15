@@ -48,7 +48,8 @@ function Card({ movie }: Props) {
 
     // handle navigate when path movie/tv
     const handleNavigate = () => {
-        if (location.pathname.match('movies') || !('name' in movie)) {
+        if (movie.media_type !== 'tv') {
+            console.log('lac ak')
             navigate(`/detail/${movie.id} `)
         } else {
             navigate(`/detailTV/${movie.id}`)

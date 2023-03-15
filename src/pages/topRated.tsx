@@ -1,12 +1,14 @@
+import { useEffect } from 'react'
+import { useQuery, useQueryClient } from 'react-query'
 import MovieItem from '@/components/MovieItem'
 import { SkeletonCard } from '@/components/Skeleton'
 import { Category } from '@/types/movies.type'
 import { usePagination } from '@/context/PaginationContext'
-import { useQuery } from 'react-query'
 import { fetchTopRated } from '@/hooks/fetchApi'
 
 function TopRated() {
     const { page } = usePagination()
+    const queryClient = useQueryClient()
 
     const topRated = useQuery(
         ['topRatedData', { page }],
@@ -18,6 +20,12 @@ function TopRated() {
             keepPreviousData: true,
         }
     )
+
+    useEffect(() => {
+        queryClient.prefetchQuery(['topRatedData', { page: page + 1 }], () =>
+            fetchTopRated(Category.Movie, page + 1)
+        )
+    }, [topRated.data, page, queryClient])
 
     if (topRated.isLoading) {
         return <SkeletonCard />

@@ -42,17 +42,14 @@ function SkeletonRow() {
 }
 
 const SkeletonCard = () => (
-    <div className='flex flex-col gap-y-20'>
-        <ul
-            className='grid gap-x-3 justify-start gap-y-20 mobile:grid-cols-[repeat(3,180px)] md:gap-x-4 md:gap-y-20 grid-cols-[repeat(2,180px)] sm:grid-cols-[repeat(3,180px)]  
-              lg:grid-cols-3 xl:grid-cols-4'
-        >
+    <div className='flex flex-col gap-y-20 w-full'>
+        <ul className='grid gap-x-1 mobile:gap-x-3 md:gap-x-4 justify-center pc:justify-start gap-y-20 grid-cols-autoMini sm:grid-cols-autoMobile md:grid-cols-autoTablet lg:grid-cols-autoPC'>
             {Array(10)
                 .fill(0)
                 .map((__, i) => (
                     <li
                         key={i}
-                        className='relative hover:scale-110 transition-all ease-linear duration-200 w-[180px] lg:w-[250px] h-[250px] md:h-[350px]'
+                        className='relative min-h-[270px] sm:min-h-[330px] md:min-h-[350px] hover:scale-110 transition-all ease-linear duration-200'
                     >
                         <Skeleton className='rounded-[30px]' />
                     </li>

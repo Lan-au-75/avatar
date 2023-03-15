@@ -93,7 +93,7 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
                 <div className='flex items-center justify-between'>
                     <h2 className='text-xl text-white font-bold capitalize'>{title}</h2>
                     <div
-                        className='flex items-center gap-1 text-base100 hover:text-red-500 cursor-pointer'
+                        className='flex items-center gap-1 text-base100 hover:text-red-500 cursor-pointer transition-all duration-200 ease-in-out'
                         onClick={handleMovedPage}
                     >
                         See all

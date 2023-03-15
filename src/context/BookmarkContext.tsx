@@ -3,6 +3,7 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
 import { Movie } from '@/types/movies.type'
 import { userAth } from './AuthContext'
+import { useLocation } from 'react-router-dom'
 
 interface Props {
     showToast: boolean
@@ -20,6 +21,7 @@ const BookmarkContext = createContext<Props>({
 
 function BookmarkProvider({ children }: { children: React.ReactNode }) {
     const { user } = userAth()
+    const location = useLocation()
     const [showToast, setShowToast] = useState<boolean>(false)
     const [result, setResult] = useState<Movie[]>([])
 
@@ -36,7 +38,8 @@ function BookmarkProvider({ children }: { children: React.ReactNode }) {
             poster_path: movie.poster_path || movie.backdrop_path,
             original_title: movie.original_title || movie.name,
             vote_average: movie.vote_average,
-            release_date: movie.release_date,
+            release_date: movie.release_date || movie.first_air_date,
+            media_type: movie.media_type || 'movie',
         }
 
         await updateDoc(doc(db, 'users', user?.email as string), {
@@ -70,6 +73,12 @@ function BookmarkProvider({ children }: { children: React.ReactNode }) {
             savedMovies: result,
         })
     }
+
+    // remove show toast
+
+    useEffect(() => {
+        setShowToast(false)
+    }, [location.pathname])
 
     return (
         <BookmarkContext.Provider
