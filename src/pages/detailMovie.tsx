@@ -1,4 +1,5 @@
 import { getVideo } from '@/apis/getVideo.api'
+import SEO from '@/components/SEO'
 import { fetchDetailMovie } from '@/hooks/fetchApi'
 import { formattedDate } from '@/hooks/formattedDate'
 import { baseUrl } from '@/requests'
@@ -115,6 +116,10 @@ function DetailMovie() {
 
     return (
         <>
+            <SEO
+                title={`${data?.original_title || data?.name} - avatar`}
+                description={data?.original_title || data?.name}
+            />
             {data && (
                 <section className='relative isolate'>
                     <div

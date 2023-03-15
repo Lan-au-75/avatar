@@ -10,6 +10,7 @@ import { baseUrl } from '@/requests'
 import { Category, Video } from '@/types/movies.type'
 import Modal from '../components/Modal'
 import { formattedDate } from '@/hooks/formattedDate'
+import SEO from '@/components/SEO'
 
 const socials = [
     {
@@ -115,6 +116,10 @@ function DetailTV() {
 
     return (
         <>
+            <SEO
+                title={`${data?.original_title || data?.name} - avatar`}
+                description={data?.original_title || data?.name}
+            />
             {data && (
                 <section className='relative isolate'>
                     <div
