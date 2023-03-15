@@ -113,3 +113,8 @@ export interface Review {
     updated_at: '2023-02-01T18:18:26.960Z'
     url: 'https://www.themoviedb.org/review/63daacf2a9117f009da4d879'
 }
+
+export interface Genres {
+    id: number
+    name: string
+}

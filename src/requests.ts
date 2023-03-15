@@ -25,6 +25,12 @@ const requests = {
     requestReview(id: number, category: string) {
         return `${category}/${id}/reviews?api_key=${ApiKey}`
     },
+
+    requestSearch(query: string) {
+        return `https://api.themoviedb.org/3/search/movie?api_key=${ApiKey}&query=${query}&language=en-US`
+    },
+
+    requestGenres: `https://api.themoviedb.org/3/genre/movie/list?api_key=${ApiKey}&language=en-US`,
 }
 
 export const baseUrl = 'https://image.tmdb.org/t/p/original'
