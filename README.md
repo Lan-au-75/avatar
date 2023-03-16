@@ -18,7 +18,7 @@ password : 123456789
 
 ```
 
-# Page
+# Demo
 
 -   Home
 
@@ -109,4 +109,11 @@ password : 123456789
 -   Watching Trailer (
     filter out video trailers and remove error videos, as well as replacing them with fallback videos when necessary)
 
+-   Filter (You can filter by your favorite movie genre.)
+
 -   Modal,collapse,toast message,tooltip,skeleton,menu,notification,anchor,dropdown,carousel
+
+#
+
+-   Thank you for taking the time to work on my project
+-   Looking forward to working with you
