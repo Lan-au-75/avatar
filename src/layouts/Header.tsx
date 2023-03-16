@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { AiFillFilter, AiOutlineFilter, AiOutlineMenu } from 'react-icons/ai'
+import { AiOutlineMenu } from 'react-icons/ai'
+import { BiFilterAlt } from 'react-icons/bi'
 import { FaUser } from 'react-icons/fa'
 import { IoIosNotifications, IoIosNotificationsOutline } from 'react-icons/io'
 import { Link } from 'react-router-dom'
@@ -15,9 +16,6 @@ import { useNavbarMobile } from '@/context/NavbarMobile'
 import { handleImgError } from '@/hooks/handleImgError'
 import { MENU_ITEM } from '@/mockapi/menu-item'
 import { notifications } from '@/mockapi/notification'
-import { MdFilterAlt } from 'react-icons/md'
-import { HiFilter, HiOutlineFilter } from 'react-icons/hi'
-import { BiFilterAlt } from 'react-icons/bi'
 
 function Header() {
     const { user } = userAth()
@@ -30,6 +28,7 @@ function Header() {
     const notificationRef = useRef<HTMLInputElement>(null)
     const imgRef = useRef<HTMLInputElement>(null)
     const iconNotificationRef: any = useRef(null)
+    const iconFilter: any = useRef(null)
 
     // handle show notification
 
@@ -51,6 +50,10 @@ function Header() {
             setQuantity(0)
             setShowNotification(false)
             iconNotificationRef.current?.setToggleIcon(false)
+        }
+
+        if (!iconFilter.current?.current.contains(e.target as Node)) {
+            iconFilter.current?.setToggleIcon(false)
         }
     }
 
@@ -117,6 +120,7 @@ function Header() {
 
                 <Link to='filter'>
                     <HeaderIcon
+                        ref={iconFilter}
                         Icon={BiFilterAlt}
                         ActiveIcon={BiFilterAlt}
                         classIcon='iconDefault text-white'

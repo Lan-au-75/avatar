@@ -28,14 +28,14 @@ function Thumbnail2({ movie }: Props) {
                     <h2 className='text-xl md:text-2xl up capitalize line-clamp-1'>
                         {movie?.original_title || movie?.title || movie?.name}
                     </h2>
-                    <p>{movie?.release_date.slice(0, 4) || movie?.first_air_date.slice(0, 4)}</p>
+                    <p>{movie?.release_date?.slice(0, 4) || movie?.first_air_date?.slice(0, 4)}</p>
 
                     <div className='flex flex-col md:flex-row gap-y-2 md:items-center md:justify-between'>
                         <div className='flex items-center gap-4 text-sm'>
                             <span className='bg-yellow-500 rounded-sm text-black font-semibold p-1 uppercase'>
                                 imdb
                             </span>
-                            <span>{movie?.vote_average.toString().slice(0, 3)} rating</span>
+                            <span>{movie?.vote_average.toString()?.slice(0, 3)} rating</span>
                         </div>
 
                         <div className='flex items-end justify-between gap-4'>

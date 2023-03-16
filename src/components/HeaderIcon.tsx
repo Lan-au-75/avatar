@@ -28,13 +28,13 @@ function HeaderIcon(
 ) {
     const [toggleIcon, setToggleIcon] = useState(false)
 
-    const iconNotificationRef = useRef<HTMLInputElement>(null)
+    const iconRef = useRef<HTMLInputElement>(null)
 
     useImperativeHandle(
         ref,
         () => {
             return {
-                current: iconNotificationRef.current,
+                current: iconRef.current,
                 setToggleIcon,
             }
         },
@@ -45,7 +45,7 @@ function HeaderIcon(
         <>
             {toggleIcon ? (
                 <div
-                    ref={iconNotificationRef}
+                    ref={iconRef}
                     className={classActiveIcon}
                     onClick={() => setToggleIcon(!toggleIcon)}
                     onMouseUp={onMouseUp as any}
@@ -54,7 +54,7 @@ function HeaderIcon(
                 </div>
             ) : (
                 <div
-                    ref={iconNotificationRef}
+                    ref={iconRef}
                     className={clsx(classIcon, 'relative group')}
                     onClick={() => setToggleIcon(!toggleIcon)}
                     onMouseUp={onMouseUp as any}

@@ -13,6 +13,9 @@ npm i
 
 npm run dev
 
+account : lanau75@gmail.com
+password : 123456789
+
 ```
 
 # Page
@@ -55,6 +58,34 @@ npm run dev
 
 ![image](https://user-images.githubusercontent.com/78949030/224015904-879b5029-e815-4934-8489-31dd823a0b98.png)
 
+-   Search
+
+![image](https://user-images.githubusercontent.com/78949030/225592303-9d597693-2fbf-4956-a970-11085fcbcba1.png)
+
+-   Bookmark
+
+![image](https://user-images.githubusercontent.com/78949030/225593725-c40609c6-e7d9-4cd7-a2ce-9c1847c2ddff.png)
+
+-   Filter
+
+![image](https://user-images.githubusercontent.com/78949030/225594161-c48c0b8f-f9a7-423e-8ab4-ab69000f43b9.png)
+
+-   Menu
+
+![image](https://user-images.githubusercontent.com/78949030/225592777-0490d8b5-69e4-44a4-be20-a830cd8b8622.png)
+
+-   Sub menu
+
+![image](https://user-images.githubusercontent.com/78949030/225592533-c072e88f-0f83-42bd-b751-07307fb552b4.png)
+
+-   Modal
+
+![image](https://user-images.githubusercontent.com/78949030/225597369-c4a0ebb0-337b-4065-8bf3-c38861775fb0.png)
+
+-   Notification
+
+![image](https://user-images.githubusercontent.com/78949030/225593355-f593daaa-c6bc-4469-9176-841a6687424f.png)
+
 -   Error
 
 ![image](https://user-images.githubusercontent.com/78949030/224013615-54595a77-6d51-474b-83cf-acec99df8c25.png)
@@ -63,10 +94,19 @@ npm run dev
 
 -   Responsive (mobile,tablet,pc)
 
+-   SEO Website ( use meta tags, links, and titles effectively to make my website more search engine friendly and improve its SEO.)
+
+-   Login,SigUp,Logout (use Firebase to implement user interface login functions for Google, Facebook, email/password, etc)
+
 -   Dark mode
 
--   Pagination (movies,tv shows)
+-   Search Movies (search for movies by name or keyword.)
 
--   Watching Trailer
+-   Bookmark (allow users to bookmark their favorite movies, and provide the option to remove them from bookmarks, which are stored on both the local storage and cloud Firebase)
+
+-   Pagination (trending, top rated, popular, upcoming,airing today)
+
+-   Watching Trailer (
+    filter out video trailers and remove error videos, as well as replacing them with fallback videos when necessary)
 
 -   Modal,collapse,toast message,tooltip,skeleton,menu,notification,anchor,dropdown,carousel

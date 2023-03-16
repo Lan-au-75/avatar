@@ -31,6 +31,8 @@ function Notification({}, ref: any) {
                 </ul>
             </header>
 
+            {/* menu item */}
+
             <ul className=' max-h-[500px] overflow-y-hidden hover:overflow-y-auto scrollBarCustom'>
                 {notifications.map((notification) => (
                     <Link

@@ -8,7 +8,7 @@ import { getTrendingMovie } from '@/apis/trendingMovie.api'
 import { getUpcoming } from '@/apis/upcoming.api'
 import { Detail, Movie, TV, Video } from '@/types/movies.type'
 
-const LIMIT = 10
+const LIMIT = 20
 
 const fetchTrendingMovie = async (category: string, page: number | string = 1) => {
     const res = await getTrendingMovie({ category, page })

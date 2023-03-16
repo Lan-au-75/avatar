@@ -44,6 +44,7 @@ export interface TV extends MovieShow {
 export enum Category {
     Movie = 'movie',
     Tv = 'tv',
+    All = 'all',
 }
 
 export interface Detail {

@@ -110,6 +110,7 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
                     <hr className='border-gray-500 my-2 md:my-3' />
                 </>
             ) : (
+                // sub header
                 !currentTitle && (
                     <>
                         <header className='flex items-center gap-2 md:gap-3 px-3'>
