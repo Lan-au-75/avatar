@@ -1,12 +1,11 @@
 import { getAiringToDay } from '@/apis/airingToDay.api'
 import { getDetailMovie } from '@/apis/detailMovie.api'
-import { getVideo } from '@/apis/getVideo.api'
 import { getNowPlaying } from '@/apis/nowPlaying.api'
 import { getPopular } from '@/apis/popular.api'
 import { getTopRated } from '@/apis/topRated.api'
 import { getTrendingMovie } from '@/apis/trendingMovie.api'
 import { getUpcoming } from '@/apis/upcoming.api'
-import { Detail, Movie, TV, Video } from '@/types/movies.type'
+import { Detail, Movie, TV } from '@/types/movies.type'
 
 const LIMIT = 20
 

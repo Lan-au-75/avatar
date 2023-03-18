@@ -64,8 +64,6 @@ function Container() {
                 Thumbnail={Thumbnail1}
                 isLoading={popularity.isLoading}
             />
-            {/* toast message */}
-            <Toast />
         </div>
     )
 }

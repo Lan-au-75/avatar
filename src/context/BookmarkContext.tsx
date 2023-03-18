@@ -1,19 +1,19 @@
-import { createContext, useState, useContext, useEffect, useRef } from 'react'
-import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
+import { createContext, useContext, useRef, useState } from 'react'
+import { AiFillCheckCircle } from 'react-icons/ai'
+import { toast } from 'react-toastify'
+import ToastMessage from '@/components/ToastMessage'
 import { db } from '@/firebase'
 import { Movie } from '@/types/movies.type'
 import { userAth } from './AuthContext'
-import { useLocation } from 'react-router-dom'
 
 interface Props {
-    showToast: boolean
     handleBookmark: (movie: Movie) => Promise<void>
     handleRemoveBookmark: (movie: Movie) => Promise<void>
     result: Movie[]
 }
 
 const BookmarkContext = createContext<Props>({
-    showToast: false,
     handleBookmark: async () => {},
     handleRemoveBookmark: async () => {},
     result: [],
@@ -21,18 +21,12 @@ const BookmarkContext = createContext<Props>({
 
 function BookmarkProvider({ children }: { children: React.ReactNode }) {
     const { user } = userAth()
-    const location = useLocation()
-    const [showToast, setShowToast] = useState<boolean>(false)
     const [result, setResult] = useState<Movie[]>([])
 
-    const savedMovies = useRef<Movie[]>(
-        JSON.parse(localStorage.getItem('saveMovies') as string) ?? []
-    )
+    const savedMovies = useRef<Movie[]>([])
 
     // handle show toast and bookmark
     const handleBookmark = async (movie: Movie) => {
-        setShowToast(!showToast)
-
         const obj = {
             id: movie.id,
             poster_path: movie.poster_path || movie.backdrop_path,
@@ -56,6 +50,17 @@ function BookmarkProvider({ children }: { children: React.ReactNode }) {
         )
 
         localStorage.setItem('saveMovies', JSON.stringify(newArr))
+
+        // toast
+
+        toast.success(
+            <ToastMessage status='Success' message='You have successfully saved the movie' />,
+            {
+                icon: (
+                    <AiFillCheckCircle className='text-green-500 text-lg md:text-xl text-center' />
+                ),
+            }
+        )
     }
 
     //  handle remove bookmark
@@ -72,18 +77,21 @@ function BookmarkProvider({ children }: { children: React.ReactNode }) {
         await updateDoc(doc(db, 'users', user?.email as string), {
             savedMovies: result,
         })
+
+        // toast
+
+        toast.success(
+            <ToastMessage status='Success' message='You have successfully delete the movie' />,
+            {
+                icon: (
+                    <AiFillCheckCircle className='text-green-500 text-lg md:text-xl text-center' />
+                ),
+            }
+        )
     }
 
-    // remove show toast
-
-    useEffect(() => {
-        setShowToast(false)
-    }, [location.pathname])
-
     return (
-        <BookmarkContext.Provider
-            value={{ showToast, handleBookmark, handleRemoveBookmark, result }}
-        >
+        <BookmarkContext.Provider value={{ handleBookmark, handleRemoveBookmark, result }}>
             {' '}
             {children}
         </BookmarkContext.Provider>
