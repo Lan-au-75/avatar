@@ -1,5 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import AddMovie from './components/AddMovie'
+import Dashboard from './components/Dashboard'
 import Protected from './components/Protected'
+import Toast from './components/Toast'
 import ContextProvider from './context/ContextProvider'
 import Layout1 from './layouts/Layout1'
 import AiringToDay from './pages/airingToDay'
@@ -115,6 +118,29 @@ export default function App() {
                 </ContextProvider>
             ),
         },
+        {
+            path: '/dashboard',
+            element: (
+                <ContextProvider>
+                    <Dashboard />
+                </ContextProvider>
+            ),
+            children: [
+                {
+                    path: 'movies/add',
+                    element: <AddMovie />,
+                },
+                {
+                    path: 'movies/:id',
+                    element: <AddMovie />,
+                },
+            ],
+        },
     ])
-    return <RouterProvider router={router}></RouterProvider>
+    return (
+        <>
+            <Toast />
+            <RouterProvider router={router}></RouterProvider>
+        </>
+    )
 }

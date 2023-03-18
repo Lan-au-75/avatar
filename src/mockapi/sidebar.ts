@@ -12,6 +12,7 @@ import {
 } from 'react-icons/ai'
 import { BiDownload } from 'react-icons/bi'
 import { BsBookmarkStar, BsBookmarkStarFill } from 'react-icons/bs'
+import { FaRegUser, FaUser } from 'react-icons/fa'
 import { FcAlarmClock } from 'react-icons/fc'
 import { HiOutlineUserGroup, HiUserGroup } from 'react-icons/hi'
 import { IoHelpCircleOutline, IoHelpCircleSharp } from 'react-icons/io5'
@@ -89,4 +90,19 @@ const sidebarData3 = [
     },
 ]
 
-export { sidebarData1, sidebarData2, sidebarData3 }
+const sidebarDashboard1 = [
+    {
+        href: '/dashboard',
+        title: 'Dashboard',
+        Icon: AiOutlineHome,
+        ActiveIcon: AiFillHome,
+    },
+    {
+        href: '/user',
+        title: 'User',
+        Icon: FaRegUser,
+        ActiveIcon: FaUser,
+    },
+]
+
+export { sidebarData1, sidebarData2, sidebarData3, sidebarDashboard1 }

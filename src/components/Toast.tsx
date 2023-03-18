@@ -1,12 +1,8 @@
-import { useBookmark } from '@/context/BookmarkContext'
-import { AiFillCheckCircle, AiOutlineClose } from 'react-icons/ai'
-import { Slide, toast, ToastContainer } from 'react-toastify'
+import { AiOutlineClose } from 'react-icons/ai'
+import { Slide, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import ToastMessage from './ToastMessage'
 
 function Toast() {
-    const { showToast } = useBookmark()
-
     const contextClass: any = {
         success: 'bg-base200',
         // error: 'bg-red-600',
@@ -38,19 +34,6 @@ function Toast() {
                     />
                 )}
             />
-
-            {showToast &&
-                toast.success(
-                    <ToastMessage
-                        status='Success'
-                        message='You have successfully saved the movie'
-                    />,
-                    {
-                        icon: (
-                            <AiFillCheckCircle className='text-green-500 text-lg md:text-xl text-center' />
-                        ),
-                    }
-                )}
         </>
     )
 }

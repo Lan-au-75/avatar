@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import Tooltip from '@/components/Tooltip'
+import { IconType } from 'react-icons/lib'
 
 interface Props {
     Icon?: any
