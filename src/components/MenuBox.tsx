@@ -5,6 +5,7 @@ import { Movie, TV } from '@/types/movies.type'
 import clsx from 'clsx'
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { useNavigate } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link'
 
 import { v4 as uuidv4 } from 'uuid'
@@ -33,6 +34,8 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
     const { handleBookmark, handleRemoveBookmark } = useBookmark()
     const menuRef = useRef<HTMLInputElement>(null)
     const [history, setHistory] = useState([{ data: menuItem, title: '' }])
+
+    const navigate = useNavigate()
 
     // render last element
     const currentMenu = history[history.length - 1]
@@ -75,6 +78,9 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
                 break
             case 'Remove Bookmark':
                 handleRemoveBookmark(movie as Movie)
+                break
+            case 'Dashboard':
+                navigate('/dashboard')
                 break
             case 'logout':
                 await logOut()

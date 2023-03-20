@@ -2,8 +2,9 @@ import clsx from 'clsx'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 import { useSidebarCollapse } from '@/context/SidebarCollapseContext'
 import { navbarData } from '@/mockapi/navbar'
-import { sidebarData1, sidebarData2, sidebarData3 } from '@/mockapi/sidebar'
+import { sidebarDashboard1, sidebarData1, sidebarData2, sidebarData3 } from '@/mockapi/sidebar'
 import SidebarMenu from './SidebarMenu'
+import { useLocation } from 'react-router-dom'
 
 interface Props {
     className?: string
@@ -11,6 +12,7 @@ interface Props {
 
 function Sidebar({ className }: Props) {
     const { isCollapsed, setIsCollapsed } = useSidebarCollapse()
+    const location = useLocation()
 
     // toggle sidebar-collapse
     const toggleSidebar = () => {
@@ -22,14 +24,24 @@ function Sidebar({ className }: Props) {
             <aside
                 className={clsx('sidebar', className, isCollapsed ? 'w-[70px]' : 'w-[300px] p-4')}
             >
-                <SidebarMenu title='Menu' data={sidebarData1} isCollapsed={isCollapsed} />
-                <div className='pc:hidden'>
-                    <SidebarMenu data={navbarData} isCollapsed={isCollapsed} />
-                </div>
-                <SidebarMenu title='Library' data={sidebarData2} isCollapsed={isCollapsed} />
-                <div className='mb-14'>
-                    <SidebarMenu data={sidebarData3} isCollapsed={isCollapsed} />
-                </div>
+                {location.pathname.match('/dashboard') ? (
+                    <SidebarMenu title='Menu' data={sidebarDashboard1} isCollapsed={isCollapsed} />
+                ) : (
+                    <>
+                        <SidebarMenu title='Menu' data={sidebarData1} isCollapsed={isCollapsed} />
+                        <div className='pc:hidden'>
+                            <SidebarMenu data={navbarData} isCollapsed={isCollapsed} />
+                        </div>
+                        <SidebarMenu
+                            title='Library'
+                            data={sidebarData2}
+                            isCollapsed={isCollapsed}
+                        />
+                        <div className='mb-14'>
+                            <SidebarMenu data={sidebarData3} isCollapsed={isCollapsed} />
+                        </div>
+                    </>
+                )}
             </aside>
 
             {/* click sidebar collapse */}

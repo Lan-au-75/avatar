@@ -86,6 +86,10 @@ password : 123456789
 
 ![image](https://user-images.githubusercontent.com/78949030/225593355-f593daaa-c6bc-4469-9176-841a6687424f.png)
 
+-   Dashboard
+
+![image](https://user-images.githubusercontent.com/78949030/226280756-c5388dd1-1eb6-4193-8002-717cf0db98e6.png)
+
 -   Error
 
 ![image](https://user-images.githubusercontent.com/78949030/224013615-54595a77-6d51-474b-83cf-acec99df8c25.png)
@@ -112,6 +116,8 @@ password : 123456789
 -   Filter (You can filter by your favorite movie genre.)
 
 -   Modal,collapse,toast message,tooltip,skeleton,menu,notification,anchor,dropdown,carousel
+
+-   CRUD,Fake API Server,select all, delete all ,sort array (A-Z)
 
 #
 

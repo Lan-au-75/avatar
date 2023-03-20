@@ -4,8 +4,14 @@ import { IoLanguageOutline } from 'react-icons/io5'
 import { MdDarkMode, MdOutlineList } from 'react-icons/md'
 import { RiMovie2Line } from 'react-icons/ri'
 import { VscCommentDiscussion } from 'react-icons/vsc'
+import { RxDashboard } from 'react-icons/rx'
 
 export const MENU_ITEM = [
+    {
+        leftIcon: <RxDashboard />,
+        title: 'Dashboard',
+        to: 'dashboard',
+    },
     {
         leftIcon: <VscCommentDiscussion />,
         title: 'Discussions',

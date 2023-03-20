@@ -1,9 +1,8 @@
-import { useEffect } from 'react'
-import { useQuery, useQueryClient } from 'react-query'
 import MovieItem from '@/components/MovieItem'
-import { SkeletonCard } from '@/components/Skeleton'
 import { usePagination } from '@/context/PaginationContext'
 import { fetchUpcoming } from '@/hooks/fetchApi'
+import { useEffect } from 'react'
+import { useQuery, useQueryClient } from 'react-query'
 
 function Upcoming() {
     const { page } = usePagination()
@@ -19,10 +18,6 @@ function Upcoming() {
             fetchUpcoming(page + 1)
         )
     }, [upcoming.data, page, queryClient])
-
-    if (upcoming.isLoading) {
-        return <SkeletonCard />
-    }
 
     return <MovieItem data={upcoming} />
 }

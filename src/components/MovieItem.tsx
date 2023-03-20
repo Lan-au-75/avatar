@@ -4,6 +4,8 @@ import { Movie, TV } from '@/types/movies.type'
 import Card from './Card'
 import Pagination from './Pagination'
 import { useSidebarCollapse } from '@/context/SidebarCollapseContext'
+import { SkeletonCard } from './Skeleton'
+import { memo } from 'react'
 
 interface Props {
     data: UseQueryResult<
@@ -18,6 +20,10 @@ interface Props {
 
 function MovieItem({ data }: Props) {
     const totalPages = data.data?.totalPages
+
+    if (data.isLoading) {
+        return <SkeletonCard />
+    }
 
     return (
         <div className='flex flex-col gap-y-20 w-full'>

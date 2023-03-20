@@ -50,7 +50,7 @@ function HeaderIcon(
                     onClick={() => setToggleIcon(!toggleIcon)}
                     onMouseUp={onMouseUp as any}
                 >
-                    <ActiveIcon className={'cursor-pointer'} />
+                    <ActiveIcon />
                 </div>
             ) : (
                 <div
@@ -59,7 +59,7 @@ function HeaderIcon(
                     onClick={() => setToggleIcon(!toggleIcon)}
                     onMouseUp={onMouseUp as any}
                 >
-                    <Icon className={'cursor-pointer'} />
+                    <Icon />
 
                     {tooltip && <Tooltip offset={offset as string} tooltip={tooltip} />}
 

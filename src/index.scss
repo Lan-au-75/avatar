@@ -71,11 +71,11 @@
     }
 
     .iconDefault {
-        @apply p-[0.7rem] bg-base200 rounded-full text-xl md:text-[22px];
+        @apply p-[0.7rem] bg-base200 rounded-full text-xl md:text-[22px]  cursor-pointer;
     }
 
     .iconActiveDefault {
-        @apply p-[0.7rem] bg-blue-500/60 rounded-full text-blue-300 text-xl md:text-[22px];
+        @apply p-[0.7rem] bg-blue-500/60 rounded-full text-blue-300 text-xl md:text-[22px] cursor-pointer;
     }
 
     .nav-link {

@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom'
-import Container from './Container'
 import Sidebar from './Sidebar'
+import TodoList from './TodoList'
 
 function Dashboard() {
     const location = useLocation()
@@ -9,9 +9,7 @@ function Dashboard() {
         <div className='flex justify-between'>
             <Sidebar />
 
-            {location.pathname === '/' ? <Container /> : <Outlet />}
-
-            {/* <Widgets /> */}
+            {location.pathname === '/dashboard' ? <TodoList /> : <Outlet />}
         </div>
     )
 }

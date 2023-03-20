@@ -1,10 +1,9 @@
-import { useEffect } from 'react'
-import { useQuery, useQueryClient } from 'react-query'
 import MovieItem from '@/components/MovieItem'
-import { SkeletonCard } from '@/components/Skeleton'
-import { Category } from '@/types/movies.type'
 import { usePagination } from '@/context/PaginationContext'
 import { fetchPopularity } from '@/hooks/fetchApi'
+import { Category } from '@/types/movies.type'
+import { useEffect } from 'react'
+import { useQuery, useQueryClient } from 'react-query'
 
 function Popular() {
     const { page } = usePagination()
@@ -24,10 +23,6 @@ function Popular() {
             fetchPopularity(Category.Movie, page + 1)
         )
     }, [popularity.data, page, queryClient])
-
-    if (popularity.isLoading) {
-        return <SkeletonCard />
-    }
 
     if (popularity.data?.movies === undefined) {
         return (
