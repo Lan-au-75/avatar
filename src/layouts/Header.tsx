@@ -32,7 +32,7 @@ function Header() {
 
     // handle show notification
 
-    const handleShowNotification = (e: MouseEvent) => {
+    const handleShowNotification = () => {
         setShowNotification(!showNotification)
     }
 
@@ -136,7 +136,7 @@ function Header() {
                     ActiveIcon={IoIosNotifications}
                     classIcon='iconDefault'
                     classActiveIcon='iconActiveDefault'
-                    onMouseUp={(e) => handleShowNotification(e)}
+                    onMouseUp={handleShowNotification}
                     quantity={quantity}
                     offset='top-12 -right-8'
                     tooltip='notification'

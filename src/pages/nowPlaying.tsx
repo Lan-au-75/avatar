@@ -1,9 +1,8 @@
+import MovieItem from '@/components/MovieItem'
+import { usePagination } from '@/context/PaginationContext'
+import { fetchNowPlaying } from '@/hooks/fetchApi'
 import { useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
-import MovieItem from '@/components/MovieItem'
-import { SkeletonCard } from '@/components/Skeleton'
-import { fetchNowPlaying } from '@/hooks/fetchApi'
-import { usePagination } from '@/context/PaginationContext'
 
 function NowPlaying() {
     const { page } = usePagination()
@@ -19,10 +18,6 @@ function NowPlaying() {
             fetchNowPlaying(page + 1)
         )
     }, [nowPlaying.data, page, queryClient])
-
-    if (nowPlaying.isLoading) {
-        return <SkeletonCard />
-    }
 
     return <MovieItem data={nowPlaying} />
 }

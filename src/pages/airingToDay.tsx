@@ -1,9 +1,8 @@
-import { useEffect } from 'react'
-import { useQuery, useQueryClient } from 'react-query'
 import MovieItem from '@/components/MovieItem'
-import { SkeletonCard } from '@/components/Skeleton'
 import { usePagination } from '@/context/PaginationContext'
 import { fetchAiringToDay } from '@/hooks/fetchApi'
+import { useEffect } from 'react'
+import { useQuery, useQueryClient } from 'react-query'
 
 function AiringToDay() {
     const { page } = usePagination()
@@ -23,10 +22,6 @@ function AiringToDay() {
             fetchAiringToDay(page + 1)
         )
     }, [airingToDay.data, page, queryClient])
-
-    if (airingToDay.isLoading) {
-        return <SkeletonCard />
-    }
 
     return <MovieItem data={airingToDay} />
 }

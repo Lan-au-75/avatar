@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import Tooltip from '@/components/Tooltip'
-import { IconType } from 'react-icons/lib'
 
 interface Props {
     Icon?: any
@@ -51,7 +50,7 @@ function HeaderIcon(
                     onClick={() => setToggleIcon(!toggleIcon)}
                     onMouseUp={onMouseUp as any}
                 >
-                    <ActiveIcon className={'cursor-pointer'} />
+                    <ActiveIcon />
                 </div>
             ) : (
                 <div
@@ -60,7 +59,7 @@ function HeaderIcon(
                     onClick={() => setToggleIcon(!toggleIcon)}
                     onMouseUp={onMouseUp as any}
                 >
-                    <Icon className={'cursor-pointer'} />
+                    <Icon />
 
                     {tooltip && <Tooltip offset={offset as string} tooltip={tooltip} />}
 

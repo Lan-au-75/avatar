@@ -13,7 +13,6 @@ import Row from './Row'
 import Thumbnail1 from './Thumbnail1'
 import Thumbnail2 from './Thumbnail2'
 import Thumbnail3 from './Thumbnail3'
-import Toast from './Toast'
 
 function Container() {
     const trendingMovie = useQuery(['trendingData'], () => fetchTrendingMovie(Category.Movie), {
@@ -46,6 +45,7 @@ function Container() {
                 Thumbnail={Thumbnail3}
                 isLoading={nowPlaying.isLoading}
             />
+
             <Row
                 title='Top rated'
                 movies={topRated.data?.movies}
