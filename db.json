@@ -1,34 +1,34 @@
 {
-    "movies": [
-        {
-            "title": "Black Panther: Wakanda Forever",
-            "post_path": "https://www.themoviedb.org/t/p/w220_and_h330_face/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
-            "id": 1
-        },
-        {
-            "title": "Puss in Boots: The Last Wish",
-            "post_path": "https://www.themoviedb.org/t/p/w220_and_h330_face/kuf6dutpsT0vSVehic3EZIqkOBt.jpg",
-            "id": 2
-        },
-        {
-            "title": "The Whale",
-            "post_path": "https://www.themoviedb.org/t/p/w220_and_h330_face/jQ0gylJMxWSL490sy0RrPj1Lj7e.jpg",
-            "id": 6
-        },
-        {
-            "title": "Knock at the Cabin",
-            "post_path": "https://www.themoviedb.org/t/p/w220_and_h330_face/dm06L9pxDOL9jNSK4Cb6y139rrG.jpg",
-            "id": 7
-        },
-        {
-            "title": "Shazam! Fury of the Gods",
-            "post_path": "https://www.themoviedb.org/t/p/w220_and_h330_face/zpCCTtuQMHiHycpsrWnW2eCrBql.jpg",
-            "id": 8
-        },
-        {
-            "title": "Everything Everywhere All at Once",
-            "post_path": "https://www.themoviedb.org/t/p/w220_and_h330_face/w3LxiVYdWWRvEVdn5RYq6jIqkb1.jpg",
-            "id": 9
-        }
-    ]
+  "movies": [
+    {
+      "title": "Black Panther: Wakanda Forever",
+      "post_path": "https://www.themoviedb.org/t/p/w220_and_h330_face/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
+      "id": 1
+    },
+    {
+      "title": "Puss in Boots: The Last Wish",
+      "post_path": "https://www.themoviedb.org/t/p/w220_and_h330_face/kuf6dutpsT0vSVehic3EZIqkOBt.jpg",
+      "id": 2
+    },
+    {
+      "title": "The Whale ",
+      "post_path": "https://www.themoviedb.org/t/p/w220_and_h330_face/jQ0gylJMxWSL490sy0RrPj1Lj7e.jpg",
+      "id": 6
+    },
+    {
+      "title": "Knock at the Cabin",
+      "post_path": "https://www.themoviedb.org/t/p/w220_and_h330_face/dm06L9pxDOL9jNSK4Cb6y139rrG.jpg",
+      "id": 7
+    },
+    {
+      "title": "Shazam! Fury of the Gods",
+      "post_path": "https://www.themoviedb.org/t/p/w220_and_h330_face/zpCCTtuQMHiHycpsrWnW2eCrBql.jpg",
+      "id": 8
+    },
+    {
+      "title": "Everything Everywhere All at Once",
+      "post_path": "https://www.themoviedb.org/t/p/w220_and_h330_face/w3LxiVYdWWRvEVdn5RYq6jIqkb1.jpg",
+      "id": 9
+    }
+  ]
 }

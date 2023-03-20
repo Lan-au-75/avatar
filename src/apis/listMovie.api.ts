@@ -17,8 +17,8 @@ const addMovie = (newTodo: FormState) => {
     return axios.post('http://localhost:3000/movies', newTodo)
 }
 
-const updateMovie = (id: string, data: ListMovie) => {
-    return axios.put(`http://localhost:3000/movies/${id}`, data)
+const updateMovie = async (id: string | number, data: ListMovie | FormState) => {
+    return await axios.put(`http://localhost:3000/movies/${id}`, data)
 }
 
 const deleteMovie = (id: number) => {

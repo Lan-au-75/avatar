@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { Link } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid'
 
 interface Props {
     className?: string
@@ -58,6 +59,32 @@ const SkeletonCard = () => (
     </div>
 )
 
-export { SkeletonRow, SkeletonHeader, SkeletonCard }
+const SkeletonTodo = () => (
+    <div className='mt-6'>
+        <div className='mb-2.5 h-[42px]  rounded'>
+            <Skeleton />
+        </div>
+        <div className='mb-2.5 h-[42px]  rounded'>
+            <Skeleton />
+        </div>
+        <div className='mb-2.5 h-[42px]  rounded'>
+            <Skeleton />
+        </div>
+        <div className='mb-2.5 h-[42px]  rounded'>
+            <Skeleton />
+        </div>
+        <div className='mb-2.5 h-[42px]  rounded'>
+            <Skeleton />
+        </div>
+        <div className='mb-2.5 h-[42px]  rounded'>
+            <Skeleton />
+        </div>
+        <div className='mb-2.5 h-[42px]  rounded'>
+            <Skeleton />
+        </div>
+    </div>
+)
+
+export { SkeletonRow, SkeletonHeader, SkeletonCard, SkeletonTodo }
 
 export default Skeleton
