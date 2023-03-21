@@ -63,7 +63,7 @@ function Pagination({ totalPages }: Props) {
     return (
         <ul className='flex items-center gap-3 '>
             <button
-                className={clsx('pagination disabled:hidden', !isMoved && 'hidden')}
+                className={clsx('pagination rounded-full disabled:hidden', !isMoved && 'hidden')}
                 onClick={() => handleClickStartAndEnd(Direction.Start)}
                 disabled={page === 1}
             >
@@ -71,7 +71,7 @@ function Pagination({ totalPages }: Props) {
             </button>
 
             <button
-                className={clsx('pagination disabled:hidden', !isMoved && 'hidden')}
+                className={clsx('pagination rounded-full disabled:hidden', !isMoved && 'hidden')}
                 onClick={() => handleClick(Direction.Prev)}
                 disabled={page === 1}
             >
@@ -87,7 +87,10 @@ function Pagination({ totalPages }: Props) {
                           <NavLink
                               to={clsx('?page=' + page)}
                               className={() =>
-                                  clsx('pagination', isActive(page, 'page') ? 'bg-green-500' : '')
+                                  clsx(
+                                      'pagination',
+                                      isActive(page, 'page') ? 'bg-green-500 dark:bg-green-500' : ''
+                                  )
                               }
                               onClick={(e) => handleClickPage(e, page)}
                           >
@@ -103,7 +106,10 @@ function Pagination({ totalPages }: Props) {
                           <NavLink
                               to={clsx('?page=' + page)}
                               className={() =>
-                                  clsx('pagination', isActive(page, 'page') ? 'bg-green-500' : '')
+                                  clsx(
+                                      'pagination',
+                                      isActive(page, 'page') ? 'bg-green-500 dark:bg-green-500' : ''
+                                  )
                               }
                               onClick={(e) => handleClickPage(e, page)}
                           >
@@ -121,7 +127,7 @@ function Pagination({ totalPages }: Props) {
             </button> */}
 
             <button
-                className={clsx('pagination disabled:hidden')}
+                className={clsx('pagination rounded-full  disabled:hidden')}
                 onClick={() => handleClickStartAndEnd(Direction.End)}
                 disabled={page === totalPages}
             >

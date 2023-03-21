@@ -2,7 +2,7 @@ import { deleteMovie, getMovies, updateMovie } from '@/apis/listMovie.api'
 import { ListMovie, FormState } from '@/types/mockapi.type'
 
 import { handleImgError } from '@/hooks/handleImgError'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AiFillCheckCircle, AiOutlineSortAscending, AiOutlineSortDescending } from 'react-icons/ai'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { Link } from 'react-router-dom'

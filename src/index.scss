@@ -13,7 +13,7 @@
 
 @layer base {
     html {
-        @apply font-inter text-base100 bg-secondary text-sm lg:text-base scrollBarCustom scroll-smooth;
+        @apply font-inter text-base100  text-sm lg:text-base scrollBarCustom scroll-smooth transition-all duration-200 ease-linear;
         -webkit-tap-highlight-color: transparent;
     }
 
@@ -41,7 +41,7 @@
 @layer components {
     .header {
         @apply fixed top-0 inset-x-0 flex items-center justify-between px-3 md:px-6 bg-transparent 
-        max-h-14 h-full border-b border-solid border-base200 bg-secondary shadow-md z-50;
+        max-h-14 h-full border-b border-solid border-base200 bg-white dark:bg-secondary shadow-md transition-all duration-200 ease-linear z-50;
     }
 
     .main {
@@ -49,13 +49,13 @@
     }
 
     .sidebar {
-        @apply hidden pc:block bg-secondary h-screen divide-y divide-base100 select-none 
-        scrollBarCustom overflow-y-hidden hover:overflow-y-auto transition-all duration-300 ease-linear;
+        @apply hidden pc:block bg-white dark:bg-secondary h-screen divide-y divide-base100 select-none 
+        scrollBarCustom overflow-y-auto lg:overflow-y-hidden hover:overflow-y-auto transition-all duration-300 ease-linear;
     }
 
     .active,
     .menu-active {
-        @apply text-white;
+        @apply dark:text-white;
 
         .icon {
             @apply hidden;
@@ -71,7 +71,7 @@
     }
 
     .iconDefault {
-        @apply p-[0.7rem] bg-base200 rounded-full text-xl md:text-[22px]  cursor-pointer;
+        @apply p-[0.7rem] text-black bg-slate-300 dark:bg-base200 dark:text-white rounded-full text-xl md:text-[22px]  cursor-pointer;
     }
 
     .iconActiveDefault {
@@ -79,8 +79,8 @@
     }
 
     .nav-link {
-        @apply flex items-center hover:text-white transition-all duration-200 ease-linear cursor-pointer
-         hover:bg-base200 rounded-lg;
+        @apply flex items-center text-black dark:text-base100 dark:hover:text-white transition-all duration-200 ease-linear cursor-pointer
+         hover:bg-slate-300 dark:hover:bg-base200 rounded-lg;
     }
 
     .menu-box {
@@ -88,7 +88,7 @@
     }
 
     .menu-box__link {
-        @apply flex items-center justify-between text-white gap-2 md:gap-3 hover:bg-base100 rounded-sm 
+        @apply flex items-center justify-between text-black dark:text-white gap-2 md:gap-3 hover:bg-slate-300 dark:hover:bg-base100 rounded-sm 
         py-4 px-5 md:px-3 md:py-2 transition-all ease-out duration-200;
     }
 
@@ -98,7 +98,7 @@
     }
 
     .menu-item {
-        @apply cursor-pointer hover:bg-base200 hover:text-white rounded-lg transition-all ease-out duration-300;
+        @apply cursor-pointer hover:bg-slate-100 dark:hover:bg-base200  dark:hover:text-white rounded-lg transition-all ease-out duration-300;
     }
 
     .container-zero {
@@ -130,7 +130,7 @@
 
     .btn-number {
         @apply flex items-center justify-center w-10 h-10 md:w-12 md:h-12 hover:bg-green-500 transition-all 
-        duration-200 ease-in-out text-white rounded-lg bg-base200;
+        duration-200 ease-in-out text-white rounded-lg bg-slate-300 dark:bg-base200;
     }
 
     .scroll-x {
@@ -139,7 +139,7 @@
     }
 
     .movie-item {
-        @apply flex items-center justify-center px-2 py-1 flex-shrink-0 odd:bg-red-500 even:bg-blue-400 
+        @apply flex items-center justify-center px-2 py-1 flex-shrink-0 text-white dark:text-base100 odd:bg-red-500 even:bg-blue-400 
         max-w-[200px] rounded-2xl line-clamp-2 transition-all duration-200 ease-linear hover:scale-105;
     }
 
@@ -149,7 +149,7 @@
     }
 
     .pagination {
-        @apply py-2 px-3 md:py-2 md:px-4 bg-base200 rounded-full hover:text-white hover:bg-green-500 transition-all ease-linear duration-200;
+        @apply py-2 px-3 md:py-2 md:px-4 bg-slate-300  dark:bg-base200 hover:text-white hover:bg-green-500 transition-all ease-linear duration-200;
     }
 
     .divide {
@@ -168,7 +168,8 @@
 
     .scrollBarCustom::-webkit-scrollbar-thumb {
         border-radius: 4px;
-        background-color: #4d4f57;
+
+        @apply bg-blue-400;
     }
     .scrollBarCustom::-webkit-scrollbar-track {
         border-radius: 0;

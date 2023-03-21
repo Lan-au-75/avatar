@@ -76,7 +76,7 @@ function Search() {
                 ref={iconRef}
                 Icon={BsSearch}
                 ActiveIcon={BsSearch}
-                classIcon='iconDefault text-white sm:hidden'
+                classIcon='iconDefault text-black dark:text-white sm:hidden'
                 classActiveIcon='iconActiveDefault sm:hidden'
                 offset='top-12 -right-4'
                 tooltip='Search'
@@ -85,15 +85,15 @@ function Search() {
 
             {/* menu mobile search  */}
             {showMenuMobile && (
-                <div className='fixed top-0 left-0  h-16 bg-base200 shadow-lg z-10'>
+                <div className='fixed top-0 left-0  w-screen h-16 bg-white dark:bg-base200 shadow-lg z-10'>
                     <div className='flex items-center gap-2 md:gap-3 px-3 py-2'>
                         <span
-                            className='p-3 rounded-full hover:bg-base100 cursor-pointer'
+                            className='p-3 rounded-full  dark:text-white hover:bg-slate-300 dark:hover:bg-base100 cursor-pointer'
                             onClick={handleBackMenu}
                         >
-                            <AiOutlineArrowLeft className='text-xl md:text:2xl text-white' />
+                            <AiOutlineArrowLeft className='text-xl md:text:2xl text-base100 dark:text-white' />
                         </span>
-                        <div className='relative  max-w-[300px] lg:min-w-[360px] flex items-center text-gray-400 bg-base200 px-3 py-2 lg:py-1  rounded-2xl gap-2 sm:gap-4 focus-within:border focus-within:border-solid focus-within:border-blue-500'>
+                        <div className='relative flex-1 flex items-center text-gray-400 bg-white dark:bg-base200 px-3 py-2 lg:py-1  rounded-2xl gap-2 sm:gap-4 focus-within:border focus-within:border-solid focus-within:border-blue-500'>
                             <span>
                                 <BsSearch className='cursor-pointer text-lg' />
                             </span>
@@ -102,7 +102,7 @@ function Search() {
                                 value={query}
                                 type='text'
                                 placeholder='Search'
-                                className='outline-none bg-base200 flex-1 text-lg'
+                                className='outline-none bg-white dark:bg-base200 flex-1 text-lg'
                                 onChange={(e) => setQuery(e.target.value)}
                                 spellCheck={false}
                                 onFocus={() => setShowMenu(true)}
@@ -126,8 +126,8 @@ function Search() {
                     {query.length > 0 && data && (
                         <ul
                             ref={menuRefMobile}
-                            className='absolute top-14 lg:top-10 right-0 flex flex-col gap-y-4 md:gap-y-3 w-full max-h-[400px] overflow-y-hidden hover:overflow-y-auto scrollBarCustom 
-                bg-base200 py-2 md:py-4 rounded-lg shadow-md z-10'
+                            className='absolute top-16 lg:top-10 right-0 flex flex-col gap-y-4 md:gap-y-3 w-full h-screen overflow-y-auto lg:overflow-y-hidden hover:overflow-y-auto scrollBarCustom 
+                bg-white dark:bg-base200 py-2 md:py-4 rounded-lg shadow-md border-t border-solid border-gray-400 z-10'
                         >
                             {data?.map((movie) => (
                                 <Link
@@ -137,7 +137,7 @@ function Search() {
                                             ? `/detail/${movie.id}`
                                             : `/detailTV/${movie.id}`
                                     }
-                                    className='flex items-center gap-2 hover:bg-base100 px-2 rounded-md'
+                                    className='flex items-center gap-2 hover:bg-slate-300 dark:hover:bg-base100 px-2 rounded-md'
                                 >
                                     <img
                                         src={`${
@@ -148,7 +148,7 @@ function Search() {
                                         onError={(e) => handleImgError(e)}
                                     />
 
-                                    <span className='text-base md:text-lg capitalize line-clamp-2 text-white'>
+                                    <span className='text-base md:text-lg capitalize line-clamp-2 text-black dark:text-white'>
                                         {movie.original_title || movie.name}
                                     </span>
                                 </Link>
@@ -159,14 +159,14 @@ function Search() {
             )}
 
             {/* > mobile Search*/}
-            <div className='relative hidden min-w-[340px] lg:min-w-[360px] sm:flex items-center text-gray-400 bg-base200 px-3 py-2 lg:py-1  rounded-2xl gap-4 focus-within:border focus-within:border-solid focus-within:border-blue-500'>
+            <div className='relative hidden min-w-[340px] lg:min-w-[360px] sm:flex items-center text-gray-400 bg-[#F1F1F2] dark:bg-base200 px-3 py-2 lg:py-1  rounded-2xl gap-4 focus-within:border focus-within:border-solid focus-within:border-blue-500'>
                 <BsSearch className='cursor-pointer' />
                 <input
                     ref={inputRef}
                     value={query}
                     type='text'
                     placeholder='Search'
-                    className='outline-none bg-base200 mr-3 flex-1'
+                    className='outline-none bg-[#F1F1F2] dark:bg-base200 mr-3 flex-1'
                     onChange={(e) => setQuery(e.target.value)}
                     spellCheck={false}
                     onFocus={() => setShowMenu(true)}
@@ -182,8 +182,8 @@ function Search() {
                 {query.length > 0 && data && showMenu && (
                     <ul
                         ref={menuRef}
-                        className='absolute top-11 lg:top-10 right-0 flex flex-col gap-y-4 md:gap-y-3 w-full max-h-[400px] overflow-y-hidden hover:overflow-y-auto scrollBarCustom 
-                bg-base200 py-2 md:py-4 rounded-lg shadow-md z-10'
+                        className='absolute top-11 lg:top-10 right-0 flex flex-col gap-y-4 md:gap-y-3 w-full max-h-[400px] overflow-y-auto lg:overflow-y-hidden hover:overflow-y-auto scrollBarCustom 
+                 bg-white dark:bg-base200 py-2 md:py-4 rounded-lg shadow-md z-10'
                     >
                         {data?.map((movie) => (
                             <Link
@@ -193,7 +193,7 @@ function Search() {
                                         ? `/detail/${movie.id}`
                                         : `/detailTV/${movie.id}`
                                 }
-                                className='flex items-center gap-2 hover:bg-base100 px-2 rounded-md'
+                                className='flex items-center gap-2 hover:bg-slate-300 dark:hover:bg-base100 px-2 rounded-md'
                             >
                                 <img
                                     src={`${
@@ -204,7 +204,7 @@ function Search() {
                                     onError={(e) => handleImgError(e)}
                                 />
 
-                                <span className='text-base md:text-lg capitalize line-clamp-2'>
+                                <span className='text-black dark:text-base100 text-base md:text-lg capitalize line-clamp-2'>
                                     {movie.original_title || movie.name}
                                 </span>
                             </Link>
