@@ -85,7 +85,7 @@ function Search() {
 
             {/* menu mobile search  */}
             {showMenuMobile && (
-                <div className='fixed top-0 left-0  h-16 bg-white dark:bg-base200 shadow-lg z-10'>
+                <div className='fixed top-0 left-0  w-screen h-16 bg-white dark:bg-base200 shadow-lg z-10'>
                     <div className='flex items-center gap-2 md:gap-3 px-3 py-2'>
                         <span
                             className='p-3 rounded-full  dark:text-white hover:bg-slate-300 dark:hover:bg-base100 cursor-pointer'
@@ -93,7 +93,7 @@ function Search() {
                         >
                             <AiOutlineArrowLeft className='text-xl md:text:2xl text-base100 dark:text-white' />
                         </span>
-                        <div className='relative  max-w-[300px] lg:min-w-[360px] flex items-center text-gray-400 bg-white dark:bg-base200 px-3 py-2 lg:py-1  rounded-2xl gap-2 sm:gap-4 focus-within:border focus-within:border-solid focus-within:border-blue-500'>
+                        <div className='relative flex-1 flex items-center text-gray-400 bg-white dark:bg-base200 px-3 py-2 lg:py-1  rounded-2xl gap-2 sm:gap-4 focus-within:border focus-within:border-solid focus-within:border-blue-500'>
                             <span>
                                 <BsSearch className='cursor-pointer text-lg' />
                             </span>
@@ -126,8 +126,8 @@ function Search() {
                     {query.length > 0 && data && (
                         <ul
                             ref={menuRefMobile}
-                            className='absolute top-14 lg:top-10 right-0 flex flex-col gap-y-4 md:gap-y-3 w-full max-h-[400px] overflow-y-auto lg:overflow-y-hidden hover:overflow-y-auto scrollBarCustom 
-                bg-white dark:bg-base200 py-2 md:py-4 rounded-lg shadow-md z-10'
+                            className='absolute top-16 lg:top-10 right-0 flex flex-col gap-y-4 md:gap-y-3 w-full h-screen overflow-y-auto lg:overflow-y-hidden hover:overflow-y-auto scrollBarCustom 
+                bg-white dark:bg-base200 py-2 md:py-4 rounded-lg shadow-md border-t border-solid border-gray-400 z-10'
                         >
                             {data?.map((movie) => (
                                 <Link
