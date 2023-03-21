@@ -84,7 +84,7 @@ function Card({ movie }: Props) {
                                     ? MENU_ITEM_CARD1
                                     : MENU_ITEM_CARD2
                             }
-                            className='absolute top-11 right-0 md:right-2 min-w-full min-h-full md:min-w-[80px] md:min-h-[50px] bg-base200 rounded-md origin-top-right shadow-md'
+                            className='absolute top-11 right-0 md:right-2 min-w-full min-h-full md:min-w-[80px] md:min-h-[50px] bg-white dark:bg-base200 rounded-md origin-top-right shadow-md'
                         />
                     )}
                 </figure>

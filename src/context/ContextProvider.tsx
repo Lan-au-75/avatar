@@ -4,6 +4,7 @@ import BookmarkProvider from './BookmarkContext'
 import NavbarProvider from './NavbarMobile'
 import PaginationProvider from './PaginationContext'
 import SidebarCollapseProvider from './SidebarCollapseContext'
+import ThemeProvider from './ThemeContext'
 
 function ContextProvider({ children }: { children: ReactNode }) {
     return (
@@ -11,7 +12,10 @@ function ContextProvider({ children }: { children: ReactNode }) {
             <SidebarCollapseProvider>
                 <BookmarkProvider>
                     <NavbarProvider>
-                        <PaginationProvider>{children}</PaginationProvider>
+                        <ThemeProvider>
+                            {' '}
+                            <PaginationProvider>{children}</PaginationProvider>
+                        </ThemeProvider>
                     </NavbarProvider>
                 </BookmarkProvider>
             </SidebarCollapseProvider>

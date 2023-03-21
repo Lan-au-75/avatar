@@ -64,7 +64,7 @@ function HeaderIcon(
                     {tooltip && <Tooltip offset={offset as string} tooltip={tooltip} />}
 
                     {quantity !== 0 && (
-                        <span className='absolute -top-1 -right-1 flex items-center justify-center h-5 w-5 bg-red-500 rounded-full text-xs'>
+                        <span className='absolute -top-1 -right-1 text-white  flex items-center justify-center h-5 w-5 bg-red-500 rounded-full text-xs'>
                             {quantity}
                         </span>
                     )}

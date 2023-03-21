@@ -73,7 +73,7 @@ function Filter() {
                 <div className='flex items-center justify-between w-full p-2'>
                     <div
                         ref={divRef}
-                        className='relative w-[200px] flex items-center justify-between px-3 py-2 bg-base200 rounded-sm'
+                        className='relative w-[200px] flex items-center justify-between px-3 py-2 bg-slate-300 dark:bg-base200 rounded-sm'
                         onClick={() => setShowMenu(!showMenu)}
                     >
                         <div className='flex items-center gap-2'>
@@ -82,22 +82,24 @@ function Filter() {
                                     {selectAll.length}
                                 </span>
                             )}
-                            <span className='text-white text-base md:text-lg'>Genre</span>
+                            <span className='text-black dark:text-white text-base md:text-lg'>
+                                Genre
+                            </span>
                         </div>
-                        <AiFillCaretDown className='text-white text-base md:text-lg' />
+                        <AiFillCaretDown className=' text-black dark:text-white text-base md:text-lg' />
 
                         {/* menu Genre */}
                         {showMenu && (
                             <ul
                                 ref={menuRef}
-                                className='absolute top-14 right-0 px-3 py-2 w-full bg-base200 max-h-[300px] overflow-y-hidden hover:overflow-y-auto scrollBarCustom rounded-md shadow-md z-10'
+                                className='absolute top-14 right-0 px-3 py-2 w-full bg-white dark:bg-base200 max-h-[300px] overflow-y-hidden hover:overflow-y-auto scrollBarCustom rounded-md shadow-md z-10'
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 {data &&
                                     (data?.genres as Genres[]).map((genre) => (
                                         <li
                                             key={genre.id}
-                                            className='flex items-center gap-3 text-white cursor-pointer'
+                                            className='flex items-center gap-3 text-black dark:text-white cursor-pointer'
                                         >
                                             <input
                                                 type='checkbox'
@@ -115,10 +117,10 @@ function Filter() {
                     </div>
 
                     <span
-                        className='p-3 bg-base200 rounded-md hover:opacity-90 cursor-pointer'
+                        className='p-3  bg-slate-300 dark:bg-base200 rounded-md hover:opacity-90 cursor-pointer'
                         onClick={handleFilter}
                     >
-                        <BiFilter className='text-xl text-white' />
+                        <BiFilter className='text-xl text-black dark:text-white' />
                     </span>
                 </div>
 

@@ -65,10 +65,10 @@ function Watching() {
                                         to={`?server=${server.number}&season=1&episodes=1`}
                                         className={() =>
                                             clsx(
-                                                'btnCustom text-white text-lg capitalize px-3 py-3 md:min-w-[172px] min-w-[100px]  min-h-[40px] bg-base200',
+                                                'btnCustom text-black dark:text-white text-lg capitalize px-3 py-3 md:min-w-[172px] min-w-[100px]  min-h-[40px] ',
                                                 isActive(serverID + 1, 'server')
                                                     ? 'bg-green-500'
-                                                    : ''
+                                                    : 'bg-gray-300 dark:bg-base200'
                                             )
                                         }
                                     >
@@ -93,14 +93,17 @@ function Watching() {
                             <p className='flex flex-wrap text-gray-400'>
                                 Genres:{' '}
                                 {data?.genres?.map((genres, i) => (
-                                    <span key={genres.id} className='pl-1 text-white lowercase'>
+                                    <span
+                                        key={genres.id}
+                                        className='pl-1 text-black dark:text-white lowercase'
+                                    >
                                         {genres.name}
                                         {i !== data.genres.length - 1 ? ',' : ''}
                                     </span>
                                 ))}
                             </p>
                         </div>
-                        <div className='flex flex-col gap-y-3 text-lg text-start w-full md:w-[80%]  overflow-hidden text-white'>
+                        <div className='flex flex-col gap-y-3 text-lg text-start w-full md:w-[80%]  overflow-hidden text-black dark:text-white'>
                             <span
                                 className='flex items-center justify-center flex-shrink-0 select-none w-12 h-12 
                         md:w-10 md:h-10 rounded-lg bg-red-500 text-2xl cursor-pointer'

@@ -31,13 +31,13 @@ function Comments({ reviews }: Props) {
                         onError={(e) => handleImgError(e, '/no-img-avatar.png')}
                     />
 
-                    <div className='w-[288px] mini:w-full flex flex-1 items-center justify-between rounded-lg p-3 bg-base200'>
+                    <div className='w-[288px] mini:w-full flex flex-1 items-center justify-between rounded-lg p-3 bg-slate-400 dark:bg-base200'>
                         <input
                             type='text'
                             placeholder='write a comment'
-                            className='flex-1 text-gray-400 bg-base200 outline-none mr-6 md:mr-10'
+                            className='flex-1  placeholder:text-gray-500 dark:placeholder:text-gray-400  bg-slate-400 dark:bg-base200 outline-none mr-6 md:mr-10'
                         />
-                        <div className='text-base text-gray-400 md:text-lg flex  gap-1 md:gap-3 cursor-pointer'>
+                        <div className='text-base text-black dark:text-gray-400 md:text-lg flex  gap-1 md:gap-3 cursor-pointer'>
                             <MdInsertEmoticon />
                             <AiOutlineCamera />
                             <AiOutlineGift />
@@ -56,7 +56,7 @@ function Comments({ reviews }: Props) {
                             onError={(e) => handleImgError(e, '/no-img-avatar.png')}
                         />
                         <div className='flex flex-col gap-1 flex-1'>
-                            <div className='w-[288px] mini:w-full flex flex-col gap-y-1 md:gap-y-2 bg-base200 rounded-lg  text-white p-2 md:p-3'>
+                            <div className='w-[288px] mini:w-full flex flex-col gap-y-1 md:gap-y-2 bg-gray-400 dark:bg-base200 rounded-lg  text-black dark:text-white p-2 md:p-3'>
                                 <span className='text-base font-semibold'>
                                     {review.author_details.name || review.author}
                                 </span>

@@ -34,7 +34,7 @@ export const MENU_ITEM = [
     },
     {
         leftIcon: <MdDarkMode />,
-        title: 'Appearance: Dark',
+        title: 'Appearance:',
         to: '#',
         rightIcon: <BsChevronRight />,
         children: {

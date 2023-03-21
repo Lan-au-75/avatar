@@ -14,7 +14,7 @@ function Notification({}, ref: any) {
         <div
             ref={notificationRef}
             className={clsx(
-                'py-3 md:py-4 animate-menuBox sm:menu-box fixed top-14 bottom-0 left-0 w-screen sm:w-[400px] md:w-[440px] sm:bottom-auto sm:left-auto   min-h-[300px] bg-base200 rounded-lg origin-top-right shadow-lg'
+                'py-3 md:py-4 animate-menuBox sm:menu-box fixed top-14 bottom-0 left-0 w-screen  sm:w-[400px] md:w-[440px] sm:bottom-auto sm:left-auto min-h-[300px]  text-black bg-white dark:text-white dark:bg-base200 rounded-lg origin-top-right shadow-lg'
             )}
         >
             {/* menu header */}
@@ -33,12 +33,12 @@ function Notification({}, ref: any) {
 
             {/* menu item */}
 
-            <ul className=' max-h-[500px] overflow-y-hidden hover:overflow-y-auto scrollBarCustom'>
+            <ul className=' max-h-[500px] overflow-y-auto lg:overflow-y-hidden hover:overflow-y-auto scrollBarCustom'>
                 {notifications.map((notification) => (
                     <Link
                         key={uuidv4()}
                         to='#'
-                        className='flex items-start gap-2 md:gap-3  px-5 py-4 md:px-3 md:py-2 hover:bg-base100 rounded-lg  cursor-pointer'
+                        className='flex items-start gap-2 md:gap-3  px-5 py-4 md:px-3 md:py-2 hover:bg-slate-300 dark:hover:bg-base100 rounded-lg  cursor-pointer'
                     >
                         <img
                             src={notification.avatar}

@@ -27,7 +27,7 @@ function NavItem({ title, href }: Props) {
             {title === 'Movies' && (
                 <MenuBox
                     menuItem={MENU_ITEM_MOVIES}
-                    className='hidden group-hover:block absolute top-12 left-0 bg-base200 w-[200px] min-h-[100px] 
+                    className='hidden group-hover:block absolute top-12 left-0 bg-white dark:bg-base200 w-[200px] min-h-[100px] 
                     rounded-lg transition-all duration-500 ease-out origin-top-left shadow-lg'
                 ></MenuBox>
             )}

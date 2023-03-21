@@ -1,7 +1,9 @@
 import { userAth } from '@/context/AuthContext'
 import { useBookmark } from '@/context/BookmarkContext'
+import { useTheme } from '@/context/ThemeContext'
 import { handleImgError } from '@/hooks/handleImgError'
 import { Movie, TV } from '@/types/movies.type'
+import { Theme } from '@/types/utils.type'
 import clsx from 'clsx'
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
@@ -31,6 +33,7 @@ interface Props {
 
 function MenuBox({ menuItem, className, movie }: Props, ref: any) {
     const { logOut, user } = userAth()
+    const { theme, setTheme } = useTheme()
     const { handleBookmark, handleRemoveBookmark } = useBookmark()
     const menuRef = useRef<HTMLInputElement>(null)
     const [history, setHistory] = useState([{ data: menuItem, title: '' }])
@@ -82,6 +85,18 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
             case 'Dashboard':
                 navigate('/dashboard')
                 break
+            case 'Appearance:':
+                break
+            case 'Dark':
+                setTheme(Theme.DARK)
+                window.location.reload()
+                break
+
+            case 'Light':
+                setTheme(Theme.LIGHT)
+                window.location.reload()
+                break
+
             case 'logout':
                 await logOut()
                 window.location.reload()
@@ -121,7 +136,7 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
                     <>
                         <header className='flex items-center gap-2 md:gap-3 px-3'>
                             <span
-                                className='p-3 rounded-full hover:bg-base100 cursor-pointer'
+                                className='p-3 rounded-full hover:bg-slate-300 dark:hover:bg-base100 cursor-pointer'
                                 onClick={handleBackMenu}
                             >
                                 <AiOutlineArrowLeft className='text-xl md:text:2xl' />
@@ -134,7 +149,7 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
             )}
 
             {/* menu item */}
-            <ul className='flex flex-col gap-y-2 md:gap-y-3 max-h-[500px] overflow-y-hidden scrollBarCustom hover:overflow-y-auto'>
+            <ul className='flex flex-col gap-y-2 md:gap-y-3 max-h-[500px] overflow-y-auto  lg:overflow-y-hidden scrollBarCustom hover:overflow-y-auto'>
                 {currentMenu.data.map((item) => (
                     <HashLink
                         to={item.to}
@@ -147,7 +162,11 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
                             {item.leftIcon && (
                                 <span className='text-xl md:text-lg'>{item.leftIcon}</span>
                             )}
-                            <span className='capitalize text-lg lg:text-base'>{item.title}</span>
+                            <span className='capitalize text-lg lg:text-base'>
+                                {item.title === 'Appearance:'
+                                    ? `${item.title} ${theme}`
+                                    : item.title}
+                            </span>
                         </div>
                         {item.rightIcon && (
                             <span className='text-xl md:text-lg'>{item.rightIcon}</span>

@@ -3,6 +3,7 @@ import { AiOutlineMenu } from 'react-icons/ai'
 import { BiFilterAlt } from 'react-icons/bi'
 import { FaUser } from 'react-icons/fa'
 import { IoIosNotifications, IoIosNotificationsOutline } from 'react-icons/io'
+import { FcFilledFilter } from 'react-icons/fc'
 import { Link } from 'react-router-dom'
 import HeaderIcon from '@/components/HeaderIcon'
 import MenuBox from '@/components/MenuBox'
@@ -110,9 +111,9 @@ function Header() {
             {/* mid */}
             <Navbar />
             {/* right */}
-            <div className='flex items-center gap-2 sm:gap-3 text-white'>
+            <div className='flex items-center gap-2 sm:gap-3 text-black dark:text-white'>
                 <div
-                    className='pc:hidden hover:text-white transition-all p-3 cursor-pointer'
+                    className='pc:hidden hover:text-black/90 dark:hover:text-white transition-all p-3 cursor-pointer'
                     onClick={handleOpenNavbar}
                 >
                     <AiOutlineMenu size={24} />
@@ -121,7 +122,7 @@ function Header() {
                 <Link to='filter'>
                     <HeaderIcon
                         ref={iconFilter}
-                        Icon={BiFilterAlt}
+                        Icon={FcFilledFilter}
                         ActiveIcon={BiFilterAlt}
                         classIcon='iconDefault text-white'
                         classActiveIcon='iconActiveDefault'
@@ -168,7 +169,7 @@ function Header() {
                                     ref={menuRef}
                                     menuItem={MENU_ITEM}
                                     className='sm:menu-box fixed top-14 bottom-0 left-0 w-screen sm:w-auto sm:bottom-auto sm:left-auto mobile:min-w-[50%] md:min-w-[40%] ld:min-w-[30%] xl:min-w-[20%] 
-                                    min-h-[300px] bg-base200 rounded-lg origin-top-right shadow-lg'
+                                    min-h-[300px] text-black dark:text-white bg-white dark:bg-base200 rounded-lg origin-top-right shadow-lg'
                                 />
                             )}
                         </div>
