@@ -12,6 +12,13 @@ function SEO({ title, description }: Props) {
             <meta name='description' content={description} />
             <meta name='keywords' content='avatar,video,phim hay, phim moi, phim lau, phim hd' />
             <link rel='canonical' href='https://avatar-git-avatar-lan-au-75.vercel.app/' />
+
+            <meta property='og:title' content={description} />
+            <meta property='og:description' content={description} />
+            <meta
+                property='og:image'
+                content='https://upload.wikimedia.org/wikipedia/vi/8/8b/Avatar_2_logo.jpg'
+            />
         </Helmet>
     )
 }
