@@ -11,9 +11,10 @@ function SEO({ title, description }: Props) {
             <title>{title}</title>
             <meta name='description' content={description} />
             <meta name='keywords' content='avatar,video,phim hay, phim moi, phim lau, phim hd' />
-            <link rel='canonical' href='https://avatar-git-avatar-lan-au-75.vercel.app/' />
+            <link rel='canonical' href='https://avatar-red.vercel.app/' />
 
-            <meta property='og:title' content={description} />
+            <meta property='og:url' content='https://avatar-red.vercel.app/' />
+            <meta property='og:title' content={title} />
             <meta property='og:description' content={description} />
             <meta
                 property='og:image'
