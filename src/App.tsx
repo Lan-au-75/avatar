@@ -96,11 +96,19 @@ export default function App() {
 
         {
             path: 'watching/:watchingKey/:detailID',
-            element: <Watching />,
+            element: (
+                <ContextProvider>
+                    <Watching />
+                </ContextProvider>
+            ),
         },
         {
             path: 'watchingTV/:watchingKey/:detailID',
-            element: <WatchingTV />,
+            element: (
+                <ContextProvider>
+                    <WatchingTV />
+                </ContextProvider>
+            ),
         },
         {
             path: '/login',

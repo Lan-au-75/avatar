@@ -14,14 +14,13 @@ import { isActive } from '@/hooks/isActive'
 import { server } from '@/mockapi/server'
 
 interface Watching {
-    watchingKey?: string
     detailID?: string
 }
 
 function Watching() {
     const [openOverview, setOpenOverview] = useState<boolean>(false)
     const [review, setReview] = useState<Review[]>()
-    const { watchingKey, detailID }: Watching = useParams()
+    const { detailID }: Watching = useParams()
 
     const location = useLocation()
     const params = queryString.parse(location.search)
@@ -49,13 +48,13 @@ function Watching() {
             {data && (
                 <>
                     <div className='relative  pt-[50%] lg:pt-[35%]'>
-                        <ReactPlayer
-                            url={`https://www.youtube.com/watch?v=${watchingKey}`}
+                        <iframe
                             width='100%'
                             height='100%'
                             style={{ position: 'absolute', top: 0 }}
-                            controls
-                        />
+                            src={`https://2embed.org/embed/series?tmdb=${detailID}&s=${params.season}&e=${params.episodes}`}
+                            allowFullScreen
+                        ></iframe>
                     </div>
                     <div className='flex flex-col gap-y-3 md:gap-y-4  px-4 py-6 md:p-10'>
                         <ul className='flex items-center justify-center gap-3 md:gap-4'>
@@ -128,7 +127,7 @@ function Watching() {
                                 return (
                                     <li
                                         key={uuidv4()}
-                                        className='flex-shrink-0 btnCustom min-w-[50px] min-h-10  text-lg md:text-xl hover:bg-red-500 capitalize bg-base200 rounded-xl text-white '
+                                        className='flex-shrink-0 btnCustom min-w-[50px] min-h-10  text-lg md:text-xl hover:bg-red-500 capitalize dark:bg-base200 bg-slate-400 rounded-xl text-white '
                                     >
                                         <NavLink
                                             to={`?server=${params.server}&season=${
@@ -169,7 +168,7 @@ function Watching() {
                                                     className={clsx(
                                                         'btn-number',
                                                         isActive(episodes, 'episodes')
-                                                            ? 'bg-green-500'
+                                                            ? 'bg-green-500 dark:bg-green-500'
                                                             : ''
                                                     )}
                                                 >
