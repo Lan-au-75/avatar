@@ -1,26 +1,24 @@
-import { v4 as uuidv4 } from 'uuid'
-import ReactPlayer from 'react-player/youtube'
-import { NavLink, useParams } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import { useQuery } from 'react-query'
 import clsx from 'clsx'
-import Comments from '@/components/Commets'
-import Footer from '@/layouts/Footer'
+import { useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
+import { NavLink, useParams } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid'
 import { getReview } from '@/apis/review.api'
-import { Category, Review } from '@/types/movies.type'
+import Comments from '@/components/Commets'
 import { fetchDetailMovie } from '@/hooks/fetchApi'
 import { isActive } from '@/hooks/isActive'
+import Footer from '@/layouts/Footer'
 import { server } from '@/mockapi/server'
+import { Category, Review } from '@/types/movies.type'
 
 interface Watching {
-    watchingKey?: string
     detailID?: string
 }
 
 function Watching() {
     const [openOverview, setOpenOverview] = useState<boolean>(false)
     const [review, setReview] = useState<Review[]>()
-    const { watchingKey, detailID }: Watching = useParams()
+    const { detailID }: Watching = useParams()
 
     const { data } = useQuery('detailMovie', async () =>
         fetchDetailMovie(Number(detailID), Category.Movie)
@@ -43,13 +41,13 @@ function Watching() {
     return (
         <>
             <div className='relative  pt-[50%] lg:pt-[35%]'>
-                <ReactPlayer
-                    url={`https://www.youtube.com/watch?v=${watchingKey}`}
+                <iframe
                     width='100%'
                     height='100%'
                     style={{ position: 'absolute', top: 0 }}
-                    controls
-                />
+                    src={`https://2embed.org/embed/movie?tmdb=${detailID}`}
+                    allowFullScreen
+                ></iframe>
             </div>
             <div className='flex flex-col gap-y-3 md:gap-y-4  px-4 py-6 md:p-10'>
                 <ul className='flex items-center justify-center gap-3 md:gap-4'>
