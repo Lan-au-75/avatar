@@ -20,6 +20,19 @@ function SEO({ title, description }: Props) {
                 property='og:image'
                 content='https://upload.wikimedia.org/wikipedia/vi/8/8b/Avatar_2_logo.jpg'
             />
+            <meta property='og:image:alt' content='logo avatar' />
+
+            <meta property='twitter:url' content='https://avatar-red.vercel.app/' />
+            <meta name='twitter:creator' content={description} />
+            <meta name='twitter:card' content='website' />
+            <meta name='twitter:title' content={title} />
+            <meta name='twitter:description' content={description} />
+            <meta
+                property='twitter:image'
+                content='https://upload.wikimedia.org/wikipedia/vi/8/8b/Avatar_2_logo.jpg'
+            />
+
+            <meta property='twitter:image:alt' content='logo avatar' />
         </Helmet>
     )
 }
