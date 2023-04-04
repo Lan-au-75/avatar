@@ -31,6 +31,10 @@ const requests = {
     },
 
     requestGenres: `https://api.themoviedb.org/3/genre/movie/list?api_key=${ApiKey}&language=en-US`,
+
+    requestSearchAPI(query: string) {
+        return `https://server-avatar.vercel.app/api/v1/search/users?query=${query}`
+    },
 }
 
 export const baseUrl = 'https://image.tmdb.org/t/p/original'

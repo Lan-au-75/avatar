@@ -4,13 +4,8 @@ import { FiChevronLeft, FiChevronsLeft, FiChevronsRight } from 'react-icons/fi'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { usePagination } from '@/context/PaginationContext'
 import { isActive } from '@/hooks/isActive'
+import { Direction } from '@/types/utils.type'
 
-enum Direction {
-    Prev = 'prev',
-    Next = 'next',
-    Start = 'start',
-    End = 'end',
-}
 interface Props {
     totalPages: number | string | undefined
 }
