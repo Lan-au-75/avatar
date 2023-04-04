@@ -22,6 +22,8 @@ import TVShow from './pages/tvShows'
 import Upcoming from './pages/upcoming'
 import Watching from './pages/watching'
 import WatchingTV from './pages/watchingTv'
+import Users from './pages/users'
+import AddUser from './components/AddUser'
 
 export default function App() {
     const router = createBrowserRouter([
@@ -141,6 +143,23 @@ export default function App() {
                 {
                     path: 'movies/:id',
                     element: <AddMovie />,
+                },
+                {
+                    path: '/dashboard/users',
+                    children: [
+                        {
+                            path: '',
+                            element: <Users />,
+                        },
+                        {
+                            path: '/dashboard/users/add',
+                            element: <AddUser />,
+                        },
+                        {
+                            path: '/dashboard/users/:id',
+                            element: <AddUser />,
+                        },
+                    ],
                 },
             ],
         },

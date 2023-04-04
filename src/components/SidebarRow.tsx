@@ -34,6 +34,7 @@ function SidebarRow({ Icon, ActiveIcon, title, href, isCollapsed }: Props) {
                 }
                 onClick={handleClick}
                 title={isCollapsed ? title : ''}
+                end
             >
                 <ActiveIcon className='active-icon flex-shrink-0 text-blue-500' size={20} />
                 <Icon className='icon flex-shrink-0' size={20} />

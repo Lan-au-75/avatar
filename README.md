@@ -18,6 +18,31 @@ password : 123456789
 
 ```
 
+```
+Server - API
+
+git clone git@github.com:Lan-au-75/server_avatar.git
+
+npm i
+
+npm run dev
+
+- Get All User: https://server-avatar.vercel.app/api/v1/users
+- Get User By ID: https://server-avatar.vercel.app/api/v1/users/:id
+- Get User By Page: https://server-avatar.vercel.app/api/v1/users?page=1
+- Get User By Query: https://server-avatar.vercel.app/api/v1/search/users?query=domixi&page=1
+
+- Create User: https://server-avatar.vercel.app/api/v1/users
+- Edit User: https://server-avatar.vercel.app/api/v1/users/:id
+- Delete User : https://server-avatar.vercel.app/api/v1/users/:id
+
+- Create Imgae: https://server-avatar.vercel.app/users/profile
+- Create Multiple Imgae: https://server-avatar.vercel.app/users/photos/upload
+- Get Imgae: https://server-avatar.vercel.app/users/profile
+- Get Multiple Imgae: https://server-avatar.vercel.app/users/photos
+
+```
+
 # Demo
 
 -   Home
@@ -88,13 +113,15 @@ password : 123456789
 
 -   Dashboard
 
-![image](https://user-images.githubusercontent.com/78949030/226280756-c5388dd1-1eb6-4193-8002-717cf0db98e6.png)
+![image](https://user-images.githubusercontent.com/78949030/229726137-fc6b9fa6-329d-456d-a825-6aec47f1d916.png)
 
 -   Error
 
 ![image](https://user-images.githubusercontent.com/78949030/224013615-54595a77-6d51-474b-83cf-acec99df8c25.png)
 
 # Features
+
+> Front End
 
 -   Responsive (mobile,tablet,pc)
 
@@ -118,6 +145,12 @@ password : 123456789
 -   Modal,collapse,toast message,tooltip,skeleton,menu,notification,anchor,dropdown,carousel
 
 -   CRUD,Fake API Server,select all, delete all ,sort array (A-Z)
+
+> Back End
+
+-   Use MVC
+-   Write API standards for a RESTful API (GET, POST, PUT, PATCH, DELETE, detail join table,
+    pagination, search, upload file/multiple on server/MongoDB)
 
 #
 

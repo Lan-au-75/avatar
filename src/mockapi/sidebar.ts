@@ -98,7 +98,7 @@ const sidebarDashboard1 = [
         ActiveIcon: AiFillHome,
     },
     {
-        href: '/user',
+        href: '/dashboard/users',
         title: 'User',
         Icon: FaRegUser,
         ActiveIcon: FaUser,
