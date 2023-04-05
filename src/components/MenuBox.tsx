@@ -47,9 +47,7 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
 
     const currentTitle = menuItem.find(
         (item) =>
-            item.title === 'Trending Movies' ||
-            item.title === 'Bookmark' ||
-            item.title === 'Remove Bookmark'
+            item.title === 'Trending Movies' || item.title === 'Bookmark' || item.title === 'Remove Bookmark'
     )
 
     const isTitle = menuItem.find((item) => item.title.includes('Trending Movies'))
@@ -99,6 +97,7 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
 
             case 'logout':
                 await logOut()
+                localStorage.removeItem('user')
                 window.location.reload()
                 break
 
@@ -159,18 +158,12 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
                         onClick={(e) => handleTitle(e, item.title, item.children)}
                     >
                         <div className='flex items-center gap-2 md:gap-3'>
-                            {item.leftIcon && (
-                                <span className='text-xl md:text-lg'>{item.leftIcon}</span>
-                            )}
+                            {item.leftIcon && <span className='text-xl md:text-lg'>{item.leftIcon}</span>}
                             <span className='capitalize text-lg lg:text-base'>
-                                {item.title === 'Appearance:'
-                                    ? `${item.title} ${theme}`
-                                    : item.title}
+                                {item.title === 'Appearance:' ? `${item.title} ${theme}` : item.title}
                             </span>
                         </div>
-                        {item.rightIcon && (
-                            <span className='text-xl md:text-lg'>{item.rightIcon}</span>
-                        )}
+                        {item.rightIcon && <span className='text-xl md:text-lg'>{item.rightIcon}</span>}
                     </HashLink>
                 ))}
             </ul>

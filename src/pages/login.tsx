@@ -1,9 +1,9 @@
 import { userAth } from '@/context/AuthContext'
+import { useEffect, useState } from 'react'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { BsFacebook } from 'react-icons/bs'
 import { FcGoogle } from 'react-icons/fc'
 import { Link, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 
 function Login() {
     const { googleSignIn, user, signIn, facebookSignIn, errorMessage } = userAth()
