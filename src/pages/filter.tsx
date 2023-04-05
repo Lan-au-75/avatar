@@ -8,6 +8,7 @@ import { Category, Genres, Movie } from '@/types/movies.type'
 import { fetchTrendingMovie } from '@/hooks/fetchApi'
 import clsx from 'clsx'
 import Card from '@/components/Card'
+import CircleShadow from '@/components/CircleShadow'
 
 function Filter() {
     const [selectAll, setSelectAll] = useState<number[]>([])
@@ -68,8 +69,7 @@ function Filter() {
         <>
             <SEO title='Filter' description='Filter Page' />
             <main className='h-screen overflow-y-auto scrollbar-hide flex flex-col gap-4 items-center flex-1 pt-4 sm:p-2 md:p-5 pc:items-start'>
-                <div className='absolute top-0 -left-8 h-[300px] w-[300px] rounded-full bg-blue-500 blur-3xl -z-10'></div>
-                <div className='absolute top-0 left-1/2 h-[300px] w-[300px] rounded-full bg-blue-500 blur-3xl -z-10'></div>
+                <CircleShadow />
                 <div className='flex items-center justify-between w-full p-2'>
                     <div
                         ref={divRef}
@@ -82,9 +82,7 @@ function Filter() {
                                     {selectAll.length}
                                 </span>
                             )}
-                            <span className='text-black dark:text-white text-base md:text-lg'>
-                                Genre
-                            </span>
+                            <span className='text-black dark:text-white text-base md:text-lg'>Genre</span>
                         </div>
                         <AiFillCaretDown className=' text-black dark:text-white text-base md:text-lg' />
 
