@@ -5,7 +5,7 @@ import {
     GoogleAuthProvider,
     onAuthStateChanged,
     signInWithEmailAndPassword,
-    signInWithRedirect,
+    signInWithPopup,
     signOut,
     User,
 } from 'firebase/auth'
@@ -34,12 +34,13 @@ const AuthContext = createContext<Props>({
 })
 
 function AuthProvider({ children }: { children: ReactNode }) {
-    const [user, setUser] = useState<User | null>(null)
+    const [user, setUser] = useState<User | null>(() => JSON.parse(localStorage.user ?? null) ?? null)
     const [errorMessage, setErrorMessage] = useState<string>('')
 
     const signUp = async (email: string, password: string) => {
         try {
-            await createUserWithEmailAndPassword(auth, email, password)
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+            setUser(userCredential.user)
 
             // Cloud Firestore
             await setDoc(doc(db, 'users', email), {
@@ -52,7 +53,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
     const signIn = async (email: string, password: string) => {
         try {
-            await signInWithEmailAndPassword(auth, email, password)
+            const userCredential = await signInWithEmailAndPassword(auth, email, password)
+            setUser(userCredential.user)
         } catch (error: any) {
             setErrorMessage(error.message)
         }
@@ -62,7 +64,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
         try {
             const provider = new GoogleAuthProvider()
 
-            await signInWithRedirect(auth, provider)
+            const result = await signInWithPopup(auth, provider)
+            setUser(result.user)
         } catch (error: any) {
             setErrorMessage(error.message)
         }
@@ -74,7 +77,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
         try {
             const provider = new FacebookAuthProvider()
 
-            await signInWithRedirect(auth, provider)
+            const result = await signInWithPopup(auth, provider)
+            setUser(result.user)
         } catch (error: any) {
             setErrorMessage(error.message)
         }
@@ -83,7 +87,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
-                setUser(currentUser)
+                // setUser(currentUser)
 
                 localStorage.setItem('user', JSON.stringify(currentUser))
 

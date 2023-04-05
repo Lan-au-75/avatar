@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from 'react'
+import { createContext, useState, useLayoutEffect, useContext } from 'react'
 
 interface Props {
     theme: string
@@ -11,11 +11,9 @@ const ThemeContext = createContext<Props>({
 })
 
 function ThemeProvider({ children }: { children: React.ReactNode }) {
-    const [theme, setTheme] = useState<string>(
-        () => JSON.parse(localStorage.theme ?? null) ?? 'dark'
-    )
+    const [theme, setTheme] = useState<string>(() => JSON.parse(localStorage.theme ?? null) ?? 'dark')
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         localStorage.setItem('theme', JSON.stringify(theme))
         if (
             theme === 'dark' ||
