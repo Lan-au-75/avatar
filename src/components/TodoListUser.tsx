@@ -233,8 +233,8 @@ function TodoListUser() {
             {/* table  */}
             {!isLoading && (
                 <div className='relative shadow-md sm:rounded-lg'>
-                    <table className='w-full text-sm text-left text-gray-400'>
-                        <thead className='text-xs uppercase bg-gray-700 text-gray-400'>
+                    <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
+                        <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
                             <tr>
                                 <th scope='col' className='p-4'>
                                     <input
@@ -264,7 +264,7 @@ function TodoListUser() {
                                 ? searchUser.data?.map((item) => (
                                       <tr
                                           key={uuidv4()}
-                                          className='border-b bg-gray-800 border-gray-700 hover:bg-gray-600 transition-all duration-200 ease-in-out'
+                                          className='border-b bg-white dark:bg-gray-800 border-gray-700 hover:bg-gray-600 transition-all duration-200 ease-in-out'
                                       >
                                           <td className='w-4 p-4 '>
                                               <input
@@ -274,7 +274,7 @@ function TodoListUser() {
                                                   checked={selectAll.includes(item._id)}
                                               />
                                           </td>
-                                          <td className='px-6 py-4 font-medium whitespace-nowrap text-white'>
+                                          <td className='px-6 py-4 font-medium whitespace-nowrap'>
                                               {item._id}
                                           </td>
 
@@ -304,7 +304,7 @@ function TodoListUser() {
                                 : data?.result.map((item) => (
                                       <tr
                                           key={uuidv4()}
-                                          className='border-b bg-gray-800 border-gray-700 hover:bg-gray-600 transition-all duration-200 ease-in-out'
+                                          className='border-b bg-white hover:bg-gray-50 dark:bg-gray-800 border-gray-700 dark:hover:bg-gray-600 transition-all duration-200 ease-in-out'
                                       >
                                           <td className='w-4 p-4 '>
                                               <input
@@ -314,7 +314,7 @@ function TodoListUser() {
                                                   checked={selectAll.includes(item._id)}
                                               />
                                           </td>
-                                          <td className='px-6 py-4 font-medium whitespace-nowrap text-white'>
+                                          <td className='px-6 py-4 font-medium whitespace-nowrap'>
                                               {item._id}
                                           </td>
 

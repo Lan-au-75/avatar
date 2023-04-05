@@ -3,7 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 
 function Movies() {
     return (
-        <main className='relative h-screen overflow-y-auto scrollbar-hide flex flex-col items-center flex-1 sm:p-2 md:p-5 pc:items-start gap-5 md:gap-7'>
+        <main className='container-movie'>
             <CircleShadow />
             <div>
                 <ul className='flex w-screen  mobile:justify-center pc:justify-start  overflow-x-auto scrollbar-hide gap-4'>

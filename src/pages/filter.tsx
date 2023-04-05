@@ -68,7 +68,7 @@ function Filter() {
     return (
         <>
             <SEO title='Filter' description='Filter Page' />
-            <main className='h-screen overflow-y-auto scrollbar-hide flex flex-col gap-4 items-center flex-1 pt-4 sm:p-2 md:p-5 pc:items-start'>
+            <main className='container-filter'>
                 <CircleShadow />
                 <div className='flex items-center justify-between w-full p-2'>
                     <div
