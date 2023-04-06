@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
-import { DocumentData, doc, getDoc } from 'firebase/firestore'
+import { DocumentData, doc, getDoc, onSnapshot } from 'firebase/firestore'
 import Card from '@/components/Card'
 import SEO from '@/components/SEO'
 import { useBookmark } from '@/context/BookmarkContext'
@@ -14,15 +14,11 @@ function Bookmark() {
     const [data, setData] = useState<Movie[]>()
 
     useEffect(() => {
-        ;(async () => {
-            const docRef = doc(db, 'users', user?.email as string)
-            const docSnap = await getDoc(docRef)
-            const result = docSnap.data()
+        onSnapshot(doc(db, 'users', user?.email as string), (doc) => {
+            const result = doc.data()
             result && setData(result.savedMovies)
-        })()
+        })
     }, [user])
-
-    //  const totalPages = data.data?.totalPages
 
     return (
         <>
@@ -43,9 +39,6 @@ function Bookmark() {
                             </li>
                         ))}
                     </ul>
-                    {/* <div className='flex justify-center'>
-                        <Pagination totalPages={totalPages} />
-                    </div> */}
                 </div>
             </main>
         </>

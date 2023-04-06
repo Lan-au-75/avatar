@@ -16,10 +16,10 @@ interface Props {
     user: User | null
     fullName: string
     errorMessage: string
-    googleSignIn: () => Promise<void>
     signUp: (email: string, password: string, fullName: string) => Promise<void>
     signIn: (email: string, password: string) => Promise<void>
     logOut: () => Promise<void>
+    googleSignIn: () => Promise<void>
     facebookSignIn: () => Promise<void>
 }
 
@@ -42,9 +42,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
     const signUp = async (email: string, password: string, fullName: string) => {
         try {
-            const { user } = await createUserWithEmailAndPassword(auth, email, password)
-
-            setUser(user)
+            await createUserWithEmailAndPassword(auth, email, password)
 
             // Cloud Firestore
             await setDoc(doc(db, 'users', email), {
@@ -58,8 +56,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
     const signIn = async (email: string, password: string) => {
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password)
-            setUser(userCredential.user)
+            await signInWithEmailAndPassword(auth, email, password)
         } catch (error: any) {
             setErrorMessage(error.message)
         }
@@ -69,8 +66,29 @@ function AuthProvider({ children }: { children: ReactNode }) {
         try {
             const provider = new GoogleAuthProvider()
 
-            const result = await signInWithPopup(auth, provider)
-            setUser(result.user)
+            const { user } = await signInWithPopup(auth, provider)
+
+            // Cloud Firestore
+            await setDoc(doc(db, 'users', user.email as string), {
+                fullName,
+                savedMovies: [],
+            })
+        } catch (error: any) {
+            setErrorMessage(error.message)
+        }
+    }
+
+    const facebookSignIn = async () => {
+        try {
+            const provider = new FacebookAuthProvider()
+
+            const { user } = await signInWithPopup(auth, provider)
+
+            // Cloud Firestore
+            await setDoc(doc(db, 'users', user.email as string), {
+                fullName,
+                savedMovies: [],
+            })
         } catch (error: any) {
             setErrorMessage(error.message)
         }
@@ -78,21 +96,10 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
     const logOut = () => signOut(auth)
 
-    const facebookSignIn = async () => {
-        try {
-            const provider = new FacebookAuthProvider()
-
-            const result = await signInWithPopup(auth, provider)
-            setUser(result.user)
-        } catch (error: any) {
-            setErrorMessage(error.message)
-        }
-    }
-
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
-                // setUser(currentUser)
+                setUser(currentUser)
 
                 localStorage.setItem('user', JSON.stringify(currentUser))
 

@@ -32,7 +32,7 @@ function SignUp() {
     }
 
     const handleSignUp = async () => {
-        await signUp(formState.email, formState.email, formState.fullName)
+        await signUp(formState.email, formState.password, formState.fullName)
     }
 
     useEffect(() => {
