@@ -32,8 +32,9 @@ interface Props {
 }
 
 function MenuBox({ menuItem, className, movie }: Props, ref: any) {
-    const { logOut, user } = userAth()
+    const { logOut, user, fullName } = userAth()
     const { theme, setTheme } = useTheme()
+
     const { handleBookmark, handleRemoveBookmark } = useBookmark()
     const menuRef = useRef<HTMLInputElement>(null)
     const [history, setHistory] = useState([{ data: menuItem, title: '' }])
@@ -118,12 +119,12 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
                     <header className='flex items-center gap-4 md:gap-3  px-5 py-4 md:px-3 md:py-2'>
                         <img
                             src={(user?.photoURL as string) || '/user-account.jpg'}
-                            alt='avatar user'
+                            alt={user?.displayName as string}
                             className='h-11 w-11 object-cover object-center rounded-full cursor-pointer'
                             onError={(e) => handleImgError(e, '/no-img-avatar.png')}
                         />
                         <div className='flex flex-col gap-y-1'>
-                            <p>{user?.displayName}</p>
+                            <p>{user?.displayName || fullName}</p>
                             <p>{user?.email}</p>
                         </div>
                     </header>

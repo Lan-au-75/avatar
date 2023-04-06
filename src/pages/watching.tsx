@@ -20,9 +20,7 @@ function Watching() {
     const [review, setReview] = useState<Review[]>()
     const { detailID }: Watching = useParams()
 
-    const { data } = useQuery('detailMovie', async () =>
-        fetchDetailMovie(Number(detailID), Category.Movie)
-    )
+    const { data } = useQuery('detailMovie', async () => fetchDetailMovie(Number(detailID), Category.Movie))
 
     useEffect(() => {
         const video = async () => {
@@ -41,13 +39,13 @@ function Watching() {
     return (
         <>
             <div className='relative  pt-[50%] lg:pt-[35%]'>
-                <iframe
+                {/* <iframe
                     width='100%'
                     height='100%'
                     style={{ position: 'absolute', top: 0 }}
                     src={`https://2embed.org/embed/movie?tmdb=${detailID}`}
                     allowFullScreen
-                ></iframe>
+                ></iframe> */}
             </div>
             <div className='flex flex-col gap-y-3 md:gap-y-4  px-4 py-6 md:p-10'>
                 <ul className='flex items-center justify-center gap-3 md:gap-4'>
@@ -81,10 +79,7 @@ function Watching() {
                     <p className='flex flex-wrap text-gray-400'>
                         Genres:{' '}
                         {data?.genres.map((genres, i) => (
-                            <span
-                                key={genres.id}
-                                className='pl-1 text-black dark:text-white lowercase'
-                            >
+                            <span key={genres.id} className='pl-1 text-black dark:text-white lowercase'>
                                 {genres.name}
                                 {i !== data.genres.length - 1 ? ',' : ''}
                             </span>
@@ -102,9 +97,7 @@ function Watching() {
                     <p
                         className={clsx(
                             'transition-all duration-500 ease-in-out',
-                            openOverview
-                                ? 'max-h-[300px] transition-all'
-                                : 'max-h-[50px] transition-all'
+                            openOverview ? 'max-h-[300px] transition-all' : 'max-h-[50px] transition-all'
                         )}
                     >
                         {data?.overview}

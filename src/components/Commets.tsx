@@ -2,20 +2,28 @@ import moment from 'moment'
 import { AiOutlineCamera, AiOutlineGift } from 'react-icons/ai'
 import { MdInsertEmoticon } from 'react-icons/md'
 import { BsStickies } from 'react-icons/bs'
+import { io } from 'socket.io-client'
 import { baseUrl } from '@/requests'
 import { Review } from '@/types/movies.type'
 import { handleImgError } from '@/hooks/handleImgError'
+import { userAth } from '@/context/AuthContext'
 
 interface Props {
     reviews: Review[] | undefined
 }
 
 function Comments({ reviews }: Props) {
+    const { user, fullName } = userAth()
     const review = reviews?.find((review) => review)
+    const socket = io('http://localhost:8080')
 
-    const date = moment(review?.created_at)
+    socket.on('connect', () => {
+        console.log(socket.id) // x8WIv7-mJelg7on_ALbx
+    })
 
-    const day = moment().diff(date, 'day')
+    const date = new Date()
+
+    const time = date.getDate()
 
     return (
         <div className='flex flex-col gap-4 md:gap-y-5 w-full sm:w-[80%] lg:w-[50%] mt-10'>
@@ -25,8 +33,8 @@ function Comments({ reviews }: Props) {
                 {/* box 1 */}
                 <div className='flex items-start gap-3'>
                     <img
-                        src='/avatar-user.jpg'
-                        alt=''
+                        src={(user?.photoURL as string) || '/user-account.jpg'}
+                        alt={user?.displayName as string}
                         className='h-10 w-10 rounded-full flex-shrink-0'
                         onError={(e) => handleImgError(e, '/no-img-avatar.png')}
                     />
@@ -46,8 +54,33 @@ function Comments({ reviews }: Props) {
                     </div>
                 </div>
 
+                {/* handle chat */}
+
+                <div className='flex items-start gap-3'>
+                    <img
+                        src={(user?.photoURL as string) || '/user-account.jpg'}
+                        alt={user?.displayName as string}
+                        className='h-10 w-10 rounded-full flex-shrink-0'
+                        onError={(e) => handleImgError(e, '/no-img-avatar.png')}
+                    />
+                    <div className='flex flex-col gap-1 flex-1'>
+                        <div className='w-[288px] mini:w-full flex flex-col gap-y-1 md:gap-y-2 bg-gray-400 dark:bg-base200 rounded-lg  text-black dark:text-white p-2 md:p-3'>
+                            <span className='text-base font-semibold'>{user?.displayName || fullName}</span>
+                            <span className='text-sm line-clamp-2'>chat ne</span>
+                        </div>
+
+                        <div className='flex px-3 gap-3 capitalize'>
+                            <p className='text-sm hover:underline cursor-pointer'>like</p>
+                            <p className='text-sm hover:underline cursor-pointer'>reply</p>
+                            <p className='text-sm hover:underline cursor-pointer lowercase'>
+                                {time} days ago
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 {/* box 2 */}
-                {reviews?.map((review) => (
+                {/* {reviews?.map((review) => (
                     <div key={review.id} className='flex items-start gap-3'>
                         <img
                             src={`${baseUrl + review.author_details.avatar_path}`}
@@ -72,7 +105,7 @@ function Comments({ reviews }: Props) {
                             </div>
                         </div>
                     </div>
-                ))}
+                ))} */}
             </div>
         </div>
     )
