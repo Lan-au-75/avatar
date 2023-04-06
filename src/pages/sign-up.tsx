@@ -5,20 +5,34 @@ import { BsFacebook } from 'react-icons/bs'
 import { FcGoogle } from 'react-icons/fc'
 import { Link, useNavigate } from 'react-router-dom'
 
+interface FormState {
+    fullName: string
+    email: string
+    password: string
+}
+
 function SignUp() {
     const { signUp, user, errorMessage } = userAth()
-    const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
+    const [formState, setFormState] = useState({
+        fullName: '',
+        email: '',
+        password: '',
+    })
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
     const navigate = useNavigate()
+
+    // curring
+    const handleChange = (name: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormState((prev) => ({ ...prev, [name]: e.target.value }))
+    }
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword)
     }
 
     const handleSignUp = async () => {
-        await signUp(email, password)
+        await signUp(formState.email, formState.email, formState.fullName)
     }
 
     useEffect(() => {
@@ -53,32 +67,34 @@ function SignUp() {
                 </div>
                 <div className='flex flex-col gap-2 md:gap-y-3 text-gray-400 mt-4'>
                     <input
+                        value={formState.fullName}
                         type='text'
                         placeholder='Full name'
                         required
                         autoComplete='on'
                         className='p-3 outline-none border-b-2 border-solid border-blue-500 bg-base200  flex-1 text-base'
+                        onChange={handleChange('fullName')}
                     />
 
                     <input
-                        value={email}
+                        value={formState.email}
                         type='email'
                         placeholder='Email'
                         required
                         autoComplete='on'
                         className='p-3 outline-none border-b-2 border-solid border-blue-500 bg-base200  flex-1 text-base'
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleChange('email')}
                     />
 
                     <div className='flex items-center justify-between border-b-2 border-solid border-blue-500'>
                         <input
-                            value={password}
+                            value={formState.password}
                             type={showPassword ? 'text' : 'password'}
                             required
                             autoComplete='on'
                             placeholder='Password'
                             className='p-3 outline-none bg-base200  flex-1 text-base'
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={handleChange('password')}
                         />
                         <span
                             className='text-xl md:text-2xl text-base100 mr-6 cursor-pointer'

@@ -1,19 +1,26 @@
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
+import { DocumentData, doc, getDoc } from 'firebase/firestore'
 import Card from '@/components/Card'
 import SEO from '@/components/SEO'
 import { useBookmark } from '@/context/BookmarkContext'
 import { Movie } from '@/types/movies.type'
+import { db } from '@/firebase'
+import { userAth } from '@/context/AuthContext'
 
 function Bookmark() {
-    const { result } = useBookmark()
+    const { user } = userAth()
 
-    const [data, setData] = useState<Movie[]>([])
+    const [data, setData] = useState<Movie[]>()
 
     useEffect(() => {
-        const savedMovies = JSON.parse(localStorage.getItem('saveMovies') as string)
-        setData(savedMovies)
-    }, [result])
+        ;(async () => {
+            const docRef = doc(db, 'users', user?.email as string)
+            const docSnap = await getDoc(docRef)
+            const result = docSnap.data()
+            result && setData(result.savedMovies)
+        })()
+    }, [user])
 
     //  const totalPages = data.data?.totalPages
 
@@ -21,7 +28,7 @@ function Bookmark() {
         <>
             <SEO title='Bookmark' description='Bookmark Page' />
 
-            <main className='relative h-screen overflow-y-auto scrollbar-hide flex flex-col items-center flex-1 pt-4 sm:p-2 md:p-5 pc:items-start gap-5 md:gap-7'>
+            <main className='container-movie '>
                 <div className='absolute top-0 -left-8 h-[300px] w-[300px] rounded-full bg-blue-500 blur-3xl -z-10'></div>
                 <div className='absolute top-0 left-1/2 h-[300px] w-[300px] rounded-full bg-blue-500 blur-3xl -z-10'></div>
                 <div className='flex flex-col gap-y-20 w-full'>

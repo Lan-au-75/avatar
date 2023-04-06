@@ -88,12 +88,21 @@ export default function App() {
         },
         {
             path: 'detail/:detailID',
-            element: <DetailMovie />,
+            element: (
+                <ContextProvider>
+                    <DetailMovie />
+                </ContextProvider>
+            ),
         },
 
         {
             path: 'detailTV/:detailID',
-            element: <DetailTV />,
+            element: (
+                <ContextProvider>
+                    {' '}
+                    <DetailTV />
+                </ContextProvider>
+            ),
         },
 
         {

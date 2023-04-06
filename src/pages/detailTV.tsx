@@ -11,6 +11,7 @@ import { Category, Video } from '@/types/movies.type'
 import Modal from '../components/Modal'
 import { formattedDate } from '@/hooks/formattedDate'
 import SEO from '@/components/SEO'
+import { userAth } from '@/context/AuthContext'
 
 const socials = [
     {
@@ -28,15 +29,14 @@ const socials = [
 ]
 
 function DetailTV() {
+    const { user, fullName } = userAth()
     const { detailID } = useParams<{ detailID?: string }>()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
     const [videoMovie, setVideoMovie] = useState<Video[]>([])
     const [errorVideos, setErrorVideos] = useState<string[]>([])
 
-    const detailTV = useQuery('detailTV', async () =>
-        fetchDetailMovie(Number(detailID), Category.Tv)
-    )
+    const detailTV = useQuery('detailTV', async () => fetchDetailMovie(Number(detailID), Category.Tv))
 
     const data = detailTV.data!
     const videos = videoMovie!
@@ -124,9 +124,7 @@ function DetailTV() {
                 <section className='relative isolate'>
                     <div
                         style={{
-                            backgroundImage: `url(${
-                                baseUrl + (data?.backdrop_path || data?.poster_path)
-                            })`,
+                            backgroundImage: `url(${baseUrl + (data?.backdrop_path || data?.poster_path)})`,
                         }}
                         className='h-screen bg-no-repeat bg-center bg-cover -z-30'
                     >
@@ -170,17 +168,17 @@ function DetailTV() {
                                 <div className='flex items-center gap-4'>
                                     <figure>
                                         <img
-                                            src='/avatar-user.jpg'
-                                            alt=''
+                                            src={(user?.photoURL as string) || '/user-account.jpg'}
+                                            alt={user?.displayName as string}
                                             className='h-16 w-16 md:h-10 md:w-10 rounded-full object-cover object-center cursor-pointer'
                                         />
                                     </figure>
                                     <div className='text-shadow-md'>
                                         <p className='text-xl  md:text-lg text-white font-semibold capitalize'>
-                                            Rito
+                                            {user?.displayName || fullName}
                                         </p>
                                         <p className='text-lg md:text-base text-gray-400 capitalize'>
-                                            nothing
+                                            {user?.email}
                                         </p>
                                     </div>
                                 </div>
