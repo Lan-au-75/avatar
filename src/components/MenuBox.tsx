@@ -48,7 +48,10 @@ function MenuBox({ menuItem, className, movie }: Props, ref: any) {
 
     const currentTitle = menuItem.find(
         (item) =>
-            item.title === 'Trending Movies' || item.title === 'Bookmark' || item.title === 'Remove Bookmark'
+            item.title === 'Trending Movies' ||
+            item.title === 'Bookmark' ||
+            item.title === 'Remove Bookmark' ||
+            item.title === 'Edit Comment'
     )
 
     const isTitle = menuItem.find((item) => item.title.includes('Trending Movies'))

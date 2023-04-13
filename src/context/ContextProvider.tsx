@@ -13,7 +13,6 @@ function ContextProvider({ children }: { children: ReactNode }) {
                 <BookmarkProvider>
                     <NavbarProvider>
                         <ThemeProvider>
-                            {' '}
                             <PaginationProvider>{children}</PaginationProvider>
                         </ThemeProvider>
                     </NavbarProvider>

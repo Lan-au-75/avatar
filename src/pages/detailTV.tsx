@@ -12,6 +12,7 @@ import Modal from '../components/Modal'
 import { formattedDate } from '@/hooks/formattedDate'
 import SEO from '@/components/SEO'
 import { userAth } from '@/context/AuthContext'
+import { handleImgError } from '@/hooks/handleImgError'
 
 const socials = [
     {
@@ -170,6 +171,7 @@ function DetailTV() {
                                         <img
                                             src={(user?.photoURL as string) || '/user-account.jpg'}
                                             alt={user?.displayName as string}
+                                            onError={(e) => handleImgError(e, '/no-img-avatar.png')}
                                             className='h-16 w-16 md:h-10 md:w-10 rounded-full object-cover object-center cursor-pointer'
                                         />
                                     </figure>

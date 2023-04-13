@@ -1,12 +1,11 @@
-import clsx from 'clsx'
-import { useEffect, useState } from 'react'
-import { DocumentData, doc, getDoc, onSnapshot } from 'firebase/firestore'
 import Card from '@/components/Card'
 import SEO from '@/components/SEO'
-import { useBookmark } from '@/context/BookmarkContext'
-import { Movie } from '@/types/movies.type'
-import { db } from '@/firebase'
 import { userAth } from '@/context/AuthContext'
+import { db } from '@/firebase'
+import { Movie } from '@/types/movies.type'
+import clsx from 'clsx'
+import { doc, onSnapshot } from 'firebase/firestore'
+import { useEffect, useState } from 'react'
 
 function Bookmark() {
     const { user } = userAth()

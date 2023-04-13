@@ -11,6 +11,7 @@ import { useQuery } from 'react-query'
 import { Link, useParams } from 'react-router-dom'
 import Modal from '../components/Modal'
 import { userAth } from '@/context/AuthContext'
+import { handleImgError } from '@/hooks/handleImgError'
 
 const socials = [
     {
@@ -172,6 +173,7 @@ function DetailMovie() {
                                         <img
                                             src={(user?.photoURL as string) || '/user-account.jpg'}
                                             alt={user?.displayName as string}
+                                            onError={(e) => handleImgError(e, '/no-img-avatar.png')}
                                             className='h-16 w-16 md:h-10 md:w-10 rounded-full object-cover object-center cursor-pointer'
                                         />
                                     </figure>

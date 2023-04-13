@@ -17,19 +17,10 @@ interface Watching {
 
 function Watching() {
     const [openOverview, setOpenOverview] = useState<boolean>(false)
-    const [review, setReview] = useState<Review[]>()
+
     const { detailID }: Watching = useParams()
 
     const { data } = useQuery('detailMovie', async () => fetchDetailMovie(Number(detailID), Category.Movie))
-
-    useEffect(() => {
-        const video = async () => {
-            const review: Review[] = await getReview(Number(detailID), Category.Movie)
-            setReview(review)
-        }
-
-        video()
-    }, [])
 
     // handle show overview when user click
     const handleShowOverview = () => {
@@ -47,7 +38,7 @@ function Watching() {
                     allowFullScreen
                 ></iframe> */}
             </div>
-            <div className='flex flex-col gap-y-3 md:gap-y-4  px-4 py-6 md:p-10'>
+            <div className='flex flex-col gap-y-3 md:gap-y-4  px-4 py-6 md:p-10 bg-white dark:bg-secondary'>
                 <ul className='flex items-center justify-center gap-3 md:gap-4'>
                     {server.map((server, serverID) => (
                         <li key={uuidv4()}>
@@ -104,7 +95,7 @@ function Watching() {
                     </p>
                 </div>
 
-                <Comments reviews={review} />
+                <Comments />
             </div>
 
             <Footer />
