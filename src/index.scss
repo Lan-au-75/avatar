@@ -166,6 +166,10 @@
         @apply after:absolute after:right-[-7px] after:top-1/2  after:-translate-y-1/2  
          after:h-4 after:border after:border-solid after:border-red-500;
     }
+
+    .tree-line {
+        @apply before:absolute before:left-5 before:top-12 before:w-[1px] before:h-[calc(100%-60px)] before:bg-gray-800;
+    }
 }
 
 @layer utilities {

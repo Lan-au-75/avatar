@@ -79,11 +79,7 @@ function Card({ movie }: Props) {
                         <MenuBox
                             ref={menuRef}
                             movie={movie}
-                            menuItem={
-                                location.pathname !== '/bookmarked'
-                                    ? MENU_ITEM_CARD1
-                                    : MENU_ITEM_CARD2
-                            }
+                            menuItem={location.pathname !== '/bookmarked' ? MENU_ITEM_CARD1 : MENU_ITEM_CARD2}
                             className='absolute top-11 right-0 md:right-2 min-w-full min-h-full md:min-w-[80px] md:min-h-[50px] bg-white dark:bg-base200 rounded-md origin-top-right shadow-md'
                         />
                     )}
@@ -91,15 +87,11 @@ function Card({ movie }: Props) {
             </div>
 
             <div className='card-content'>
-                <h2 className='text-base md:text-xl line-clamp-1'>
-                    {movie?.name || movie?.original_title}
-                </h2>
+                <h2 className='text-base md:text-xl line-clamp-1'>{movie?.name || movie?.original_title}</h2>
 
                 <div className='flex items-center gap-1'>
                     <AiFillStar size={16} className='text-yellow-500' />
-                    <span className='text-sm rounded-xl'>
-                        {movie?.vote_average?.toString()?.slice(0, 3)}
-                    </span>
+                    <span className='text-sm rounded-xl'>{movie?.vote_average?.toString()?.slice(0, 3)}</span>
                 </div>
                 {movie?.release_date ? (
                     <span className='text-base'>{movie?.release_date?.slice(0, 4)}</span>

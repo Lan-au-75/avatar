@@ -13,8 +13,13 @@ import Row from './Row'
 import Thumbnail1 from './Thumbnail1'
 import Thumbnail2 from './Thumbnail2'
 import Thumbnail3 from './Thumbnail3'
+import { useInView } from 'react-intersection-observer'
 
 function Container() {
+    const { ref: topRatedRef, inView: elementTopRatedRef } = useInView({ threshold: 0.5 })
+    const { ref: upcomingRef, inView: elementUpcomingRef } = useInView({ threshold: 0.5 })
+    const { ref: popularityRef, inView: elementPopularityRef } = useInView({ threshold: 0.5 })
+
     const trendingMovie = useQuery(['trendingData'], () => fetchTrendingMovie(Category.Movie), {
         staleTime: 60 * 1000,
     })
@@ -23,12 +28,15 @@ function Container() {
     })
     const topRated = useQuery(['topRatedData'], async () => fetchTopRated(Category.Movie), {
         staleTime: 60 * 1000,
+        enabled: elementTopRatedRef,
     })
     const upcoming = useQuery(['upcomingData'], async () => fetchUpcoming(), {
         staleTime: 60 * 1000,
+        enabled: elementUpcomingRef,
     })
     const popularity = useQuery(['popularityData'], async () => fetchPopularity(Category.Movie), {
         staleTime: 60 * 1000,
+        enabled: elementPopularityRef,
     })
 
     return (
@@ -47,18 +55,21 @@ function Container() {
             />
 
             <Row
+                ref={topRatedRef}
                 title='Top rated'
                 movies={topRated.data?.movies}
                 Thumbnail={Thumbnail1}
                 isLoading={topRated.isLoading}
             />
             <Row
+                ref={upcomingRef}
                 title='Upcoming'
                 movies={upcoming.data?.movies}
                 Thumbnail={Thumbnail1}
                 isLoading={upcoming.isLoading}
             />
             <Row
+                ref={popularityRef}
                 title='Popular'
                 movies={popularity.data?.movies}
                 Thumbnail={Thumbnail1}

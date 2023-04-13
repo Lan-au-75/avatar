@@ -25,18 +25,7 @@ function Watching() {
     const location = useLocation()
     const params = queryString.parse(location.search)
 
-    const { data } = useQuery('detailMovie', async () =>
-        fetchDetailMovie(Number(detailID), Category.Tv)
-    )
-
-    useEffect(() => {
-        const video = async () => {
-            const review: Review[] = await getReview(Number(detailID), Category.Tv)
-            setReview(review)
-        }
-
-        video()
-    }, [])
+    const { data } = useQuery('detailMovie', async () => fetchDetailMovie(Number(detailID), Category.Tv))
 
     // handle show overview when user click
     const handleShowOverview = () => {
@@ -56,7 +45,7 @@ function Watching() {
                             allowFullScreen
                         ></iframe>
                     </div>
-                    <div className='flex flex-col gap-y-3 md:gap-y-4  px-4 py-6 md:p-10'>
+                    <div className='flex flex-col gap-y-3 md:gap-y-4  px-4 py-6 md:p-10 bg-white dark:bg-secondary'>
                         <ul className='flex items-center justify-center gap-3 md:gap-4'>
                             {server.map((server, serverID) => (
                                 <li key={uuidv4()}>
@@ -81,12 +70,9 @@ function Watching() {
                         </div>
                         <div className='flex items-center gap-3 md:gap-4'>
                             <div className='text-green-500 flex gap-3 '>
-                                <span className='relative divide'>
-                                    {data?.vote_average.toFixed(1)}
-                                </span>
+                                <span className='relative divide'>{data?.vote_average.toFixed(1)}</span>
                                 <span>
-                                    {data?.release_date?.slice(0, 4) ||
-                                        data?.first_air_date.slice(0, 4)}
+                                    {data?.release_date?.slice(0, 4) || data?.first_air_date.slice(0, 4)}
                                 </span>
                             </div>
                             <p className='flex flex-wrap text-gray-400'>
@@ -131,9 +117,7 @@ function Watching() {
                                     >
                                         <NavLink
                                             to={`?server=${params.server}&season=${
-                                                season.season_number !== 0
-                                                    ? season.season_number
-                                                    : ''
+                                                season.season_number !== 0 ? season.season_number : ''
                                             }&episodes=1`}
                                             className={clsx(
                                                 'inline-block p-3',
@@ -156,10 +140,7 @@ function Watching() {
                                     ?.map((__, index) => index + 1)
 
                                 return (
-                                    <li
-                                        key={uuidv4()}
-                                        className='flex items-center gap-3 md:gap-4 flex-wrap'
-                                    >
+                                    <li key={uuidv4()} className='flex items-center gap-3 md:gap-4 flex-wrap'>
                                         {params.season === (seasonID + 1).toString() &&
                                             arrNumberEpisodes?.map((episodes: number) => (
                                                 <NavLink
@@ -180,7 +161,7 @@ function Watching() {
                             })}
                         </ul>
 
-                        <Comments reviews={review} />
+                        <Comments />
                     </div>
                 </>
             )}

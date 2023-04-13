@@ -1,4 +1,4 @@
-import { AiOutlineBarChart, AiOutlineLogout } from 'react-icons/ai'
+import { AiFillDelete, AiFillEdit, AiOutlineBarChart, AiOutlineLogout } from 'react-icons/ai'
 import { BsChevronRight } from 'react-icons/bs'
 import { IoLanguageOutline } from 'react-icons/io5'
 import { MdDarkMode, MdOutlineList } from 'react-icons/md'

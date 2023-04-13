@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { memo } from 'react'
+import { memo, forwardRef } from 'react'
 import { useRef, useState } from 'react'
 import { AiOutlineRight } from 'react-icons/ai'
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
@@ -19,7 +19,7 @@ interface Props {
     isLoading?: boolean
 }
 
-function Row({ title, movies, Thumbnail, isLoading }: Props) {
+function Row({ title, movies, Thumbnail, isLoading }: Props, ref: any) {
     const rowRef = useRef<HTMLDivElement>(null)
     const [isMoved, setIsMoved] = useState<boolean>(false)
     // const [showScrollButton, setShowScrollButton] = useState(true)
@@ -86,7 +86,7 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
 
     return (
         <>
-            <div id={title} className='relative flex  flex-col gap-y-4'>
+            <div ref={ref} id={title} className='relative flex  flex-col gap-y-4'>
                 <div className='absolute top-0 -left-8 h-[200px] w-[200px] rounded-full bg-blue-500 blur-3xl -z-10'></div>
                 <div className='absolute top-0 -left-8 h-[200px] w-[200px] rounded-full bg-blue-500 blur-3xl -z-10'></div>
 
@@ -129,4 +129,4 @@ function Row({ title, movies, Thumbnail, isLoading }: Props) {
     )
 }
 
-export default memo(Row)
+export default forwardRef(Row)

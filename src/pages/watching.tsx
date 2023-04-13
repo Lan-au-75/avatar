@@ -10,6 +10,7 @@ import { isActive } from '@/hooks/isActive'
 import Footer from '@/layouts/Footer'
 import { server } from '@/mockapi/server'
 import { Category, Review } from '@/types/movies.type'
+import { useInView } from 'react-intersection-observer'
 
 interface Watching {
     detailID?: string
@@ -17,19 +18,8 @@ interface Watching {
 
 function Watching() {
     const [openOverview, setOpenOverview] = useState<boolean>(false)
-    const [review, setReview] = useState<Review[]>()
     const { detailID }: Watching = useParams()
-
     const { data } = useQuery('detailMovie', async () => fetchDetailMovie(Number(detailID), Category.Movie))
-
-    useEffect(() => {
-        const video = async () => {
-            const review: Review[] = await getReview(Number(detailID), Category.Movie)
-            setReview(review)
-        }
-
-        video()
-    }, [])
 
     // handle show overview when user click
     const handleShowOverview = () => {
@@ -39,15 +29,15 @@ function Watching() {
     return (
         <>
             <div className='relative  pt-[50%] lg:pt-[35%]'>
-                {/* <iframe
+                <iframe
                     width='100%'
                     height='100%'
                     style={{ position: 'absolute', top: 0 }}
                     src={`https://2embed.org/embed/movie?tmdb=${detailID}`}
                     allowFullScreen
-                ></iframe> */}
+                ></iframe>
             </div>
-            <div className='flex flex-col gap-y-3 md:gap-y-4  px-4 py-6 md:p-10'>
+            <div className='flex flex-col gap-y-3 md:gap-y-4  px-4 py-6 md:p-10 bg-white dark:bg-secondary'>
                 <ul className='flex items-center justify-center gap-3 md:gap-4'>
                     {server.map((server, serverID) => (
                         <li key={uuidv4()}>
@@ -104,7 +94,7 @@ function Watching() {
                     </p>
                 </div>
 
-                <Comments reviews={review} />
+                <Comments />
             </div>
 
             <Footer />
