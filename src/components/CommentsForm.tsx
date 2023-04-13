@@ -88,11 +88,9 @@ function CommentsForm({ socket, id, room, reply, edit, updateComment, onCancel, 
     }
 
     useEffect(() => {
-        const timerId = setTimeout(() => {
+        if (reply || edit) {
             inputRef && inputRef.current?.focus()
-        }, 100)
-
-        return () => clearTimeout(timerId)
+        }
     }, [updateComment])
 
     return (

@@ -172,16 +172,14 @@ function DetailTV() {
                                             src={(user?.photoURL as string) || '/user-account.jpg'}
                                             alt={user?.displayName as string}
                                             onError={(e) => handleImgError(e, '/no-img-avatar.png')}
-                                            className='h-16 w-16 md:h-10 md:w-10 rounded-full object-cover object-center cursor-pointer'
+                                            className='h-16 w-16 md:h-10 md:w-10 rounded-full  flex-shrink-0 object-cover object-center cursor-pointer'
                                         />
                                     </figure>
                                     <div className='text-shadow-md'>
-                                        <p className='text-xl  md:text-lg text-white font-semibold capitalize'>
+                                        <p className='text-xl  md:text-lg text-white font-semibold'>
                                             {user?.displayName || fullName}
                                         </p>
-                                        <p className='text-lg md:text-base text-gray-400 capitalize'>
-                                            {user?.email}
-                                        </p>
+                                        <p className='text-lg md:text-base text-gray-400'>{user?.email}</p>
                                     </div>
                                 </div>
 
