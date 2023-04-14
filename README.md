@@ -27,19 +27,19 @@ npm i
 
 npm run dev
 
-- Get All User: https://server-avatar.vercel.app/api/v1/users
-- Get User By ID: https://server-avatar.vercel.app/api/v1/users/:id
-- Get User By Page: https://server-avatar.vercel.app/api/v1/users?page=1
-- Get User By Query: https://server-avatar.vercel.app/api/v1/search/users?query=domixi&page=1
+- Get All User: https://server-avatar.onrender.com/api/v1/users
+- Get User By ID: https://server-avatar.onrender.com/api/v1/users/:id
+- Get User By Page: https://server-avatar.onrender.com/api/v1/users?page=1
+- Get User By Query: https://server-avatar.onrender.com/api/v1/search/users?query=domixi&page=1
 
-- Create User: https://server-avatar.vercel.app/api/v1/users
-- Edit User: https://server-avatar.vercel.app/api/v1/users/:id
-- Delete User : https://server-avatar.vercel.app/api/v1/users/:id
+- Create User: https://server-avatar.onrender.com/api/v1/users
+- Edit User: https://server-avatar.onrender.com/api/v1/users/:id
+- Delete User : https://server-avatar.onrender.com/api/v1/users/:id
 
-- Create Imgae: https://server-avatar.vercel.app/users/profile
-- Create Multiple Imgae: https://server-avatar.vercel.app/users/photos/upload
-- Get Imgae: https://server-avatar.vercel.app/users/profile
-- Get Multiple Imgae: https://server-avatar.vercel.app/users/photos
+- Create Imgae: https://server-avatar.onrender.com/users/profile
+- Create Multiple Imgae: https://server-avatar.onrender.com/users/photos/upload
+- Get Imgae: https://server-avatar.onrender.com/users/profile
+- Get Multiple Imgae: https://server-avatar.onrender.com/users/photos
 
 ```
 
