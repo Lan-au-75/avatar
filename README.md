@@ -115,6 +115,10 @@ npm run dev
 
 ![image](https://user-images.githubusercontent.com/78949030/229726137-fc6b9fa6-329d-456d-a825-6aec47f1d916.png)
 
+-   Comments
+
+![image](https://user-images.githubusercontent.com/78949030/231947546-a6c5356c-3eb5-4085-9c77-3666f9ed8b78.png)
+
 -   Error
 
 ![image](https://user-images.githubusercontent.com/78949030/224013615-54595a77-6d51-474b-83cf-acec99df8c25.png)
@@ -151,6 +155,7 @@ npm run dev
 -   Use MVC
 -   Write API standards for a RESTful API (GET, POST, PUT, PATCH, DELETE, detail join table,
     pagination, search, upload file/multiple on server/MongoDB)
+-   Comments realtime using Socket.IO (CRUD, nested comment, like, emoji in MongoDB)
 
 #
 
