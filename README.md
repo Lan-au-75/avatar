@@ -133,7 +133,7 @@ npm run dev
 
 -   Login,SigUp,Logout (use Firebase to implement user interface login functions for Google, Facebook, email/password, etc)
 
--   Dark mode
+-   Dark mode / Light mode
 
 -   Search Movies (search for movies by name or keyword.)
 
