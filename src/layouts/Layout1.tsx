@@ -16,7 +16,6 @@ function Layout1() {
 
     return (
         <>
-            <SEO title='Home' description='Home Page' />
             <Suspense fallback={<SkeletonHeader />}>
                 <Header />
             </Suspense>
