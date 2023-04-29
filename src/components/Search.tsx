@@ -140,9 +140,7 @@ function Search() {
                                     className='flex items-center gap-2 hover:bg-slate-300 dark:hover:bg-base100 px-2 rounded-md'
                                 >
                                     <img
-                                        src={`${
-                                            baseUrl + (movie?.poster_path || movie?.backdrop_path)
-                                        }`}
+                                        src={`${baseUrl + (movie?.poster_path || movie?.backdrop_path)}`}
                                         alt=''
                                         className='h-14 w-14 object-cover object-center rounded-full flex-shrink-0'
                                         onError={(e) => handleImgError(e)}
@@ -196,9 +194,7 @@ function Search() {
                                 className='flex items-center gap-2 hover:bg-slate-300 dark:hover:bg-base100 px-2 rounded-md'
                             >
                                 <img
-                                    src={`${
-                                        baseUrl + (movie?.poster_path || movie?.backdrop_path)
-                                    }`}
+                                    src={`${baseUrl + (movie?.poster_path || movie?.backdrop_path)}`}
                                     alt=''
                                     className='h-14 w-14 object-cover object-center rounded-full flex-shrink-0'
                                     onError={(e) => handleImgError(e)}
