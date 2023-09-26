@@ -37,7 +37,9 @@ function DetailTV() {
     const [videoMovie, setVideoMovie] = useState<Video[]>([])
     const [errorVideos, setErrorVideos] = useState<string[]>([])
 
-    const detailTV = useQuery('detailTV', async () => fetchDetailMovie(Number(detailID), Category.Tv))
+    const detailTV = useQuery('detailTV', async () =>
+        fetchDetailMovie(Number(detailID), Category.Tv)
+    )
 
     const data = detailTV.data!
     const videos = videoMovie!
@@ -113,6 +115,7 @@ function DetailTV() {
 
     const handleCancel = () => {
         setIsModalOpen(false)
+        setIsPlaying(false)
     }
 
     return (
@@ -125,7 +128,9 @@ function DetailTV() {
                 <section className='relative isolate'>
                     <div
                         style={{
-                            backgroundImage: `url(${baseUrl + (data?.backdrop_path || data?.poster_path)})`,
+                            backgroundImage: `url(${
+                                baseUrl + (data?.backdrop_path || data?.poster_path)
+                            })`,
                         }}
                         className='h-screen bg-no-repeat bg-center bg-cover -z-30'
                     >
@@ -179,7 +184,9 @@ function DetailTV() {
                                         <p className='text-xl  md:text-lg text-white font-semibold'>
                                             {user?.displayName || fullName}
                                         </p>
-                                        <p className='text-lg md:text-base text-gray-400'>{user?.email}</p>
+                                        <p className='text-lg md:text-base text-gray-400'>
+                                            {user?.email}
+                                        </p>
                                     </div>
                                 </div>
 

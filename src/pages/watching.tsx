@@ -11,6 +11,7 @@ import Footer from '@/layouts/Footer'
 import { server } from '@/mockapi/server'
 import { Category, Review } from '@/types/movies.type'
 import { useInView } from 'react-intersection-observer'
+import Header from '@/layouts/Header'
 
 interface Watching {
     detailID?: string
@@ -19,7 +20,9 @@ interface Watching {
 function Watching() {
     const [openOverview, setOpenOverview] = useState<boolean>(false)
     const { detailID }: Watching = useParams()
-    const { data } = useQuery('detailMovie', async () => fetchDetailMovie(Number(detailID), Category.Movie))
+    const { data } = useQuery('detailMovie', async () =>
+        fetchDetailMovie(Number(detailID), Category.Movie)
+    )
 
     // handle show overview when user click
     const handleShowOverview = () => {
@@ -28,12 +31,13 @@ function Watching() {
 
     return (
         <>
-            <div className='relative  pt-[50%] lg:pt-[35%]'>
+            <Header />
+            <div className='relative  pt-[50%] lg:pt-[35%] mt-16'>
                 <iframe
                     width='100%'
                     height='100%'
                     style={{ position: 'absolute', top: 0 }}
-                    src={`https://2embed.org/embed/movie?tmdb=${detailID}`}
+                    src={`https://www.2embed.cc/embed/${detailID}`}
                     allowFullScreen
                 ></iframe>
             </div>
@@ -69,7 +73,10 @@ function Watching() {
                     <p className='flex flex-wrap text-gray-400'>
                         Genres:{' '}
                         {data?.genres.map((genres, i) => (
-                            <span key={genres.id} className='pl-1 text-black dark:text-white lowercase'>
+                            <span
+                                key={genres.id}
+                                className='pl-1 text-black dark:text-white lowercase'
+                            >
                                 {genres.name}
                                 {i !== data.genres.length - 1 ? ',' : ''}
                             </span>
@@ -87,7 +94,9 @@ function Watching() {
                     <p
                         className={clsx(
                             'transition-all duration-500 ease-in-out',
-                            openOverview ? 'max-h-[300px] transition-all' : 'max-h-[50px] transition-all'
+                            openOverview
+                                ? 'max-h-[300px] transition-all'
+                                : 'max-h-[50px] transition-all'
                         )}
                     >
                         {data?.overview}
@@ -96,7 +105,6 @@ function Watching() {
 
                 <Comments />
             </div>
-
             <Footer />
         </>
     )

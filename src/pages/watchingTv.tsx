@@ -12,6 +12,7 @@ import { Category, Review } from '@/types/movies.type'
 import { fetchDetailMovie } from '@/hooks/fetchApi'
 import { isActive } from '@/hooks/isActive'
 import { server } from '@/mockapi/server'
+import Header from '@/layouts/Header'
 
 interface Watching {
     detailID?: string
@@ -25,7 +26,9 @@ function Watching() {
     const location = useLocation()
     const params = queryString.parse(location.search)
 
-    const { data } = useQuery('detailMovie', async () => fetchDetailMovie(Number(detailID), Category.Tv))
+    const { data } = useQuery('detailMovie', async () =>
+        fetchDetailMovie(Number(detailID), Category.Tv)
+    )
 
     // handle show overview when user click
     const handleShowOverview = () => {
@@ -34,14 +37,15 @@ function Watching() {
 
     return (
         <>
+            <Header />
             {data && (
                 <>
-                    <div className='relative  pt-[50%] lg:pt-[35%]'>
+                    <div className='relative  pt-[50%] lg:pt-[35%] mt-16'>
                         <iframe
                             width='100%'
                             height='100%'
                             style={{ position: 'absolute', top: 0 }}
-                            src={`https://2embed.org/embed/series?tmdb=${detailID}&s=${params.season}&e=${params.episodes}`}
+                            src={`https://2embed.cc/embedtv/${detailID}&s=${params.season}&e=${params.episodes}`}
                             allowFullScreen
                         ></iframe>
                     </div>
@@ -70,9 +74,12 @@ function Watching() {
                         </div>
                         <div className='flex items-center gap-3 md:gap-4'>
                             <div className='text-green-500 flex gap-3 '>
-                                <span className='relative divide'>{data?.vote_average.toFixed(1)}</span>
+                                <span className='relative divide'>
+                                    {data?.vote_average.toFixed(1)}
+                                </span>
                                 <span>
-                                    {data?.release_date?.slice(0, 4) || data?.first_air_date.slice(0, 4)}
+                                    {data?.release_date?.slice(0, 4) ||
+                                        data?.first_air_date.slice(0, 4)}
                                 </span>
                             </div>
                             <p className='flex flex-wrap text-gray-400'>
@@ -117,7 +124,9 @@ function Watching() {
                                     >
                                         <NavLink
                                             to={`?server=${params.server}&season=${
-                                                season.season_number !== 0 ? season.season_number : ''
+                                                season.season_number !== 0
+                                                    ? season.season_number
+                                                    : ''
                                             }&episodes=1`}
                                             className={clsx(
                                                 'inline-block p-3',
@@ -140,7 +149,10 @@ function Watching() {
                                     ?.map((__, index) => index + 1)
 
                                 return (
-                                    <li key={uuidv4()} className='flex items-center gap-3 md:gap-4 flex-wrap'>
+                                    <li
+                                        key={uuidv4()}
+                                        className='flex items-center gap-3 md:gap-4 flex-wrap'
+                                    >
                                         {params.season === (seasonID + 1).toString() &&
                                             arrNumberEpisodes?.map((episodes: number) => (
                                                 <NavLink
